@@ -5,7 +5,7 @@ import {
   InvoiceActions,
   InvoicesAPIActions,
   ViewInvoicePageActions
-} from '../actions';
+} from '../../actions';
 
 export const invoicesFeatureKey = 'invoices';
 

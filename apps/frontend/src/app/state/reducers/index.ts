@@ -9,8 +9,8 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
-import * as fromInvoices from './invoices.reducer';
-import * as fromLayout from './layout/layout.reducer';
+import * as fromInvoices from './invoices';
+import * as fromLayout from './layout';
 import * as fromSearch from './search.reducer';
 
 export interface State {

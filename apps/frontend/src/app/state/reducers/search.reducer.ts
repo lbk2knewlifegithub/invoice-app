@@ -20,7 +20,6 @@ export const reducer = createReducer(
   initialState,
   on(InvoicesPreviewPageActions.filter, (state, { filterDto }) => {
     const { checked, status } = filterDto;
-    console.log('checked ' + checked);
 
     return {
       ids: [],
