@@ -90,7 +90,7 @@
   }
 }
 
-input.ng-invalid.ng-touched {
+input.ng-invalid.ng-dirty {
   @apply border-2 border-danger-900;
 }
 

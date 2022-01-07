@@ -4,55 +4,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UIModule } from '@lbk/ui';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
-import {
-  AddNewItemComponent,
-  AddressFormComponent,
-  BillToFormComponent,
-  CityInputComponent,
-  ClientEmailInputComponent,
-  ClientNameInputComponent,
-  CountryInputComponent,
-  DeleteButtonComponent,
-  DescriptionInputComponent,
-  InvoiceDateComponent,
-  InvoiceFormComponent,
-  InvoiceFormTitleComponent,
-  InvoiceItemInputComponent,
-  InvoiceItemInputListComponent,
-  ItemNameInputComponent,
-  ItemPriceInputComponent,
-  ItemQuantityInputComponent,
-  ItemsFormComponent,
-  ItemTotalInputComponent,
-  PaymentTermsComponent,
-  PostCodeInputComponent,
-  StreetInputComponent
-} from './components';
+import { fromInvoiceForm } from './components';
 
-export const COMPONENTS = [
-  AddressFormComponent,
-  BillToFormComponent,
-  AddNewItemComponent,
-  CityInputComponent,
-  ClientEmailInputComponent,
-  ClientNameInputComponent,
-  CountryInputComponent,
-  DeleteButtonComponent,
-  DescriptionInputComponent,
-  InvoiceDateComponent,
-  InvoiceFormComponent,
-  InvoiceFormTitleComponent,
-  InvoiceItemInputComponent,
-  InvoiceItemInputListComponent,
-  ItemNameInputComponent,
-  ItemPriceInputComponent,
-  ItemQuantityInputComponent,
-  ItemTotalInputComponent,
-  ItemsFormComponent,
-  PaymentTermsComponent,
-  PostCodeInputComponent,
-  StreetInputComponent,
-];
+export const COMPONENTS = [fromInvoiceForm.COMPONENTS];
 
 @NgModule({
   imports: [

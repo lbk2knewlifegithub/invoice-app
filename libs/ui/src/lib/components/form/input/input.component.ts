@@ -5,7 +5,7 @@ import {
   OnInit
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FormComponent } from './form-group.component';
+import { FormComponent } from '../form-group.component';
 
 @Component({
   selector: 'lbk-input',

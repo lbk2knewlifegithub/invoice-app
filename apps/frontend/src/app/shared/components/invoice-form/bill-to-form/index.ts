@@ -1,7 +1,15 @@
-export { BillToFormComponent } from './bill-to-form.component';
-export { ClientEmailInputComponent } from './client-email-input.component';
-export { ClientNameInputComponent } from './client-name.component';
-export { DescriptionInputComponent } from './description.component';
-export { InvoiceDateComponent } from './invoice-date-input.component';
-export { PaymentTermsComponent } from './payment-terms.component';
+import { BillToFormComponent } from './bill-to-form.component';
+import { ClientEmailInputComponent } from './client-email-input.component';
+import { ClientNameInputComponent } from './client-name.component';
+import { DescriptionInputComponent } from './description.component';
+import { InvoiceDateComponent } from './invoice-date-input.component';
+import { PaymentTermsComponent } from './payment-terms.component';
 
+export const COMPONENTS = [
+  BillToFormComponent,
+  ClientEmailInputComponent,
+  ClientNameInputComponent,
+  DescriptionInputComponent,
+  InvoiceDateComponent,
+  PaymentTermsComponent,
+];

@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { LayoutActions } from '../actions';
+import { LayoutActions } from '../../actions';
 
 export const layoutFeatureKey = 'layout';
 
@@ -8,7 +8,7 @@ export interface State {
   showNewInvoiceOverlay: boolean;
 }
 
-const initialState: State = {
+export const initialState: State = {
   showEditOverlay: false,
   showNewInvoiceOverlay: false,
 };

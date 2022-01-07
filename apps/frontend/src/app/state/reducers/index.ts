@@ -10,7 +10,7 @@ import {
 } from '@ngrx/store';
 import { environment } from '../../../environments/environment';
 import * as fromInvoices from './invoices.reducer';
-import * as fromLayout from './layout.reducer';
+import * as fromLayout from './layout/layout.reducer';
 import * as fromSearch from './search.reducer';
 
 export interface State {

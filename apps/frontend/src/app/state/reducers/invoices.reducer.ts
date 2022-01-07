@@ -1,11 +1,11 @@
+import { Invoice } from '@lbk/models';
+import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
+import { createReducer, on } from '@ngrx/store';
 import {
   InvoiceActions,
   InvoicesAPIActions,
   ViewInvoicePageActions
-} from '@frontend/state/actions';
-import { Invoice } from '@lbk/models';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { createReducer, on } from '@ngrx/store';
+} from '../actions';
 
 export const invoicesFeatureKey = 'invoices';
 
