@@ -1,0 +1,14 @@
+<div class="dropdown">
+  <!-- button -->
+  <button (click)="onClick()" type="button">
+    <ng-content select="button"></ng-content>
+  </button>
+  <!-- end button -->
+
+  <!-- items -->
+  <div [class.active]='active' class='dropdown-items'>
+    <ng-content select="ul"></ng-content>
+  </div>
+  <!-- end items -->
+
+</div>

@@ -1,0 +1,42 @@
+<section class="grid gap-4">
+  <lbk-invoice-status-detail [status]="invoice.status"></lbk-invoice-status-detail>
+
+  <div class="bg-white rounded-lg p-6 grid gap-[32px] shadow-sm">
+    <div>
+      <!-- invoice id -->
+      <lbk-invoice-id [value]="invoice.id"></lbk-invoice-id>
+      <!-- end invoice id -->
+
+      <!-- description -->
+      <p class="text-muted-900">{{ invoice.description }}</p>
+      <!-- end description -->
+    </div>
+
+    <!-- sender address -->
+    <lbk-address [address]="invoice.senderAddress"></lbk-address>
+    <!-- end sender address -->
+
+    <div class="grid grid-cols-2 gap-11">
+      <div class="grid h-full place-content-between">
+        <!-- invoice date -->
+        <lbk-date title="Invoice Date" [date]="invoice.createdAt"></lbk-date>
+        <!-- end invoice date -->
+
+        <!-- payment due -->
+        <lbk-date title="Payment Due" [date]="invoice.paymentDue"></lbk-date>
+        <!-- end payment due -->
+      </div>
+
+      <lbk-bill-to [clientName]="invoice.clientName" [clientAddress]="invoice.clientAddress"></lbk-bill-to>
+    </div>
+
+    <!-- send to -->
+    <lbk-send-to [email]="invoice.clientEmail"></lbk-send-to>
+    <!-- end send to -->
+
+    <div class="overflow-hidden rounded-lg">
+      <lbk-invoice-item-list [items]="invoice.items"></lbk-invoice-item-list>
+      <lbk-grand-total [grandTotal]="invoice.total"></lbk-grand-total>
+    </div>
+  </div>
+</section>

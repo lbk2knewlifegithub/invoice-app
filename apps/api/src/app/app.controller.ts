@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 
-import { Message } from '@lbk/api-interfaces';
+import { Message } from '@lbk/models';
 
 import { AppService } from './app.service';
 
