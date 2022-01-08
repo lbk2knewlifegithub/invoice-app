@@ -1,0 +1,77 @@
+import { InvoicesAPIActions, } from '../../actions';
+import * as fromInvoices from './invoices.reducer';
+
+describe('Invoices Reducer', () => {
+  let initialState: fromInvoices.State = {
+  };
+  let reducer = fromLayout.reducer;
+
+  beforeEach(() => {
+    initialState = {
+      showEditOverlay: false,
+      showNewInvoiceOverlay: false,
+    };
+  });
+
+  describe('unknown action', () => {
+    it('should return the default state', () => {
+      const action = {
+        type: 'Unknown',
+      };
+      const state = reducer(initialState, action);
+
+      expect(state).toBe(initialState);
+    });
+  });
+
+  describe('Edit Invoice Overlay', () => {
+    it('should close edit overlay panel', () => {
+      const newState: fromLayout.State = {
+        showEditOverlay: false,
+        showNewInvoiceOverlay: false,
+      };
+      const action = LayoutActions.closeEditOverlay();
+      const state = reducer(initialState, action);
+
+      expect(state).toEqual(newState);
+    });
+
+    it('should open edit overlay panel', () => {
+      const action = LayoutActions.showEditOverlay();
+      const state = reducer(initialState, action);
+      expect(state).toMatchObject({ showEditOverlay: true });
+    });
+
+    it('should close new invoice overlay when edit invoice overlay open', () => {
+      const action = LayoutActions.showEditOverlay();
+      const state = reducer(initialState, action);
+      expect(state).toMatchObject({
+        showNewInvoiceOverlay: false,
+        showEditOverlay: true,
+      });
+    });
+  });
+
+  describe('New Invoice Overlay', () => {
+    it('should close new invoice overlay panel', () => {
+      const action = LayoutActions.closeNewInvoiceOverlay();
+      const state = reducer(initialState, action);
+      expect(state).toMatchObject({ showNewInvoiceOverlay: false });
+    });
+
+    it('should open new invoice overlay panel', () => {
+      const action = LayoutActions.showNewInvoiceOverlay();
+      const state = reducer(initialState, action);
+      expect(state).toMatchObject({ showNewInvoiceOverlay: true });
+    });
+
+    it('should close edit overlay when new invoice overlay open', () => {
+      const action = LayoutActions.showNewInvoiceOverlay();
+      const state = reducer(initialState, action);
+      expect(state).toMatchObject({
+        showNewInvoiceOverlay: true,
+        showEditOverlay: false,
+      });
+    });
+  });
+});

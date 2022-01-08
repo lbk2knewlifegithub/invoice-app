@@ -7,7 +7,7 @@ import {
   Output
 } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { FormComponent } from '@lbk/ui';
+import { FormGroupComponent } from '@lbk/ui';
 
 @Component({
   selector: 'lbk-invoice-item-form-list',
@@ -22,7 +22,7 @@ import { FormComponent } from '@lbk/ui';
             (delete)="delete.emit(i)"
             [arrayName]="arrayName"
             [parent]="parent"
-            [groupName]="i"
+            [groupName]="i + ''"
           ></lbk-invoice-item-input>
         </ng-container>
 
@@ -32,7 +32,7 @@ import { FormComponent } from '@lbk/ui';
   `,
 })
 export class InvoiceItemInputListComponent
-  extends FormComponent
+  extends FormGroupComponent
   implements OnDestroy
 {
   @Input() items!: FormGroup[];

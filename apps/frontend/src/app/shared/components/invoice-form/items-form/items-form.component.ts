@@ -4,7 +4,7 @@ import {
   EventEmitter, Output
 } from '@angular/core';
 import { FormArray, FormGroup } from '@angular/forms';
-import { FormComponent } from '@lbk/ui';
+import { FormGroupComponent } from '@lbk/ui';
 
 @Component({
   selector: 'lbk-items-form',
@@ -28,7 +28,7 @@ import { FormComponent } from '@lbk/ui';
     </div>
   `,
 })
-export class ItemsFormComponent extends FormComponent {
+export class ItemsFormComponent extends FormGroupComponent {
   @Output() delete = new EventEmitter<number>();
   @Output() addNewItem = new EventEmitter<void>();
 

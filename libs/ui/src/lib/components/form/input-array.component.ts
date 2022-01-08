@@ -5,7 +5,7 @@ import {
   OnInit
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FormComponent } from './form-group.component';
+import { FormGroupComponent } from './form-group.component';
 
 @Component({
   selector: 'lbk-input-array',
@@ -32,7 +32,7 @@ import { FormComponent } from './form-group.component';
     </div>
   `,
 })
-export class InputArrayComponent extends FormComponent implements OnInit {
+export class InputArrayComponent extends FormGroupComponent implements OnInit {
   @Input() controlName!: string;
   @Input() placeHolder!: string;
   @Input() label!: string;

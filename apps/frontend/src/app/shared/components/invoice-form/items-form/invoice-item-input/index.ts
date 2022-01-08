@@ -1,17 +1,9 @@
-import {
-  DeleteButtonComponent,
-  ItemNameInputComponent,
-  ItemPriceInputComponent,
-  ItemQuantityInputComponent,
-  ItemTotalInputComponent
-} from './components';
-import { InvoiceItemInputComponent } from './invoice-item-input.component';
+import { DeleteButtonComponent } from "./delete-button.component";
+import { InvoiceItemInputComponent } from "./invoice-item-input.component";
+import { ItemTotalInputComponent } from "./item-total-input.component";
 
 export const COMPONENTS = [
   DeleteButtonComponent,
-  ItemNameInputComponent,
-  ItemPriceInputComponent,
-  ItemQuantityInputComponent,
   ItemTotalInputComponent,
   InvoiceItemInputComponent,
 ];

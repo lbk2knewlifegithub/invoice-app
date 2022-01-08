@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormComponent } from '@lbk/ui';
+import { FormGroupComponent } from '@lbk/ui';
 
 @Component({
   selector: 'lbk-invoice-date-input',
@@ -35,4 +35,4 @@ import { FormComponent } from '@lbk/ui';
     </div>
   `,
 })
-export class InvoiceDateComponent extends FormComponent {}
+export class InvoiceDateComponent extends FormGroupComponent {}

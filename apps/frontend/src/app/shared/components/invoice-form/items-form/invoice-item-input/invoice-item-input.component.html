@@ -2,31 +2,57 @@
   <div [formArrayName]="arrayName">
     <div [formGroupName]="groupName">
       <!-- item name -->
-      <lbk-item-name-input [arrayName]="arrayName" [groupName]="groupName" [parent]="parent"></lbk-item-name-input>
+      <lbk-input-array
+        [parent]="parent"
+        [groupName]="groupName"
+        space="mt-[16px]"
+        [arrayName]="arrayName"
+        controlName="name"
+        placeHolder="Banner Design"
+        label="Item Namge"
+      ></lbk-input-array>
+
       <!-- end item name -->
 
       <div class="flex items-center justify-between mt-6">
         <div class="flex items-end gap-4">
-
           <!-- quantity -->
-          <lbk-item-quantity-input  class="block max-w-[64px]"  [arrayName]="arrayName" [groupName]="groupName" [parent]="parent">
-          </lbk-item-quantity-input>
+          <lbk-input-array
+            [parent]="parent"
+            [groupName]="groupName"
+            [arrayName]="arrayName"
+            controlName="quantity"
+            placeHolder="1"
+            label="Qty."
+          ></lbk-input-array>
           <!-- end quantity -->
 
           <!-- price -->
-          <lbk-item-price-input  [arrayName]="arrayName" [groupName]="groupName" [parent]="parent">
-          </lbk-item-price-input>
+          <lbk-input-array
+            [parent]="parent"
+            [groupName]="groupName"
+            [arrayName]="arrayName"
+            controlName="price"
+            placeHolder="100"
+            label="Price"
+          ></lbk-input-array>
           <!-- end price -->
 
           <!-- total -->
-          <lbk-item-total-input  [arrayName]="arrayName" [groupName]="groupName" [parent]="parent">
+          <lbk-item-total-input
+            [arrayName]="arrayName"
+            [groupName]="groupName"
+            [parent]="parent"
+          >
           </lbk-item-total-input>
           <!-- end total -->
-
         </div>
 
         <!-- delete button -->
-        <lbk-delete-invoice-item-button (click)="delete.emit()" class="block mt-5"></lbk-delete-invoice-item-button>
+        <lbk-delete-invoice-item-button
+          (click)="delete.emit()"
+          class="block mt-5"
+        ></lbk-delete-invoice-item-button>
         <!-- end delete button -->
       </div>
     </div>

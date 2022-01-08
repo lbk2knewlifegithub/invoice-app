@@ -7,7 +7,7 @@ import {
   Output
 } from '@angular/core';
 import { Item } from '@lbk/models';
-import { FormComponent } from '@lbk/ui';
+import { FormGroupComponent } from '@lbk/ui';
 
 @Component({
   selector: 'lbk-invoice-item-input',
@@ -15,7 +15,7 @@ import { FormComponent } from '@lbk/ui';
   templateUrl: './invoice-item-input.component.html',
 })
 export class InvoiceItemInputComponent
-  extends FormComponent
+  extends FormGroupComponent
   implements OnDestroy
 {
   @Input() item!: Item;

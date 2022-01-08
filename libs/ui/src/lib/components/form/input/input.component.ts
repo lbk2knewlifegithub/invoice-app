@@ -5,7 +5,7 @@ import {
   OnInit
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { FormComponent } from '../form-group.component';
+import { FormGroupComponent } from '../form-group.component';
 
 @Component({
   selector: 'lbk-input',
@@ -21,6 +21,7 @@ import { FormComponent } from '../form-group.component';
           [formControlName]="controlName"
           [id]="controlName"
           class="mt-[10px]"
+          [name]="controlName"
           [type]="inputType"
           [placeholder]="placeHolder"
         />
@@ -28,11 +29,12 @@ import { FormComponent } from '../form-group.component';
     </div>
   `,
 })
-export class InputComponent extends FormComponent implements OnInit {
+export class InputComponent extends FormGroupComponent implements OnInit {
   @Input() controlName!: string;
   @Input() placeHolder!: string;
   @Input() label!: string;
   @Input() inputType = 'text';
+  @Input() name!:string;
 
   get formControl(): FormControl {
     return this.parent
@@ -42,5 +44,6 @@ export class InputComponent extends FormComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.label) this.label = this.controlName;
+    if (!this.name) this.name = this.controlName;
   }
 }

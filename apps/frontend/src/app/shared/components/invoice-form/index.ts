@@ -1,11 +1,11 @@
-import * as fromAddressForm from './address-form';
-import * as fromBillToForm from './bill-to-form';
-import { InvoiceFormTitleComponent } from './invoice-form-title';
-import { InvoiceFormComponent } from './invoice-form.component';
-import * as fromItemsForm from './items-form';
+import * as from from "./address-form/address-form.component";
+import * as fromBillToForm from "./bill-to";
+import { InvoiceFormTitleComponent } from "./invoice-form-title";
+import { InvoiceFormComponent } from "./invoice-form.component";
+import * as fromItemsForm from "./items-form";
 
 export const COMPONENTS = [
-  fromAddressForm.COMPONENTS,
+  from.AddressFormComponent,
   fromBillToForm.COMPONENTS,
   InvoiceFormTitleComponent,
   InvoiceFormComponent,

@@ -1,13 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Unsubscribe } from '../unsubscribe.component';
 
 @Component({
-  selector: 'lbk-form',
+  selector: 'lbk-form-control',
   template: ``,
 })
-export class FormGroupComponent extends Unsubscribe {
+export class FormControlComponent {
   @Input() parent!: FormGroup;
   @Input() groupName!: string;
-  @Input() arrayName!: string;
+  @Input() controlName!: string;
 }

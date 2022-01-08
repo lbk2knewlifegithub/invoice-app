@@ -3,13 +3,13 @@ import {
   Component,
   Input,
   OnInit
-} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { UpdateInvoiceDto } from '@lbk/dto';
-import { Address, Invoice, Item } from '@lbk/models';
+} from "@angular/core";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { UpdateInvoiceDto } from "@lbk/dto";
+import { Address, Invoice, Item } from "@lbk/models";
 
 @Component({
-  selector: 'lbk-invoice-form',
+  selector: "lbk-invoice-form",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <!-- title -->
@@ -17,20 +17,16 @@ import { Address, Invoice, Item } from '@lbk/models';
     <!-- end title -->
 
     <form [formGroup]="invoiceForm" class="mt-6">
-      <!-- bill from -->
       <lbk-address-form
         [parent]="invoiceForm"
         groupName="senderAddress"
       ></lbk-address-form>
-      <!-- end bill from -->
 
-      <!-- bill to -->
-      <lbk-bill-to-form
+      <lbk-bill-to
         class="block mt-10"
         [parent]="invoiceForm"
         groupName="billTo"
-      ></lbk-bill-to-form>
-      <!-- end bill to -->
+      ></lbk-bill-to>
 
       <lbk-items-form
         arrayName="items"
@@ -50,14 +46,14 @@ export class InvoiceFormComponent implements OnInit {
   constructor(private readonly _fb: FormBuilder) {}
 
   ngOnInit(): void {
-    this.invoiceForm = this._initForm();
+    this._initForm();
   }
 
   get invoiceDto(): UpdateInvoiceDto {
-    const { senderAddress, billTo, items } = this.invoiceForm.value;
+    const { billFrom, billTo, items } = this.invoiceForm.value;
 
     return {
-      senderAddress,
+      senderAddress: billFrom,
       paymentDue: this.createPaymentDue(),
       ...billTo,
       items,
@@ -75,13 +71,13 @@ export class InvoiceFormComponent implements OnInit {
     const { street, city, postCode, country } = address ?? {};
 
     return this._fb.group({
-      street: [street ?? '', [Validators.required, Validators.maxLength(50)]],
-      city: [city ?? '', [Validators.required, Validators.maxLength(20)]],
+      street: [street ?? "", [Validators.required, Validators.maxLength(50)]],
+      city: [city ?? "", [Validators.required, Validators.maxLength(20)]],
       postCode: [
-        postCode ?? '',
+        postCode ?? "",
         [Validators.required, Validators.maxLength(10)],
       ],
-      country: [country ?? '', [Validators.required, Validators.maxLength(20)]],
+      country: [country ?? "", [Validators.required, Validators.maxLength(20)]],
     });
   }
   private get _initBillTo(): FormGroup {
@@ -90,14 +86,14 @@ export class InvoiceFormComponent implements OnInit {
 
     return this._fb.group({
       clientName: [
-        clientName ?? '',
+        clientName ?? "",
         [Validators.required, Validators.maxLength(50)],
       ],
-      clientEmail: [clientEmail ?? '', [Validators.required, Validators.email]],
+      clientEmail: [clientEmail ?? "", [Validators.required, Validators.email]],
       clientAddress: this._initAddress(this.invoice?.clientAddress),
       createdAt: [createdAt ?? new Date().toISOString(), [Validators.required]],
       paymentTerms: [paymentTerms ?? 30, [Validators.required]],
-      description: [description ?? '', [Validators.required]],
+      description: [description ?? "", [Validators.required]],
     });
   }
 
@@ -109,7 +105,7 @@ export class InvoiceFormComponent implements OnInit {
   private createItem(item: Partial<Item>) {
     const { name, quantity, price, total } = item;
     return this._fb.group({
-      name: [name ?? '', [Validators.required, Validators.maxLength(50)]],
+      name: [name ?? "", [Validators.required, Validators.maxLength(50)]],
       quantity: [
         quantity ?? 1,
         [Validators.required, Validators.min(1), Validators.max(1_000_000)],
@@ -120,7 +116,7 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   private _initForm() {
-    return this._fb.group({
+    this.invoiceForm = this._fb.group({
       senderAddress: this._initAddress(this.invoice?.senderAddress),
       billTo: this._initBillTo,
       items: this._initItems,
@@ -132,7 +128,7 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   get items() {
-    return this.invoiceForm.get('items') as FormArray;
+    return this.invoiceForm.get("items") as FormArray;
   }
 
   delete(index: number) {

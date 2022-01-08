@@ -5,7 +5,7 @@ import {
   OnInit
 } from '@angular/core';
 import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { FormComponent } from '@lbk/ui';
+import { FormGroupComponent } from '@lbk/ui';
 import { combineLatestWith, of } from 'rxjs';
 
 @Component({
@@ -24,7 +24,7 @@ import { combineLatestWith, of } from 'rxjs';
   `,
 })
 export class ItemTotalInputComponent
-  extends FormComponent
+  extends FormGroupComponent
   implements OnInit, OnDestroy
 {
   ngOnInit(): void {
