@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormGroupComponent } from '@lbk/ui';
+import { ChangeDetectionStrategy, Component } from "@angular/core";
+import { FormGroupComponent } from "@lbk/ui";
 
 @Component({
-  selector: 'lbk-invoice-date-input',
+  selector: "lbk-invoice-date-input",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [formGroup]="parent">

@@ -10,7 +10,7 @@ export interface State {
 
 export const initialState: State = {
   showEditOverlay: false,
-  showNewInvoiceOverlay: true,
+  showNewInvoiceOverlay: false,
 };
 
 export const reducer = createReducer(

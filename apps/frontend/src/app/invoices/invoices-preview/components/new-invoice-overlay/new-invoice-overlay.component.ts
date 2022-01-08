@@ -5,12 +5,12 @@ import {
   Input,
   Output,
   ViewChild
-} from '@angular/core';
-import { CreateInvoiceDto } from '@lbk/dto';
-import { InvoiceFormComponent } from '../../../../shared/components';
+} from "@angular/core";
+import { CreateInvoiceDto } from "@lbk/dto";
+import { InvoiceFormComponent } from "../../../../shared/components";
 
 @Component({
-  selector: 'lbk-new-invoice-overlay',
+  selector: "lbk-new-invoice-overlay",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <lbk-overlay (goBack)="goBack.emit()" [open]="open">

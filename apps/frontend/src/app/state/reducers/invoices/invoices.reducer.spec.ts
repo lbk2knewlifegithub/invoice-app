@@ -1,22 +1,39 @@
-import { InvoicesAPIActions, } from '../../actions';
-import * as fromInvoices from './invoices.reducer';
+import * as fromData from "@frontend/shared/data";
+import {
+  InvoiceActions,
+  InvoicesAPIActions,
+  ViewInvoicePageActions
+} from "@frontend/state/actions";
+import { UpdateInvoiceDto } from "@lbk/dto";
+import * as fromInvoices from "./invoices.reducer";
 
-describe('Invoices Reducer', () => {
+describe("Invoices Reducer", () => {
+  const invoice1 = fromData.invoices[0];
+  const invoice2 = fromData.invoices[1];
+
   let initialState: fromInvoices.State = {
+    selectedInvoiceId: null,
+    ids: [],
+    entities: {},
   };
-  let reducer = fromLayout.reducer;
 
-  beforeEach(() => {
-    initialState = {
-      showEditOverlay: false,
-      showNewInvoiceOverlay: false,
+  let reducer = fromInvoices.reducer;
+
+  function createInvoicesState(): fromInvoices.State {
+    return {
+      selectedInvoiceId: null,
+      ids: [invoice1.id, invoice2.id],
+      entities: {
+        [invoice1.id]: invoice1,
+        [invoice2.id]: invoice2,
+      },
     };
-  });
+  }
 
-  describe('unknown action', () => {
-    it('should return the default state', () => {
+  describe("unknown action", () => {
+    it("should return the default state", () => {
       const action = {
-        type: 'Unknown',
+        type: "Unknown",
       };
       const state = reducer(initialState, action);
 
@@ -24,54 +41,141 @@ describe('Invoices Reducer', () => {
     });
   });
 
-  describe('Edit Invoice Overlay', () => {
-    it('should close edit overlay panel', () => {
-      const newState: fromLayout.State = {
-        showEditOverlay: false,
-        showNewInvoiceOverlay: false,
+  describe("load invoices success", () => {
+    it("should add all invoices to state when load invoices success", () => {
+      const action = InvoicesAPIActions.loadInvoicesSuccess({
+        invoices: [invoice1, invoice2],
+      });
+      const newState: fromInvoices.State = {
+        selectedInvoiceId: null,
+        ids: [invoice1.id, invoice2.id],
+        entities: {
+          [invoice1.id]: invoice1,
+          [invoice2.id]: invoice2,
+        },
       };
-      const action = LayoutActions.closeEditOverlay();
+
       const state = reducer(initialState, action);
 
       expect(state).toEqual(newState);
     });
+  });
 
-    it('should open edit overlay panel', () => {
-      const action = LayoutActions.showEditOverlay();
-      const state = reducer(initialState, action);
-      expect(state).toMatchObject({ showEditOverlay: true });
-    });
+  describe("loadInvoice action", () => {
+    it("should add invoice to state", () => {
+      const action = InvoiceActions.loadInvoice({ invoice: invoice1 });
 
-    it('should close new invoice overlay when edit invoice overlay open', () => {
-      const action = LayoutActions.showEditOverlay();
+      const newState: fromInvoices.State = {
+        selectedInvoiceId: null,
+        ids: [invoice1.id],
+        entities: {
+          [invoice1.id]: invoice1,
+        },
+      };
+
       const state = reducer(initialState, action);
-      expect(state).toMatchObject({
-        showNewInvoiceOverlay: false,
-        showEditOverlay: true,
-      });
+
+      expect(state).toEqual(newState);
     });
   });
 
-  describe('New Invoice Overlay', () => {
-    it('should close new invoice overlay panel', () => {
-      const action = LayoutActions.closeNewInvoiceOverlay();
-      const state = reducer(initialState, action);
-      expect(state).toMatchObject({ showNewInvoiceOverlay: false });
-    });
-
-    it('should open new invoice overlay panel', () => {
-      const action = LayoutActions.showNewInvoiceOverlay();
-      const state = reducer(initialState, action);
-      expect(state).toMatchObject({ showNewInvoiceOverlay: true });
-    });
-
-    it('should close edit overlay when new invoice overlay open', () => {
-      const action = LayoutActions.showNewInvoiceOverlay();
-      const state = reducer(initialState, action);
-      expect(state).toMatchObject({
-        showNewInvoiceOverlay: true,
-        showEditOverlay: false,
+  describe("create invoice success", () => {
+    it("should add invoice to state", () => {
+      const action = InvoicesAPIActions.createInvoiceSuccess({
+        invoice: invoice1,
       });
+
+      const newState: fromInvoices.State = {
+        selectedInvoiceId: null,
+        ids: [invoice1.id],
+        entities: {
+          [invoice1.id]: invoice1,
+        },
+      };
+
+      const state = reducer(initialState, action);
+
+      expect(state).toEqual(newState);
+    });
+  });
+  it("delete invoice success", () => {
+    const action = InvoicesAPIActions.deleteInvoiceSuccess({
+      id: invoice1.id,
+    });
+
+    const newState: fromInvoices.State = {
+      selectedInvoiceId: null,
+      ids: [invoice2.id],
+      entities: {
+        [invoice2.id]: invoice2,
+      },
+    };
+
+    const state = reducer(createInvoicesState(), action);
+
+    expect(state).toEqual(newState);
+  });
+  it("maskAsPaidSuccess", () => {
+    const action = InvoicesAPIActions.maskAsPaidSuccess({
+      id: invoice1.id,
+    });
+
+    const newState: fromInvoices.State = {
+      selectedInvoiceId: null,
+      ids: [invoice1.id, invoice2.id],
+      entities: {
+        [invoice1.id]: {
+          ...invoice1,
+          status: "paid",
+        },
+        [invoice2.id]: invoice2,
+      },
+    };
+
+    const state = reducer(createInvoicesState(), action);
+
+    expect(state).toEqual(newState);
+  });
+
+  it("update invoice success", () => {
+    const updateInvoiceDto: UpdateInvoiceDto = {
+      ...invoice1,
+      status: "draft",
+      clientEmail: "asdfasd@gmail.com",
+    };
+    const action = InvoicesAPIActions.updateInvoiceSuccess({
+      id: invoice1.id,
+      updateInvoiceDto,
+    });
+
+    const newState: fromInvoices.State = {
+      selectedInvoiceId: null,
+      ids: [invoice1.id, invoice2.id],
+      entities: {
+        [invoice1.id]: {
+          ...invoice1,
+          ...updateInvoiceDto,
+        },
+        [invoice2.id]: invoice2,
+      },
+    };
+
+    const state = reducer(createInvoicesState(), action);
+
+    expect(state).toEqual(newState);
+  });
+
+  describe("selectInvoice", () => {
+    it("should set the selected invoice id on the state", () => {
+      const action = ViewInvoicePageActions.selectInvoice({ id: invoice1.id });
+      const newState: fromInvoices.State = {
+        ...createInvoicesState(),
+        selectedInvoiceId: invoice1.id,
+      };
+
+      const state = reducer(createInvoicesState(), action);
+
+      expect(state).toEqual(newState);
     });
   });
 });

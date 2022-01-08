@@ -11,32 +11,7 @@ import { Address, Invoice, Item } from "@lbk/models";
 @Component({
   selector: "lbk-invoice-form",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <!-- title -->
-    <lbk-invoice-form-title [id]="invoice?.id"></lbk-invoice-form-title>
-    <!-- end title -->
-
-    <form [formGroup]="invoiceForm" class="mt-6">
-      <lbk-address-form
-        [parent]="invoiceForm"
-        groupName="senderAddress"
-      ></lbk-address-form>
-
-      <lbk-bill-to
-        class="block mt-10"
-        [parent]="invoiceForm"
-        groupName="billTo"
-      ></lbk-bill-to>
-
-      <lbk-items-form
-        arrayName="items"
-        class="block mt-16"
-        [parent]="invoiceForm"
-        (delete)="delete($event)"
-        (addNewItem)="addNewItem()"
-      ></lbk-items-form>
-    </form>
-  `,
+  templateUrl: "./invoice-form.component.html",
 })
 export class InvoiceFormComponent implements OnInit {
   @Input() invoice?: Invoice;
