@@ -7,6 +7,7 @@ import {
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { UpdateInvoiceDto } from "@lbk/dto";
 import { Address, Invoice, Item } from "@lbk/models";
+import * as moment from "moment";
 
 @Component({
   selector: "lbk-invoice-form",
@@ -36,10 +37,8 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   private createPaymentDue() {
-    const { createdAt, paymentTerms } = this.invoiceForm.value;
-    const start = new Date(createdAt);
-    start.setDate(new Date(paymentTerms).getDate());
-    return new Date(start).toISOString();
+    // moment().format('dd-MM-yy').add(1, 'days')
+    // return new Date(start).toISOString();
   }
 
   private _initAddress(address: Partial<Address | undefined>) {
@@ -66,7 +65,10 @@ export class InvoiceFormComponent implements OnInit {
       ],
       clientEmail: [clientEmail ?? "", [Validators.required, Validators.email]],
       clientAddress: this._initAddress(this.invoice?.clientAddress),
-      createdAt: [createdAt ?? new Date().toISOString(), [Validators.required]],
+      createdAt: [
+        createdAt ?? moment().format("dd-MMM-yy"),
+        [Validators.required],
+      ],
       paymentTerms: [paymentTerms ?? 30, [Validators.required]],
       description: [description ?? "", [Validators.required]],
     });

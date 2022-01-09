@@ -1,7 +1,7 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from "@angular/core";
 
 @Component({
-  selector: 'lbk-check-box',
+  selector: "lbk-check-box",
   template: `
     <div class=" flex items-center">
       <input

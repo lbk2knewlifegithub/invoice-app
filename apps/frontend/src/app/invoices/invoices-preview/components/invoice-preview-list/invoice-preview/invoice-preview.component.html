@@ -1,0 +1,50 @@
+<a
+  [routerLink]="['/invoices', id]"
+  class="grid grid-cols-2 gap-6 p-6 duration-700 bg-white border-2 border-transparent rounded-lg group hover:border-2 hover:border-primary-900 md:grid-cols-5 md:place-items-center md:justify-items-start md:py-4 md:pr-10"
+>
+  <!-- id -->
+  <lbk-invoice-id class="md:order-first" [value]="invoice.id"></lbk-invoice-id>
+  <!-- end id -->
+
+  <!-- name -->
+  <lbk-client-name
+    [clientName]="invoice.clientName"
+    class="place-self-end md:place-self-auto md:order-2"
+  ></lbk-client-name>
+  <!-- end name -->
+
+  <div class="space-y-2 md:space-y-0 md:order-1">
+    <lbk-payment-due
+      class="block"
+      [paymentDue]="invoice.paymentDue"
+    ></lbk-payment-due>
+
+    <!-- price -->
+    <lbk-price
+      [options]="priceOptions"
+      class="block mt-2 md:hidden"
+      [value]="invoice.total"
+    ></lbk-price>
+    <!-- end price -->
+  </div>
+
+  <!-- price tablet -->
+  <lbk-price
+    [options]="priceOptions"
+    class="hidden md:block md:order-9"
+    [value]="invoice.total"
+  ></lbk-price>
+  <!-- end price tablet -->
+
+  <!-- status -->
+  <div
+    class="place-self-end md:place-self-start md:order-last md:flex md:items-center md:gap-5"
+  >
+    <lbk-invoice-status [status]="invoice.status"></lbk-invoice-status>
+
+    <div class="hidden min-w-[6px] duration-300 md:block group-hover:translate-x-1">
+      <img src="assets/icon-arrow-right.svg" alt="Arrow Right" />
+    </div>
+  </div>
+  <!-- end status -->
+</a>

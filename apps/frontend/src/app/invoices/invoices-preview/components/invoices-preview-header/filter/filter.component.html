@@ -1,0 +1,37 @@
+<lbk-dropdown [(active)]="dropDownActive">
+  <button class="flex items-center gap-3 button">
+    <h5 class="font-bold">Filter <span class="hidden md:inline">by status</span></h5>
+
+    <!-- arrow icon -->
+    <img
+      [class.rotate-180]="dropDownActive"
+      class="duration-300"
+      src="assets/icon-arrow-down.svg"
+      alt="Arrow down"
+    />
+    <!-- end arrow icon -->
+  </button>
+
+  <ul class="inline-grid gap-2 p-2 bg-white rounded-md shadow-lg">
+    <!-- filter by paid -->
+    <lbk-check-box
+      (checkedChange)="onCheckedChange($event)"
+      label="paid"
+    ></lbk-check-box>
+    <!-- end filter by paid -->
+
+    <!-- filter by pending -->
+    <lbk-check-box
+      (checkedChange)="onCheckedChange($event)"
+      label="pending"
+    ></lbk-check-box>
+    <!-- end filter by pending -->
+
+    <!-- filter by draft -->
+    <lbk-check-box
+      (checkedChange)="onCheckedChange($event)"
+      label="draft"
+    ></lbk-check-box>
+    <!-- end filter by draft -->
+  </ul>
+</lbk-dropdown>

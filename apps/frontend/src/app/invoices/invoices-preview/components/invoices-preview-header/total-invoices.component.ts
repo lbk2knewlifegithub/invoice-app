@@ -5,11 +5,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <h2>Invoices</h2>
+      <h2 class="md:text-3xl">Invoices</h2>
 
-      <div class="text-sm text-muted-700">
+      <div class="text-muted-700">
         <p [hidden]="!noInvoices">No invoices</p>
-        <p [hidden]="noInvoices">{{ total }} invoices</p>
+        <p [hidden]="noInvoices"> <span class="hidden md:inline">There are </span>{{ total }} invoices</p>
       </div>
     </div>
   `,

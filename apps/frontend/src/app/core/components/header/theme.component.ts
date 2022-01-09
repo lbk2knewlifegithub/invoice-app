@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button class="text-primary-800 duration-300 hover:text-primary-900">
-      <span class="fa fa-moon text-xl"></span>
+      <span class="fa fa-moon text-xl md:text-2xl"></span>
     </button>
   `,
 })

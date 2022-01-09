@@ -5,7 +5,7 @@ import { PriceOptions } from '@lbk/models';
   selector: 'lbk-price',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p [class]="classList" >{{ value | currency: 'GBP' }}</p>
+    <p [class]="classList" class="md:text-lg">{{ value | currency: 'GBP' }}</p>
   `,
 })
 export class PriceComponent {

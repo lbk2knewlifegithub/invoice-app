@@ -8,7 +8,7 @@ import { FilterDto } from '@lbk/dto';
     <nav class="flex items-center justify-between">
       <lbk-total-invoices [total]="total"></lbk-total-invoices>
 
-      <div class="flex items-center gap-[18px]">
+      <div class="flex items-center gap-[18px] md:gap-10">
         <lbk-filter (filter)="filter.emit($event)"></lbk-filter>
         <lbk-new-invoice (click)="newInvoice.emit()"></lbk-new-invoice>
       </div>

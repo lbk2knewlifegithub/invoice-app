@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CreateInvoiceDto, FilterDto } from '@lbk/dto';
-import { Invoice } from '@lbk/models';
-import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { CreateInvoiceDto, FilterDto } from "@lbk/dto";
+import { Invoice } from "@lbk/models";
+import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
 import {
   InvoicesPreviewPageActions,
   LayoutActions
-} from '../../../state/actions';
-import * as fromRoot from '../../../state/reducers';
+} from "../../../state/actions";
+import * as fromRoot from "../../../state/reducers";
 
 @Component({
-  selector: 'lbk-invoice-preview-page',
+  selector: "lbk-invoice-preview-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <main class="mt-8">
@@ -78,7 +78,6 @@ export class InvoicePreviewPageComponent implements OnInit {
   }
 
   create(createInvoiceDto: CreateInvoiceDto) {
-    console.log(createInvoiceDto);
     this._store.dispatch(
       InvoicesPreviewPageActions.createInvoice({ createInvoiceDto })
     );
