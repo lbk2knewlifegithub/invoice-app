@@ -5,8 +5,8 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'lbk-go-back',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button (click)="onBack()" class="flex items-center gap-6">
-      <span class="fas fa-angle-left text-primary-900"></span>
+    <button (click)="onBack()" class="flex items-center gap-6 group hover:opacity-60">
+      <span class="fas fa-angle-left duration-500 text-primary-900 group-hover:-translate-x-1"></span>
       <span class="font-black">Go back</span>
     </button>
   `,

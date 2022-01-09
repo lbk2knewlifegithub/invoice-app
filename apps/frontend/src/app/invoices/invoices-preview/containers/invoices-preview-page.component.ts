@@ -16,6 +16,7 @@ import * as fromRoot from "../../../state/reducers";
     <main class="pt-8 md:pt-14 lg:pt-[72px] lg:grid lg:place-content-center ">
       <div class="container max-w-[730px] lg:h-full">
         <lbk-invoices-preview-header
+          [searchStatus]="(searchStatus$ | async)!"
           (filter)="filter($event)"
           (newInvoice)="newInvoice()"
           [total]="(totalInvoices$ | async)!"
@@ -49,12 +50,14 @@ export class InvoicePreviewPageComponent implements OnInit {
   showNewInvoiceOverlay$!: Observable<boolean>;
   invoices$!: Observable<Invoice[]>;
   totalInvoices$!: Observable<number>;
+  searchStatus$!: Observable<string[]>;
 
   constructor(private readonly _store: Store) {}
 
   ngOnInit(): void {
     this.invoices$ = this._store.select(fromRoot.selectSearchResult);
     this.totalInvoices$ = this._store.select(fromRoot.selectTotalInvoices);
+    this.searchStatus$ = this._store.select(fromRoot.selectSearchInvoiceStatus);
     this.showNewInvoiceOverlay$ = this._store.select(
       fromRoot.selectShowNewInvoiceOverlay
     );

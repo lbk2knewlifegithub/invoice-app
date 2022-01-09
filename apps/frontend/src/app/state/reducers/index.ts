@@ -60,7 +60,6 @@ export const {
   selectIds: selectInvoiceIds,
   selectEntities: selectInvoiceEntities,
   selectAll: selectAllInvoices,
-  selectTotal: selectTotalInvoices,
 } = fromInvoices.adapter.getSelectors(selectInvoicesEntitiesState);
 
 export const selectSelectedInvoice = createSelector(
@@ -116,6 +115,11 @@ export const selectSearchResult = createSelector(
     if (status.length === 0) return invoices;
     return invoices.filter((invoice) => status.includes(invoice.status));
   }
+);
+
+export const selectTotalInvoices = createSelector(
+  selectSearchResult,
+  (invoices) => invoices.length
 );
 
 /**

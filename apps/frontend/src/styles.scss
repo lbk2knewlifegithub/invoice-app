@@ -88,7 +88,6 @@
   select {
     @apply w-full text-base font-bold border-muted-500 rounded-[4px] shadow-sm py-4 px-5 focus:border-primary-900 focus:ring-0 disabled:text-muted-900 disabled:border-none;
   }
-
 }
 
 input.ng-invalid.ng-dirty {
@@ -103,7 +102,7 @@ input.ng-invalid.ng-dirty {
 
   //CUSTOM APPLY HERE
   .btn {
-    @apply inline-block  font-bold text-center rounded-full py-4 px-6 shadow-sm disabled:opacity-50;
+    @apply duration-500 shadow-md inline-block font-bold text-center rounded-full py-4 px-6  disabled:opacity-50 hover:opacity-70;
   }
 
   .btn-primary {
@@ -111,7 +110,7 @@ input.ng-invalid.ng-dirty {
   }
 
   .btn-danger {
-    @apply bg-danger-900 text-white shadow-danger-900;
+    @apply bg-danger-900 text-white shadow-md shadow-danger-900;
   }
 
   .btn-basic {
