@@ -1,18 +1,19 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { UpdateInvoiceDto } from '@lbk/dto';
-import { Invoice } from '@lbk/models';
-import { Unsubscribe } from '@lbk/ui';
-import { Store } from '@ngrx/store';
-import { map, Observable } from 'rxjs';
-import { LayoutActions, ViewInvoicePageActions } from '../../../state/actions';
-import * as fromRoot from '../../../state/reducers';
+import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { UpdateInvoiceDto } from "@lbk/dto";
+import { Invoice } from "@lbk/models";
+import { Unsubscribe } from "@lbk/ui";
+import { Store } from "@ngrx/store";
+import { map, Observable } from "rxjs";
+import { LayoutActions, ViewInvoicePageActions } from "../../../state/actions";
+import * as fromRoot from "../../../state/reducers";
 
 @Component({
-  selector: 'lbk-view-invoice-page',
+  selector: "lbk-view-invoice-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <lbk-selected-invoice-page></lbk-selected-invoice-page>
+
     <lbk-edit-overlay
       *ngIf="invoice$ | async as invoice"
       [invoice]="invoice"
@@ -25,7 +26,7 @@ import * as fromRoot from '../../../state/reducers';
 })
 export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   showEditOverlay$!: Observable<boolean>;
-  invoice$!: Observable<Invoice | null | '' | undefined>;
+  invoice$!: Observable<Invoice | null | "" | undefined>;
   constructor(
     private readonly _store: Store,
     private readonly _route: ActivatedRoute
@@ -34,7 +35,7 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
     this.appendSub = this._route.params
       .pipe(
         map((params) =>
-          ViewInvoicePageActions.selectInvoice({ id: params['id'] })
+          ViewInvoicePageActions.selectInvoice({ id: params["id"] })
         )
       )
       .subscribe((action) => this._store.dispatch(action));

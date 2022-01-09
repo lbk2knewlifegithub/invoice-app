@@ -1,16 +1,19 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { PriceOptions } from '@lbk/models';
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { PriceOptions } from "@lbk/models";
 
 @Component({
-  selector: 'lbk-grand-total',
+  selector: "lbk-grand-total",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
-      class="bg-nav-900 p-6 text-inverted-900 flex items-center justify-between"
+      class="bg-dark-900 p-6 text-inverted-900 flex items-center justify-between"
     >
-      <span class="text-sm">Grand Total</span>
+      <p class="text-sm ">
+        <span class="md:hidden">Grand Total</span>
+        <span class="hidden md:block">Amount Due</span>
+      </p>
 
-      <lbk-price [options]="priceOptions" [value]="grandTotal"></lbk-price>
+      <p class="font-bold md:text-2xl">{{ grandTotal | currency: "GBP" }}</p>
     </div>
   `,
 })
@@ -18,6 +21,6 @@ export class GrandTotalComponent {
   @Input() grandTotal!: number;
 
   priceOptions: PriceOptions = {
-    size: 'text-xl',
+    size: "text-xl",
   };
 }

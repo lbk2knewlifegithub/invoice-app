@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'lbk-invoice-form-title',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <h2>
+    <h2 >
       <div *ngIf="id; else newInvoice" class="flex gap-2">
         <span>Edit </span>
         <lbk-invoice-id [value]="id"></lbk-invoice-id>

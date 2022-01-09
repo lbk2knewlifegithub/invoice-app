@@ -1,22 +1,41 @@
 <section class="grid gap-4">
-  <lbk-invoice-status-detail [status]="invoice.status"></lbk-invoice-status-detail>
+  <div
+    class="flex justify-between p-6 overflow-hidden bg-white rounded-lg md:items-center"
+  >
+    <lbk-invoice-status-detail
+      [status]="invoice.status"
+    ></lbk-invoice-status-detail>
 
-  <div class="bg-white rounded-lg p-6 grid gap-[32px] shadow-sm">
-    <div>
-      <!-- invoice id -->
-      <lbk-invoice-id [value]="invoice.id"></lbk-invoice-id>
-      <!-- end invoice id -->
+    <lbk-invoice-details-actions
+      class="hidden md:block"
+      (edit)="edit.emit()"
+      (delete)="delete.emit()"
+      (maskAsPaid)="maskAsPaid.emit()"
+    ></lbk-invoice-details-actions>
+  </div>
 
-      <!-- description -->
-      <p class="text-muted-900">{{ invoice.description }}</p>
-      <!-- end description -->
+  <div class="grid gap-8 p-6 bg-white rounded-lg shadow-sm">
+    <div class="flex flex-col gap-8 md:flex-row md:justify-between">
+      <div class="md:space-y-2">
+        <!-- invoice id -->
+        <lbk-invoice-id [value]="invoice.id"></lbk-invoice-id>
+        <!-- end invoice id -->
+
+        <!-- description -->
+        <p class="text-muted-900">{{ invoice.description }}</p>
+        <!-- end description -->
+      </div>
+
+      <!-- sender address -->
+      <lbk-address
+        [textRightMedium]="true"
+        class="md:text-left"
+        [address]="invoice.senderAddress"
+      ></lbk-address>
+      <!-- end sender address -->
     </div>
 
-    <!-- sender address -->
-    <lbk-address [address]="invoice.senderAddress"></lbk-address>
-    <!-- end sender address -->
-
-    <div class="grid grid-cols-2 gap-11">
+    <div class="grid grid-cols-2 gap-11 md:grid-cols-3">
       <div class="grid h-full place-content-between">
         <!-- invoice date -->
         <lbk-date title="Invoice Date" [date]="invoice.createdAt"></lbk-date>
@@ -27,11 +46,19 @@
         <!-- end payment due -->
       </div>
 
-      <lbk-bill-to [clientName]="invoice.clientName" [clientAddress]="invoice.clientAddress"></lbk-bill-to>
+      <lbk-bill-to
+        [clientName]="invoice.clientName"
+        [clientAddress]="invoice.clientAddress"
+      ></lbk-bill-to>
+
+      <lbk-send-to
+        class="hidden md:block"
+        [email]="invoice.clientEmail"
+      ></lbk-send-to>
     </div>
 
     <!-- send to -->
-    <lbk-send-to [email]="invoice.clientEmail"></lbk-send-to>
+    <lbk-send-to class="md:hidden" [email]="invoice.clientEmail"></lbk-send-to>
     <!-- end send to -->
 
     <div class="overflow-hidden rounded-lg">

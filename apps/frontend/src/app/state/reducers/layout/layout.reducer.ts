@@ -1,7 +1,7 @@
-import { createReducer, on } from '@ngrx/store';
-import { LayoutActions } from '../../actions';
+import { createReducer, on } from "@ngrx/store";
+import { LayoutActions } from "../../actions";
 
-export const layoutFeatureKey = 'layout';
+export const layoutFeatureKey = "layout";
 
 export interface State {
   showEditOverlay: boolean;
@@ -36,5 +36,9 @@ export const reducer = createReducer(
 );
 
 export const getShowEditOverlay = (state: State) => state.showEditOverlay;
+
 export const getShowNewInvoiceOverlay = (state: State) =>
   state.showNewInvoiceOverlay;
+
+export const getShowOverlay = (state: State) =>
+  state.showNewInvoiceOverlay || state.showEditOverlay;

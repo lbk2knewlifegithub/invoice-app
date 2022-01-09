@@ -3,14 +3,15 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
 @Component({
   selector: "lbk-check-box",
   template: `
-    <div class=" flex items-center">
+    <div class=" flex items-center group">
       <input
-        class="appearance-none h-4 w-4 border border-muted-900 rounded-sm bg-fill checked:bg-primary-900 checked:border-primary-600 focus:outline-none transition duration-200 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+        class="h-4 w-4 rounded-sm border border-muted-900 bg-fill checked:bg-primary-900 checked:border-primary-600 mr-2 cursor-pointer hover:border-primary-900"
         type="checkbox"
         [id]="label"
         (click)="onClick()"
         [checked]="checked"
       />
+
       <label class="inline-block cursor-pointer" [for]="label">
         {{ label | titlecase }}
       </label>

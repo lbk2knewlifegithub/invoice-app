@@ -1,5 +1,5 @@
-import { InjectionToken } from '@angular/core';
-import * as fromRouter from '@ngrx/router-store';
+import { InjectionToken } from "@angular/core";
+import * as fromRouter from "@ngrx/router-store";
 import {
   Action,
   ActionReducer,
@@ -7,11 +7,11 @@ import {
   createFeatureSelector,
   createSelector,
   MetaReducer
-} from '@ngrx/store';
-import { environment } from '../../../environments/environment';
-import * as fromInvoices from './invoices';
-import * as fromLayout from './layout';
-import * as fromSearch from './search.reducer';
+} from "@ngrx/store";
+import { environment } from "../../../environments/environment";
+import * as fromInvoices from "./invoices";
+import * as fromLayout from "./layout";
+import * as fromSearch from "./search.reducer";
 
 export interface State {
   [fromLayout.layoutFeatureKey]: fromLayout.State;
@@ -22,7 +22,7 @@ export interface State {
 
 export const ROOT_REDUCERS = new InjectionToken<
   ActionReducerMap<State, Action>
->('Root reducers token', {
+>("Root reducers token", {
   factory: () => ({
     [fromLayout.layoutFeatureKey]: fromLayout.reducer,
     [fromInvoices.invoicesFeatureKey]: fromInvoices.reducer,
@@ -36,9 +36,9 @@ export function logger(reducer: ActionReducer<State>): ActionReducer<State> {
   return (state, action) => {
     const result = reducer(state, action);
     console.groupCollapsed(action.type);
-    console.log('prev state', state);
-    console.log('action', action);
-    console.log('next state', result);
+    console.log("prev state", state);
+    console.log("action", action);
+    console.log("next state", result);
     console.groupEnd();
 
     return result;
@@ -76,6 +76,7 @@ export const selectSelectedInvoice = createSelector(
 export const selectLayoutState = createFeatureSelector<fromLayout.State>(
   fromLayout.layoutFeatureKey
 );
+
 export const selectShowEditOverlay = createSelector(
   selectLayoutState,
   fromLayout.getShowEditOverlay
@@ -84,6 +85,11 @@ export const selectShowEditOverlay = createSelector(
 export const selectShowNewInvoiceOverlay = createSelector(
   selectLayoutState,
   fromLayout.getShowNewInvoiceOverlay
+);
+
+export const selectShowOverlay = createSelector(
+  selectLayoutState,
+  fromLayout.getShowOverlay
 );
 
 /**

@@ -1,6 +1,8 @@
 <lbk-dropdown [(active)]="dropDownActive">
   <button class="flex items-center gap-3 button">
-    <h5 class="font-bold">Filter <span class="hidden md:inline">by status</span></h5>
+    <h5 class="font-bold">
+      Filter <span class="hidden md:inline">by status</span>
+    </h5>
 
     <!-- arrow icon -->
     <img
@@ -12,7 +14,7 @@
     <!-- end arrow icon -->
   </button>
 
-  <ul class="inline-grid gap-2 p-2 bg-white rounded-md shadow-lg">
+  <ul class="inline-grid gap-4 p-6 bg-white rounded-md shadow-lg min-w-[192px]">
     <!-- filter by paid -->
     <lbk-check-box
       (checkedChange)="onCheckedChange($event)"

@@ -5,19 +5,19 @@ import {
   Input,
   Output,
   ViewChild
-} from '@angular/core';
-import { UpdateInvoiceDto } from '@lbk/dto';
-import { Invoice } from '@lbk/models';
-import { InvoiceFormComponent } from '../../../../shared/components/invoice-form/invoice-form.component';
+} from "@angular/core";
+import { UpdateInvoiceDto } from "@lbk/dto";
+import { Invoice } from "@lbk/models";
+import { InvoiceFormComponent } from "../../../../shared/components/invoice-form/invoice-form.component";
 
 @Component({
-  selector: 'lbk-edit-overlay',
+  selector: "lbk-edit-overlay",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <lbk-overlay (goBack)="goBack.emit()" [open]="open">
       <lbk-invoice-form class="panel" [invoice]="invoice"></lbk-invoice-form>
 
-      <div scrollTo class="actions flex gap-2 items-center justify-end">
+      <div class="actions flex gap-2 items-center justify-end">
         <button (click)="cancel.emit()" class="btn btn-basic">Cancel</button>
         <button (click)="onSaveChanges()" class="btn btn-primary">
           Save Changes

@@ -1,16 +1,10 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Item } from '@lbk/models';
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { Item } from "@lbk/models";
 
 @Component({
-  selector: 'lbk-invoice-item-list',
+  selector: "lbk-invoice-item-list",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div class="grid gap-6 p-6 bg-fill">
-      <ng-container *ngFor="let item of items; trackBy: identifyItem">
-        <lbk-invoice-item [item]="item"></lbk-invoice-item>
-      </ng-container>
-    </div>
-  `,
+  templateUrl: "./invoice-item-list.component.html"
 })
 export class InvoiceItemListComponent {
   @Input() items!: Item[];

@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'lbk-header',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <header class="lg:fixed lg:left-0 lg:top-0 lg:h-full">
-      <nav class="bg-dark-900 flex items-center justify-between lg:flex flex-col lg:h-full  lg:rounded-r-[20px]">
+    <header [class.fixed]="openOverlay" class="w-full lg:fixed lg:left-0 lg:top-0 lg:w-fit lg:h-full z-50">
+      <nav class="bg-dark-900 flex items-center justify-between lg:flex-col lg:h-full  lg:rounded-r-[20px] lg:overflow-hidden">
         <!-- logo -->
         <lbk-logo></lbk-logo>
         <!-- end logo -->
@@ -27,4 +27,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
     </header>
   `,
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  @Input() openOverlay!: boolean;
+}

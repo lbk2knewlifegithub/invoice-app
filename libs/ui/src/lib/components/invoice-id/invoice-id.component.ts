@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   selector: 'lbk-invoice-id',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <p>
+    <p class="md:text-lg">
       <span class="text-muted-900">#</span>
       <span class="font-bold">
         {{ value | uppercase }}

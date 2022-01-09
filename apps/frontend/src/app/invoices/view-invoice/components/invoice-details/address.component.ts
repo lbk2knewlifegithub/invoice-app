@@ -5,7 +5,7 @@ import { Address } from '@lbk/models';
   selector: 'lbk-address',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="text-sm text-muted-900">
+    <div [class.md:text-right]="textRightMedium" class="text-sm text-muted-900">
       <p>{{ address.street }}</p>
       <p>{{ address.city }}</p>
       <p>{{ address.postCode }}</p>
@@ -15,4 +15,9 @@ import { Address } from '@lbk/models';
 })
 export class SenderAddressComponent {
   @Input() address!: Address;
+
+  /**
+   * Test right in medium breakpoint
+   */
+  @Input() textRightMedium = false;
 }

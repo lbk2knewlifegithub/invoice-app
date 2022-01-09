@@ -1,0 +1,33 @@
+<div class="grid gap-6 p-6 bg-fill md:hidden">
+  <ng-container *ngFor="let item of items; trackBy: identifyItem">
+    <lbk-invoice-item [item]="item"></lbk-invoice-item>
+  </ng-container>
+</div>
+
+<div class="hidden p-8 bg-fill md:block">
+  <table class="w-full">
+    <thead class="text-muted-900">
+      <tr class="w-full">
+        <th class="text-left">Item Name</th>
+        <th class="text-center">QTY.</th>
+        <th class="text-right">Price</th>
+        <th class="text-right">Total</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <ng-container *ngFor="let item of items; trackBy: identifyItem">
+        <tr>
+          <td class="pt-8">{{ item.name }}</td>
+          <td class="pt-8 text-center text-muted-900">{{ item.quantity }}</td>
+          <td class="pt-8 text-right text-muted-900">
+            {{ item.price | currency: "GBP" }}
+          </td>
+          <td class="pt-8 text-right text-muted-900">
+            {{ item.total | currency: "GBP" }}
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div>

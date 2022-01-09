@@ -16,27 +16,12 @@ import { InvoiceFormComponent } from "../../../../shared/components";
     <lbk-overlay (goBack)="goBack.emit()" [open]="open">
       <lbk-invoice-form class="panel"></lbk-invoice-form>
 
-      <div scrollTo class="actions flex gap-2 items-center justify-end">
-        <!-- discard button -->
-        <button (click)="discard.emit()" class="btn btn-basic">Discard</button>
-        <!-- end discard button -->
-
-        <!-- save as draft button -->
-        <button (click)="saveAsDraft.emit()" class="btn btn-dark">
-          Save as Draft
-        </button>
-        <!-- end save as draft button -->
-
-        <!-- create new invoice button -->
-        <button
-          [disabled]="invalid"
-          (click)="onSaveAndSend()"
-          class="btn btn-primary"
-        >
-          Save & Send
-        </button>
-        <!-- end create new invoice button -->
-      </div>
+      <lbk-new-invoice-actions
+        class="actions"
+        (discard)="discard.emit()"
+        (create)="onCreate()"
+        (saveAsDraft)="saveAsDraft.emit()"
+      ></lbk-new-invoice-actions>
     </lbk-overlay>
   `,
 })
@@ -55,7 +40,7 @@ export class NewInvoiceOverlayComponent {
     return this.invoiceForm.invoiceForm.invalid;
   }
 
-  onSaveAndSend() {
+  onCreate() {
     this.create.emit(this.invoiceForm.invoiceDto);
   }
 }

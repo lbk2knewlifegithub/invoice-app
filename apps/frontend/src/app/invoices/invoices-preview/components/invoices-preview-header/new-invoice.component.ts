@@ -4,9 +4,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   selector: 'lbk-new-invoice',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <button data-cy="new-invoice-button" class="bg-primary-900 rounded-full flex items-center gap-2 p-[6px]  md:gap-4">
+    <button data-cy="new-invoice-button" class="bg-primary-900 rounded-full flex items-center gap-2 p-[6px]  md:gap-4 group">
       <!-- plus -->
-      <div class="w-8 h-8 bg-white rounded-full grid place-content-center">
+      <div class="w-8 h-8 bg-white rounded-full grid place-content-center group-hover:animate-spin">
         <span class="fas fa-plus text-primary-900k"></span>
       </div>
       <!-- end plus -->

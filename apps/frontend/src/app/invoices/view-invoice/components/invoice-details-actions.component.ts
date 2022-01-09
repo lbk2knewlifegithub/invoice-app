@@ -3,13 +3,13 @@ import {
   Component,
   EventEmitter,
   Output
-} from '@angular/core';
+} from "@angular/core";
 
 @Component({
-  selector: 'lbk-invoice-details-actions',
+  selector: "lbk-invoice-details-actions",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="bg-elements flex justify-center gap-2 py-5 shadow-md">
+    <div class="bg-elements flex flex-wrap justify-end gap-2 py-5 shadow-md px-6 md:bg-transparent md:shadow-none md:py-0 md:px-0">
       <!-- edit -->
       <button (click)="edit.emit()" class="btn btn-basic">Edit</button>
       <!-- end edit -->

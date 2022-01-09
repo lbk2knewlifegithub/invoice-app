@@ -1,8 +1,8 @@
-@import 'tailwindcss/base';
-@import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
-@import '~ng-pick-datetime/assets/style/picker.min';
-@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import "~ng-pick-datetime/assets/style/picker.min";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 @layer base {
   :root {
@@ -68,26 +68,27 @@
   }
 
   /* Firefox */
-  input[type='number'] {
+  input[type="number"] {
     -moz-appearance: textfield;
   }
 
   //make default form look nice
-  [type='text'],
-  [type='email'],
-  [type='url'],
-  [type='password'],
-  [type='number'],
-  [type='date'],
-  [type='month'],
-  [type='search'],
-  [type='time'],
-  [type='week'],
+  [type="text"],
+  [type="email"],
+  [type="url"],
+  [type="password"],
+  [type="number"],
+  [type="date"],
+  [type="month"],
+  [type="search"],
+  [type="time"],
+  [type="week"],
   [multiple],
   textarea,
   select {
     @apply w-full text-base font-bold border-muted-500 rounded-[4px] shadow-sm py-4 px-5 focus:border-primary-900 focus:ring-0 disabled:text-muted-900 disabled:border-none;
   }
+
 }
 
 input.ng-invalid.ng-dirty {
@@ -128,5 +129,5 @@ body {
 }
 body {
   margin: 0;
-  font-family: Roboto, 'Helvetica Neue', sans-serif;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
 }

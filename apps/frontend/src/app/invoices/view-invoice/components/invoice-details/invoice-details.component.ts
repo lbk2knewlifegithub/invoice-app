@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Invoice } from '@lbk/models';
 
 @Component({
@@ -8,4 +8,8 @@ import { Invoice } from '@lbk/models';
 })
 export class InvoiceDetailsComponent {
   @Input() invoice!: Invoice;
+
+  @Output() edit = new EventEmitter<void>();
+  @Output() delete = new EventEmitter<void>();
+  @Output() maskAsPaid = new EventEmitter<void>();
 }

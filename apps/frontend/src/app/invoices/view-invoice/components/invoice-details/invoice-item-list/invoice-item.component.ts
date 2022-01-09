@@ -6,12 +6,12 @@ import { Item, PriceOptions } from '@lbk/models';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="flex items-center justify-between">
-      <div class="space-y-2 ">
+      <div class="space-y-2">
         <!-- name -->
         <p class="font-bold">{{item.name}}</p>
         <!-- end name -->
 
-        <div class="text-muted-900 font-bold flex gap-1">
+        <div class="text-muted-900 font-bold flex gap-1 items-center">
           <!-- quantity -->
           <span>{{item.quantity}}</span>
           <!-- end quantity -->

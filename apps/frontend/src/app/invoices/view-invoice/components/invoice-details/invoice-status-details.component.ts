@@ -5,7 +5,7 @@ import { Status } from '@lbk/models';
   selector: 'lbk-invoice-status-detail',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="rounded-xl bg-white p-6 flex items-center justify-between shadow-sm">
+    <div class="flex items-center justify-between shadow-sm md:justify-start md:gap-4">
       <span class="text-muted-900">Status</span>
       <lbk-invoice-status [status]="status"></lbk-invoice-status>
     </div>

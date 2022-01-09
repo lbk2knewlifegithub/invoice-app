@@ -13,8 +13,8 @@ import * as fromRoot from "../../../state/reducers";
   selector: "lbk-invoice-preview-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <main class="mt-8">
-      <div class="container">
+    <main class="pt-8 md:pt-14 lg:pt-[72px] lg:grid lg:place-content-center ">
+      <div class="container max-w-[730px] lg:h-full">
         <lbk-invoices-preview-header
           (filter)="filter($event)"
           (newInvoice)="newInvoice()"
@@ -23,7 +23,7 @@ import * as fromRoot from "../../../state/reducers";
 
         <ng-container *ngIf="invoices$ | async as invoices">
           <lbk-invoice-preview-list
-            class="block mt-8"
+            class="block mt-8 md:mt-14 lg:mt-16"
             *ngIf="invoices.length > 0; else noInvoices"
             [invoices]="invoices"
           ></lbk-invoice-preview-list>

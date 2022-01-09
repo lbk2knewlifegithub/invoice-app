@@ -5,7 +5,7 @@ import { Address } from '@lbk/models';
   selector: 'lbk-bill-to',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="space-y-3">
+    <div class="space-y-3 md:space-y-2">
       <span class="text-muted-900">Bill To</span>
       <h4>{{ clientName }}</h4>
 

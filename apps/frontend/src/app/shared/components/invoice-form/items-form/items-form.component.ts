@@ -13,7 +13,7 @@ import { FormGroupComponent } from '@lbk/ui';
     <div [formGroup]="parent">
       <div [formArrayName]="arrayName">
         <!-- title -->
-        <h3 class="text-muted-900">Item List</h3>
+        <h3 class="text-muted-900 lg:text-18px">Item List</h3>
         <!-- end title -->
 
         <lbk-invoice-item-form-list
