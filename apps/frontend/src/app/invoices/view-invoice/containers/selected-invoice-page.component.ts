@@ -12,9 +12,9 @@ import * as fromRoot from "../../../state/reducers";
   template: `
     <main
       *ngIf="invoice$ | async as invoice"
-      class="pt-8 md:pt-14 lg:pt-[72px] lg:grid lg:place-content-center "
+      class="pt-8 md:pt-14 lg:pt-16 lg:grid lg:place-content-center "
     >
-      <div class="container max-w-[730px] lg:h-full">
+      <div class="container max-w-[730px] w-full lg:min-w-[730px] lg:h-full">
         <lbk-go-back></lbk-go-back>
 
         <lbk-invoice-detail
