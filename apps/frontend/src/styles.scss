@@ -105,6 +105,10 @@ input.ng-invalid.ng-dirty {
   @apply border-2 border-danger-900;
 }
 
+.mat-dialog-container {
+  background-color: hsl(var(--bg-fill));
+}
+
 @layer components {
   .container-large {
     max-width: 1536px;

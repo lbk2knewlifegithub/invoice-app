@@ -5,9 +5,9 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   selector: 'lbk-confirm-delete-dialog',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="bg-white">
+    <div class="bg-fill">
       <div class="space-y-2">
-        <h3>Confirm Deletion</h3>
+        <h3 class="text-fill-900">Confirm Deletion</h3>
         <p class="text-muted-900">
           Are you sure you want delete invoice #{{ id }}? This action cannot be
           undone.

@@ -34,6 +34,7 @@ export class EditOverlayComponent {
   @Input() invoice!: Invoice;
   @Output() goBack = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
+
   @Output() edit = new EventEmitter<{
     id: string;
     updateInvoiceDto: UpdateInvoiceDto;

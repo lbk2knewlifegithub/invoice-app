@@ -66,4 +66,5 @@ export class SelectedInvoicePageComponent implements OnInit {
   maskAsPaid(id: string) {
     this._store.dispatch(ViewInvoicePageActions.maskAsPaid({ id }));
   }
+
 }

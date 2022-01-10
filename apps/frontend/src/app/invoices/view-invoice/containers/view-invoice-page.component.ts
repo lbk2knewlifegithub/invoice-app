@@ -33,6 +33,12 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
     private readonly _route: ActivatedRoute
   ) {
     super();
+  }
+
+  ngOnInit(): void {
+    this.showEditOverlay$ = this._store.select(fromRoot.selectShowEditOverlay);
+    this.invoice$ = this._store.select(fromRoot.selectSelectedInvoice);
+
     this.appendSub = this._route.params
       .pipe(
         map((params) =>
@@ -40,11 +46,6 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
         )
       )
       .subscribe((action) => this._store.dispatch(action));
-  }
-
-  ngOnInit(): void {
-    this.showEditOverlay$ = this._store.select(fromRoot.selectShowEditOverlay);
-    this.invoice$ = this._store.select(fromRoot.selectSelectedInvoice);
   }
 
   onEditGoBack() {

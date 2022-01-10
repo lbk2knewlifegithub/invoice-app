@@ -5,9 +5,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
   template: `
     <div class=" flex items-center group">
       <input
-        class="h-4 w-4 rounded-sm border border-muted-900 bg-fill checked:bg-primary-900 checked:border-primary-600 mr-2 cursor-pointer hover:border-primary-900"
-        type="checkbox"
-        [id]="label"
+        class="h-4 w-4 rounded-sm border border-muted-900 bg-fill mr-2 cursor-pointer  checked:bg-primary-900 checked:border-primary-900 hover:border-primary-900 dark:border-primary-900"
         (click)="onClick()"
         [checked]="checked"
       />
