@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 import { LayoutActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/reducers";
+import { slideInAnimation } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
@@ -15,9 +17,12 @@ import { Observable } from "rxjs";
       [openOverlay]="(openOverlay$ | async)!"
     ></lbk-header>
 
-    <router-outlet></router-outlet>
+    <div [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
     <!-- <lbk-footer></lbk-footer> -->
   `,
+  animations: [slideInAnimation],
 })
 export class AppComponent implements OnInit {
   openOverlay$!: Observable<boolean>;
@@ -36,5 +41,8 @@ export class AppComponent implements OnInit {
   }
   toLightTheme() {
     this._store.dispatch(LayoutActions.toLightTheme());
+  }
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet?.activatedRouteData?.["animation"];
   }
 }

@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ChangeDetectionStrategy, Component, Inject } from "@angular/core";
+import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 
 @Component({
-  selector: 'lbk-confirm-delete-dialog',
+  selector: "lbk-confirm-delete-dialog",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="bg-fill">

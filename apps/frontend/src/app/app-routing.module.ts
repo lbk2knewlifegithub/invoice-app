@@ -1,25 +1,27 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
 
 const routes: Routes = [
   {
-    path: 'invoices',
+    path: "invoices",
     loadChildren: () =>
-      import('@frontend/invoices/invoices-preview').then(
+      import("@frontend/invoices/invoices-preview").then(
         (m) => m.InvoicesPreviewModule
       ),
+    data: { animation: "Invoices" },
   },
   {
-    path: 'invoices',
+    path: "invoice",
     loadChildren: () =>
-      import('@frontend/invoices/view-invoice').then(
+      import("@frontend/invoices/view-invoice").then(
         (m) => m.ViewInvoiceModule
       ),
+    data: { animation: "Invoice" },
   },
   {
-    path: '',
-    redirectTo: '/invoices',
-    pathMatch: 'full',
+    path: "",
+    redirectTo: "/invoices",
+    pathMatch: "full",
   },
 ];
 
@@ -27,8 +29,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes, {
       useHash: true,
-      relativeLinkResolution: 'legacy',
-      scrollPositionRestoration: 'top',
+      relativeLinkResolution: "legacy",
+      scrollPositionRestoration: "top",
     }),
   ],
   exports: [RouterModule],
