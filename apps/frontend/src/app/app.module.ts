@@ -1,5 +1,4 @@
 import { NgModule } from "@angular/core";
-import { MatSnackBar } from "@angular/material/snack-bar";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SnackBarService } from "@lbk/ui";
@@ -15,7 +14,7 @@ import { StateModule } from "./state";
     CoreModule,
     StateModule.forRoot(),
   ],
-  providers: [SnackBarService ],
+  providers: [SnackBarService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
