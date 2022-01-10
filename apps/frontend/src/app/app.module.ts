@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent, CoreModule } from './core';
-import { StateModule } from './state';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { RouteReuseStrategy } from "@angular/router";
+import { AppRoutingModule } from "./app-routing.module";
+import { AppComponent, CoreModule } from "./core";
+import { CustomReuseStrategy } from "./shared";
+import { StateModule } from "./state";
 
 @NgModule({
   imports: [
@@ -12,6 +14,12 @@ import { StateModule } from './state';
     BrowserAnimationsModule,
     CoreModule,
     StateModule.forRoot(),
+  ],
+  providers: [
+    {
+      provide: RouteReuseStrategy,
+      useClass: CustomReuseStrategy,
+    },
   ],
   bootstrap: [AppComponent],
 })

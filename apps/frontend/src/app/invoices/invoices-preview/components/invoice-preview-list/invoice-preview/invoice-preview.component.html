@@ -3,7 +3,12 @@
   class="grid grid-cols-2 gap-6 p-6 duration-700 border-2 border-transparent rounded-lg shadow-md bg-elements group hover:border-2 hover:border-primary-900 md:grid-cols-5 md:place-items-center md:justify-items-start md:py-4 md:pr-14"
 >
   <!-- id -->
-  <lbk-invoice-id class="md:order-first" [value]="invoice.id"></lbk-invoice-id>
+  <p class="md:text-lg md:order-first">
+    <span class="text-muted-800">#</span>
+    <span class="font-bold">
+      {{ invoice.id | uppercase }}
+    </span>
+  </p>
   <!-- end id -->
 
   <!-- name -->

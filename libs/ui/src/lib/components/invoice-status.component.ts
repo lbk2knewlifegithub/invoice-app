@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Status } from '@lbk/models';
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { Status } from "@lbk/models";
 
 @Component({
-  selector: 'lbk-invoice-status',
+  selector: "lbk-invoice-status",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
@@ -21,19 +21,18 @@ export class InvoiceStatusComponent {
   @Input() status!: Status;
 
   get ngClass() {
-    console.log(this.status);
     return {
-      pending: 'text-warning-900 bg-warning-900 bg-opacity-[11%]',
-      paid: 'text-success-900 bg-success-900 bg-opacity-[11%]',
-      draft: 'bg-fill dark:bg-black/15',
+      pending: "text-warning-900 bg-warning-900 bg-opacity-[11%]",
+      paid: "text-success-900 bg-success-900 bg-opacity-[11%]",
+      draft: "bg-fill dark:bg-black/15",
     }[this.status];
   }
 
   get ballClass() {
     return {
-      pending: 'bg-warning-900',
-      paid: 'bg-success-900',
-      draft: 'bg-black dark:bg-muted-900',
+      pending: "bg-warning-900",
+      paid: "bg-success-900",
+      draft: "bg-black dark:bg-muted-900",
     }[this.status];
   }
 }

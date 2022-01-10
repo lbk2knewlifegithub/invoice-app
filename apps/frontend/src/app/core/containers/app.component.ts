@@ -42,6 +42,7 @@ export class AppComponent implements OnInit {
   toLightTheme() {
     this._store.dispatch(LayoutActions.toLightTheme());
   }
+
   prepareRoute(outlet: RouterOutlet) {
     return outlet?.activatedRouteData?.["animation"];
   }

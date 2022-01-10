@@ -8,7 +8,7 @@ const routes: Routes = [
       import("@frontend/invoices/invoices-preview").then(
         (m) => m.InvoicesPreviewModule
       ),
-    data: { animation: "Invoices" },
+    data: { animation: "Invoices", reuseRoute: true },
   },
   {
     path: "invoice",
