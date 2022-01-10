@@ -91,6 +91,11 @@ export const selectShowOverlay = createSelector(
   fromLayout.getShowOverlay
 );
 
+export const selectDarkThem = createSelector(
+  selectLayoutState,
+  fromLayout.getDarkTheme
+);
+
 /**
  * Search selector
  */

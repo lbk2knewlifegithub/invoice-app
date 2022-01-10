@@ -25,7 +25,7 @@ export class InvoiceStatusComponent {
     return {
       pending: 'text-warning-900 bg-warning-900 bg-opacity-[11%]',
       paid: 'text-success-900 bg-success-900 bg-opacity-[11%]',
-      draft: 'bg-fill',
+      draft: 'bg-fill dark:bg-black/15',
     }[this.status];
   }
 
@@ -33,7 +33,7 @@ export class InvoiceStatusComponent {
     return {
       pending: 'bg-warning-900',
       paid: 'bg-success-900',
-      draft: 'bg-black',
+      draft: 'bg-black dark:bg-muted-900',
     }[this.status];
   }
 }

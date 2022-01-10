@@ -6,32 +6,46 @@ export const layoutFeatureKey = "layout";
 export interface State {
   showEditOverlay: boolean;
   showNewInvoiceOverlay: boolean;
+  darkTheme: boolean;
 }
 
 export const initialState: State = {
-  showEditOverlay: false,
+  showEditOverlay: true,
   showNewInvoiceOverlay: false,
+  darkTheme: false,
 };
 
 export const reducer = createReducer(
   initialState,
   // Edit Invoice overlay
-  on(LayoutActions.showEditOverlay, (_) => ({
+  on(LayoutActions.showEditOverlay, (state) => ({
+    ...state,
     showNewInvoiceOverlay: false,
     showEditOverlay: true,
   })),
-  on(LayoutActions.closeEditOverlay, (_) => ({
+  on(LayoutActions.closeEditOverlay, (state) => ({
+    ...state,
     showNewInvoiceOverlay: false,
     showEditOverlay: false,
   })),
   // New Invoice overlay
-  on(LayoutActions.showNewInvoiceOverlay, (_) => ({
+  on(LayoutActions.showNewInvoiceOverlay, (state) => ({
+    ...state,
     showNewInvoiceOverlay: true,
     showEditOverlay: false,
   })),
-  on(LayoutActions.closeNewInvoiceOverlay, (_) => ({
+  on(LayoutActions.closeNewInvoiceOverlay, (state) => ({
+    ...state,
     showNewInvoiceOverlay: false,
     showEditOverlay: false,
+  })),
+  on(LayoutActions.toLightTheme, (state) => ({
+    ...state,
+    darkTheme: false,
+  })),
+  on(LayoutActions.toDarkTheme, (state) => ({
+    ...state,
+    darkTheme: true,
   }))
 );
 
@@ -42,3 +56,5 @@ export const getShowNewInvoiceOverlay = (state: State) =>
 
 export const getShowOverlay = (state: State) =>
   state.showNewInvoiceOverlay || state.showEditOverlay;
+
+export const getDarkTheme = (state: State) => state.darkTheme;

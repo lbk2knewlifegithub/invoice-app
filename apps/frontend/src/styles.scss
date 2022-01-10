@@ -27,10 +27,21 @@
     --muted-600: 231, 37%, 63%;
     --muted-500: 231, 73%, 93%;
 
-    --bg-fill: 240, 27%, 98%;
-    --bg-elements: 0, 0%, 100%;
-
+    --elements: 0, 0%, 100%;
     --dark-900: 231.4, 20.3%, 27.1%;
+
+    --bg-fill: 240, 27%, 98%;
+
+    .dark {
+      --text-fill-900: 0, 0%, 100%;
+
+      --muted-900: 0, 0%, 100%;
+      --muted-800: 231, 75%, 93%;
+
+      --bg-fill: 233, 30%, 11%;
+      --elements: 233, 31%, 17%;
+      --dark-900: 233, 31%, 17%;
+    }
   }
 
   h1,
@@ -86,7 +97,7 @@
   [multiple],
   textarea,
   select {
-    @apply w-full text-base font-bold border-muted-500 rounded-[4px] shadow-sm py-4 px-5 focus:border-primary-900 focus:ring-0 disabled:text-muted-900 disabled:border-none;
+    @apply w-full text-base bg-elements font-bold border-muted-500 rounded-[4px] shadow-sm py-4 px-5 focus:border-primary-900 focus:ring-0 disabled:text-muted-900 disabled:border-none dark:placeholder-white dark:border-elements;
   }
 }
 
@@ -102,7 +113,7 @@ input.ng-invalid.ng-dirty {
 
   //CUSTOM APPLY HERE
   .btn {
-    @apply duration-500 shadow-md inline-block font-bold text-center rounded-full py-4 px-6  disabled:opacity-50 hover:opacity-70;
+    @apply duration-500 shadow-sm inline-block font-bold text-center rounded-full py-4 px-6  disabled:opacity-50 hover:opacity-70;
   }
 
   .btn-primary {
@@ -114,7 +125,7 @@ input.ng-invalid.ng-dirty {
   }
 
   .btn-basic {
-    @apply bg-fill text-muted-900;
+    @apply bg-fill text-muted-900 dark:bg-muted-500/20;
   }
 
   .btn-dark {

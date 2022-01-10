@@ -3,12 +3,12 @@ import {
   Component,
   Input,
   OnInit
-} from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { FormGroupComponent } from './form-group.component';
+} from "@angular/core";
+import { FormControl } from "@angular/forms";
+import { FormGroupComponent } from "./form-group.component";
 
 @Component({
-  selector: 'lbk-input-array',
+  selector: "lbk-input-array",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div [formGroup]="parent">
@@ -21,9 +21,8 @@ import { FormGroupComponent } from './form-group.component';
           <input
             [formControlName]="controlName"
             [attr.disabled]="disabled ? 'disabled' : null"
-            class="disabled:hidden"
+            class="mt-3"
             [id]="controlName"
-            [classList]="space"
             [type]="inputType"
             [placeholder]="placeHolder"
           />
@@ -36,17 +35,12 @@ export class InputArrayComponent extends FormGroupComponent implements OnInit {
   @Input() controlName!: string;
   @Input() placeHolder!: string;
   @Input() label!: string;
-  @Input() inputType = 'text';
+  @Input() inputType = "text";
   @Input() disabled = false;
-
-  /**
-   * The space between input and label
-   */
-  @Input() space = 'mt-[10px]';
 
   get formControl(): FormControl {
     return this.parent
-      .get(this.groupName + '')
+      .get(this.groupName + "")
       ?.get(this.controlName) as FormControl;
   }
 

@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="space-y-3">
-      <span class="text-muted-900">Send to</span>
+      <span class="text-muted-900 dark:text-muted-800">Send to</span>
       <h4>{{ email }}</h4>
     </div>
   `,

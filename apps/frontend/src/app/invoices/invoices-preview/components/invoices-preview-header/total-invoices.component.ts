@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
     <div>
       <h2 class="md:text-3xl">Invoices</h2>
 
-      <div class="text-muted-700">
+      <div class="text-muted-700 dark:text-muted-800">
         <p [hidden]="!noInvoices">No invoices</p>
         <p [hidden]="noInvoices">
           <span class="hidden md:inline">There are </span>{{ total }} invoices

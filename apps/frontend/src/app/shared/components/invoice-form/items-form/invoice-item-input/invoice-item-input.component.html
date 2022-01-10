@@ -1,60 +1,59 @@
 <div [formGroup]="parent">
   <div [formArrayName]="arrayName">
-    <div [formGroupName]="groupName">
+    <div [formGroupName]="groupName" class="grid grid-cols-6 gap-y-6 gap-x-4">
       <!-- item name -->
       <lbk-input-array
         [parent]="parent"
         [groupName]="groupName"
-        space="mt-[16px]"
         [arrayName]="arrayName"
         controlName="name"
         placeHolder="Banner Design"
-        label="Item Namge"
+        label="Item Name"
+        class="col-span-6"
       ></lbk-input-array>
 
       <!-- end item name -->
 
-      <div class="flex items-center justify-between mt-6">
-        <div class="flex items-end gap-4">
-          <!-- quantity -->
-          <lbk-input-array
-            [parent]="parent"
-            [groupName]="groupName"
-            [arrayName]="arrayName"
-            controlName="quantity"
-            placeHolder="1"
-            label="Qty."
-          ></lbk-input-array>
-          <!-- end quantity -->
+      <!-- quantity -->
+      <lbk-input-array
+        [parent]="parent"
+        [groupName]="groupName"
+        [arrayName]="arrayName"
+        controlName="quantity"
+        placeHolder="1"
+        label="Qty."
+        class="col-span-1"
+      ></lbk-input-array>
+      <!-- end quantity -->
 
-          <!-- price -->
-          <lbk-input-array
-            [parent]="parent"
-            [groupName]="groupName"
-            [arrayName]="arrayName"
-            controlName="price"
-            placeHolder="100"
-            label="Price"
-          ></lbk-input-array>
-          <!-- end price -->
+      <!-- price -->
+      <lbk-input-array
+        [parent]="parent"
+        [groupName]="groupName"
+        [arrayName]="arrayName"
+        controlName="price"
+        placeHolder="100"
+        label="Price"
+        class="col-span-2"
+      ></lbk-input-array>
+      <!-- end price -->
 
-          <!-- total -->
-          <lbk-item-total-input
-            [arrayName]="arrayName"
-            [groupName]="groupName"
-            [parent]="parent"
-          >
-          </lbk-item-total-input>
-          <!-- end total -->
-        </div>
+      <!-- total -->
+      <lbk-item-total-input
+        [arrayName]="arrayName"
+        [groupName]="groupName"
+        [parent]="parent"
+        class="col-span-2"
+      >
+      </lbk-item-total-input>
+      <!-- end total -->
 
-        <!-- delete button -->
-        <lbk-delete-invoice-item-button
-          (click)="delete.emit()"
-          class="block mt-5"
-        ></lbk-delete-invoice-item-button>
-        <!-- end delete button -->
-      </div>
+      <!-- delete button -->
+      <lbk-delete-invoice-item-button
+        (click)="delete.emit()"
+        class="col-span-1 place-self-center"
+      ></lbk-delete-invoice-item-button>
+      <!-- end delete button -->
     </div>
   </div>
 </div>

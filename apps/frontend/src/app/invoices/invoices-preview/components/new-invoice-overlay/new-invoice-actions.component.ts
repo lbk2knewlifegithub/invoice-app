@@ -8,7 +8,7 @@ import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output } from
         class="flex gap-2 items-center justify-end sm:justify-between"
       >
         <!-- discard button -->
-        <button (click)="discard.emit()" class="btn btn-basic">Discard</button>
+        <button (click)="discard.emit()" class="btn btn-basic dark:bg-[#F9FAFE] dark:text-muted-700">Discard</button>
         <!-- end discard button -->
 
         <div class="flex gap-2">

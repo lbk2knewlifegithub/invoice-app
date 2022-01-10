@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { LayoutActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/reducers";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
@@ -7,16 +8,33 @@ import { Observable } from "rxjs";
   selector: "lbk-root",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <lbk-header [openOverlay]="(openOverlay$ | async)!"></lbk-header>
+    <lbk-header
+      [darkTheme]="(darkTheme$ | async)!"
+      (toDarkTheme)="toDarkTheme()"
+      (toLightTheme)="toLightTheme()"
+      [openOverlay]="(openOverlay$ | async)!"
+    ></lbk-header>
+
     <router-outlet></router-outlet>
     <!-- <lbk-footer></lbk-footer> -->
   `,
 })
 export class AppComponent implements OnInit {
   openOverlay$!: Observable<boolean>;
+  darkTheme$!: Observable<boolean>;
 
   constructor(private readonly _store: Store) {}
+
   ngOnInit(): void {
     this.openOverlay$ = this._store.select(fromRoot.selectShowOverlay);
+    this.darkTheme$ = this._store.select(fromRoot.selectDarkThem);
+
+    this._store.dispatch(LayoutActions.loadTheme());
+  }
+  toDarkTheme() {
+    this._store.dispatch(LayoutActions.toDarkTheme());
+  }
+  toLightTheme() {
+    this._store.dispatch(LayoutActions.toLightTheme());
   }
 }

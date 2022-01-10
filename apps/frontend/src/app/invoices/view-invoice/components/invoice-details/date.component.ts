@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="space-y-3">
-      <span class="text-muted-900">{{ title | titlecase }}</span>
+      <span class="text-muted-900 dark:text-muted-800">{{ title | titlecase }}</span>
       <h4>{{ date | date: 'dd-MMM-yyyy' }}</h4>
     </div>
   `,

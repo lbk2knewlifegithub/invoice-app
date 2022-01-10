@@ -3,14 +3,14 @@ import {
   NgModule,
   Optional,
   SkipSelf
-} from '@angular/core';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../../environments/environment';
-import { InvoicesEffects } from './effects';
-import { metaReducers, ROOT_REDUCERS } from './reducers';
+} from "@angular/core";
+import { EffectsModule } from "@ngrx/effects";
+import { StoreRouterConnectingModule } from "@ngrx/router-store";
+import { StoreModule } from "@ngrx/store";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../../environments/environment";
+import { InvoicesEffects, LayoutEffects } from "./effects";
+import { metaReducers, ROOT_REDUCERS } from "./reducers";
 
 @NgModule({
   imports: [
@@ -25,7 +25,7 @@ import { metaReducers, ROOT_REDUCERS } from './reducers';
         strictActionWithinNgZone: true,
       },
     }),
-    EffectsModule.forRoot([InvoicesEffects]),
+    EffectsModule.forRoot([InvoicesEffects, LayoutEffects]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
@@ -48,7 +48,7 @@ export class StateModule {
   ) {
     if (parentModule) {
       throw new Error(
-        'StateModule is already loaded. Import it in the AppModule only'
+        "StateModule is already loaded. Import it in the AppModule only"
       );
     }
   }

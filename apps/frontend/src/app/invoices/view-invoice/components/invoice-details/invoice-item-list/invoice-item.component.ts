@@ -11,7 +11,7 @@ import { Item, PriceOptions } from '@lbk/models';
         <p class="font-bold">{{item.name}}</p>
         <!-- end name -->
 
-        <div class="text-muted-900 font-bold flex gap-1 items-center">
+        <div class="text-muted-900 font-bold flex gap-1 items-center dark:text-muted-700">
           <!-- quantity -->
           <span>{{item.quantity}}</span>
           <!-- end quantity -->

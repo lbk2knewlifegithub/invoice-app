@@ -27,6 +27,7 @@ import * as fromRoot from "../../../state/reducers";
 export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   showEditOverlay$!: Observable<boolean>;
   invoice$!: Observable<Invoice | null | "" | undefined>;
+
   constructor(
     private readonly _store: Store,
     private readonly _route: ActivatedRoute
