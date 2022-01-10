@@ -65,7 +65,7 @@
     <lbk-send-to class="md:hidden" [email]="invoice.clientEmail"></lbk-send-to>
     <!-- end send to -->
 
-    <div class="overflow-hidden rounded-lg">
+    <div *ngIf="invoice.items.length > 0" class="overflow-hidden rounded-lg">
       <lbk-invoice-item-list [items]="invoice.items"></lbk-invoice-item-list>
       <lbk-grand-total [grandTotal]="invoice.total"></lbk-grand-total>
     </div>

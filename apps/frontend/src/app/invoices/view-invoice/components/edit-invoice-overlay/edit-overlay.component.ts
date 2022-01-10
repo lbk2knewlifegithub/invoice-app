@@ -56,6 +56,8 @@ export class EditOverlayComponent {
     );
 
     this.edit.emit({ id: this.invoice.id, updateInvoiceDto });
+
+    this.invoiceFormComponent.initForm(true);
   }
 
   onCancel() {
@@ -73,23 +75,6 @@ export class EditOverlayComponent {
       return;
     }
     this.cancel.emit();
-  }
-
-  onGoBack() {
-    if (this.invoiceForm.dirty) {
-      this._dialogService
-        .confirmDeactivate()
-        .pipe(take(1))
-        .subscribe((confirm) => {
-          if (confirm) {
-            this.goBack.emit();
-          }
-        });
-
-      return;
-    }
-
-    this.goBack.emit();
   }
 
   get invoiceForm(): FormGroup {

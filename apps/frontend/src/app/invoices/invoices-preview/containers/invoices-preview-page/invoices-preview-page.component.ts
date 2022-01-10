@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from "@angular/core";
 import {
   InvoicesPreviewPageActions,
   LayoutActions
@@ -8,6 +8,7 @@ import { CreateInvoiceDto, FilterDto } from "@lbk/dto";
 import { Invoice } from "@lbk/models";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
+import { NewInvoiceOverlayComponent } from "../../components/new-invoice-overlay";
 
 @Component({
   selector: "lbk-invoice-preview-page",
@@ -19,6 +20,9 @@ export class InvoicePreviewPageComponent implements OnInit {
   invoices$!: Observable<Invoice[]>;
   totalInvoices$!: Observable<number>;
   searchStatus$!: Observable<string[]>;
+
+  @ViewChild(NewInvoiceOverlayComponent)
+  newInvoiceOverlayComponent!: NewInvoiceOverlayComponent;
 
   constructor(private readonly _store: Store) {}
 

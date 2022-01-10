@@ -1,8 +1,7 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { InvoiceFormGuard } from "@frontend/shared/components/guards";
 import { ViewInvoicePageComponent } from "./containers";
-import { InvoiceExistsGuard } from "./guards";
+import { InvoiceExistsGuard, InvoiceFormGuard } from "./guards";
 
 const routes: Routes = [
   {

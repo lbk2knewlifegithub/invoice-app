@@ -43,6 +43,7 @@ export class NewInvoiceOverlayComponent {
   get invalid() {
     return this.invoiceForm.invalid;
   }
+
   onDiscard() {
     if (this.invoiceForm.dirty) {
       this._dialogService
@@ -65,7 +66,10 @@ export class NewInvoiceOverlayComponent {
   get invoiceForm(): FormGroup {
     return this.invoiceFormComponent.invoiceForm;
   }
+
   onCreate() {
+    this.invoiceForm.markAllAsTouched();
+
     if (this.invoiceForm.invalid) {
       this._dialogService.formInvalid().pipe(take(1)).subscribe();
       return;
@@ -76,6 +80,8 @@ export class NewInvoiceOverlayComponent {
   }
 
   onSaveAsDraft() {
+    this.invoiceForm.markAllAsTouched();
+
     if (this.invoiceForm.invalid) {
       this._dialogService.formInvalid().pipe(take(1)).subscribe();
       return;

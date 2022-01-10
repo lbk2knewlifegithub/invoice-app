@@ -7,16 +7,16 @@ import { LayoutActions } from "../actions";
 
 @Injectable()
 export class RouterEffects {
-  // autoCloseOverlay$ = createEffect(
-  //   () =>
-  //     this._actions$.pipe(
-  //       ofType(routerNavigatedAction),
-  //       tap(() => this._store.dispatch(LayoutActions.closeAllOverlay()))
-  //     ),
-  //   {
-  //     dispatch: false,
-  //   }
-  // );
+  autoCloseOverlay$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(routerNavigatedAction),
+        tap(() => this._store.dispatch(LayoutActions.closeAllOverlay()))
+      ),
+    {
+      dispatch: false,
+    }
+  );
 
   constructor(
     private readonly _actions$: Actions,

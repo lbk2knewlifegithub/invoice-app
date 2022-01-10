@@ -24,7 +24,6 @@ import { EditOverlayComponent } from "../components/edit-invoice-overlay";
       <lbk-edit-overlay
         [invoice]="invoice"
         [open]="(showEditOverlay$ | async)!"
-        (goBack)="onEditGoBack()"
         (cancel)="onEditCancel()"
         (edit)="edit($event)"
       ></lbk-edit-overlay>
@@ -56,10 +55,6 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
 
     this.showEditOverlay$ = this._store.select(fromRoot.selectShowEditOverlay);
     this.invoice$ = this._store.select(fromRoot.selectSelectedInvoice);
-  }
-
-  onEditGoBack() {
-    this._store.dispatch(LayoutActions.closeAllOverlay());
   }
 
   onEditCancel() {

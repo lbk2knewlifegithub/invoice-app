@@ -33,7 +33,7 @@ export class InvoiceFormComponent implements OnInit {
     const { billFrom, billTo, items } = this.invoiceForm.value;
     let { createdAt, paymentTerms } = billTo;
 
-    const createdAtFormatted = (createdAt as Date).toISOString();
+    const createdAtFormatted = this.formatDate(createdAt);
     const paymentDue = addDays(createdAtFormatted, paymentTerms);
 
     delete billTo.createdAt;
@@ -46,6 +46,14 @@ export class InvoiceFormComponent implements OnInit {
       ...billTo,
       items,
     };
+  }
+
+  private formatDate(date: any) {
+    try {
+      return (date as Date).toISOString();
+    } catch (error) {
+      return date;
+    }
   }
 
   private total(items: Item[]): number {
