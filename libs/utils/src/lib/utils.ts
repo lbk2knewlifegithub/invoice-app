@@ -1,5 +1,3 @@
-export function addDays(date: string, days: number): string {
-  const result = new Date(date);
-  result.setDate(result.getDate() + days);
-  return result.toDateString();
+export function addDays(date: string, days: number) {
+  return new Date(new Date(date).getTime() + days * 86_400_000).toISOString();
 }

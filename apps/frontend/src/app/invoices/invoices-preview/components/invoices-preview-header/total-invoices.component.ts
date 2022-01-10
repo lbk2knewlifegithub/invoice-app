@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div>
-      <h2 class="md:text-3xl">Invoices</h2>
+      <h1 class="text-2xl md:text-3xl">Invoices</h1>
 
       <div class="text-muted-700 dark:text-muted-800">
         <p [hidden]="!noInvoices">No invoices</p>
@@ -22,6 +22,7 @@ export class TotalInvoicesComponent {
   @Input() searchStatus!: string[];
 
   get noInvoices() {
+
     return this.total === 0;
   }
 

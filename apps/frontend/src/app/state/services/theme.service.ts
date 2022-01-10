@@ -20,10 +20,6 @@ export class ThemeService {
     );
   }
 
-  toggle()  {
-
-  }
-
   toDarkTheme() {
     this.storage.setItem(this.themeKey, "true");
     document.body.classList.add("dark");

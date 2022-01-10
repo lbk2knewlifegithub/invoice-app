@@ -41,7 +41,7 @@ export class EditOverlayComponent {
   }>();
 
   onSaveChanges() {
-    const updateInvoiceDto = this.invoiceForm.invoiceDto;
+    const updateInvoiceDto = this.invoiceForm.createInvoiceDto();
     this.edit.emit({ id: this.invoice.id, updateInvoiceDto });
   }
 }

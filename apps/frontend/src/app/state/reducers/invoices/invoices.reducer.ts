@@ -35,9 +35,7 @@ export const reducer = createReducer(
     InvoicesAPIActions.createInvoiceSuccess,
     (state, { invoice }) => adapter.addOne(invoice, state)
   ),
-  on(InvoicesAPIActions.deleteInvoiceSuccess, (state, { id }) =>
-    adapter.removeOne(id, state)
-  ),
+  on(InvoicesAPIActions.deleteInvoiceSuccess, (state, { id }) => adapter.removeOne(id, state)),
   on(InvoicesAPIActions.maskAsPaidSuccess, (state, { id }) =>
     adapter.updateOne({ id, changes: { status: 'paid' } }, state)
   ),

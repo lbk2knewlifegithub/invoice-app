@@ -9,7 +9,7 @@ import {
   LayoutActions,
   ViewInvoicePageActions
 } from '../actions';
-import { InvoicesFakeService, InvoicesService } from '../services';
+import { InvoicesStorageService, InvoicesService } from '../services';
 
 @Injectable({ providedIn: 'root' })
 export class InvoicesEffects {
@@ -18,9 +18,7 @@ export class InvoicesEffects {
       ofType(InvoicesPreviewPageActions.enter),
       exhaustMap(() =>
         this._invoicesService.getInvoices().pipe(
-          map((invoices) =>
-            InvoicesAPIActions.loadInvoicesSuccess({ invoices })
-          ),
+          map((invoices) => InvoicesAPIActions.loadInvoicesSuccess({ invoices })),
           catchError((error) =>
             of(InvoicesAPIActions.loadInvoicesFailure({ error }))
           )
@@ -96,7 +94,7 @@ export class InvoicesEffects {
 
   constructor(
     private readonly _actions$: Actions,
-    @Inject(InvoicesFakeService)
+    @Inject(InvoicesStorageService)
     private readonly _invoicesService: InvoicesService,
     private readonly _store: Store,
     private readonly _router: Router

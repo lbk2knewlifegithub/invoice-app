@@ -1,0 +1,32 @@
+<main class="pt-8 md:pt-14 lg:pt-[72px] lg:grid lg:place-content-center">
+  <div class="container max-w-[730px] lg:h-full lg:min-w-[730px]">
+    <lbk-invoices-preview-header
+      [searchStatus]="(searchStatus$ | async)!"
+      (filter)="filter($event)"
+      (newInvoice)="newInvoice()"
+      [total]="(totalInvoices$ | async)!"
+    ></lbk-invoices-preview-header>
+
+    <ng-container *ngIf="invoices$ | async as invoices">
+      <lbk-invoice-preview-list
+        class="block mt-8 md:mt-14 lg:mt-16"
+        *ngIf="invoices.length > 0; else noInvoices"
+        [invoices]="invoices"
+      ></lbk-invoice-preview-list>
+
+      <ng-template #noInvoices>
+        <lbk-no-invoices class="block mt-[102px]"></lbk-no-invoices>
+      </ng-template>
+    </ng-container>
+  </div>
+</main>
+
+<!-- new invoice overlay -->
+<lbk-new-invoice-overlay
+  (goBack)="goBack()"
+  (create)="create($event)"
+  (saveAsDraft)="create($event)"
+  (discard)="discard()"
+  [open]="(showNewInvoiceOverlay$ | async)!"
+></lbk-new-invoice-overlay>
+<!-- end new invoice overlay -->

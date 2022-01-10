@@ -1,1 +1,1 @@
-export * from './invoices-preview-page.component';
+export * from './invoices-preview-page/invoices-preview-page.component';

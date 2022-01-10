@@ -27,9 +27,7 @@ export class InvoiceExistsGuard implements CanActivate {
 
   hasInvoiceInApi(id: string): Observable<boolean> {
     return this._invoicesService.retrieveInvoice(id).pipe(
-      map((invoiceEntity) =>
-        InvoiceActions.loadInvoice({ invoice: invoiceEntity })
-      ),
+      map((invoiceEntity) => InvoiceActions.loadInvoice({ invoice: invoiceEntity })),
       tap((action) => this._store.dispatch(action)),
       map((invoice) => !!invoice),
       catchError(() => {
