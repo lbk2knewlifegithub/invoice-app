@@ -1,23 +1,23 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { LoginFormComponent } from "@frontend/auth/login/components";
-import { LoginPageComponent } from "@frontend/auth/login/containers";
 import { SharedModule } from "@frontend/shared";
 import { UIModule } from "@lbk/ui";
-import { LoginRoutingModule } from "./login-routing.module";
+import { SignUpFormComponent } from "./components";
+import { SignUpPageComponent } from "./containers";
+import { SignUpRoutingModule } from "./sign-up-routing.module";
 
-const COMPONENTS = [LoginFormComponent];
-const CONTAINERS = [LoginPageComponent];
+const COMPONENTS = [SignUpFormComponent];
+const CONTAINERS = [SignUpPageComponent];
 
 @NgModule({
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    LoginRoutingModule,
+    SignUpRoutingModule,
     SharedModule,
     UIModule,
   ],
   declarations: [CONTAINERS, COMPONENTS],
 })
-export class LoginModule {}
+export class SignUpModule {}

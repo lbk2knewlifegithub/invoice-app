@@ -23,6 +23,11 @@ const routes: Routes = [
           ),
         data: { animation: "Invoice" },
       },
+      {
+        path: "",
+        redirectTo: "/invoices",
+        pathMatch: "full",
+      },
     ],
   },
 
@@ -32,7 +37,12 @@ const routes: Routes = [
     data: { title: "Login" },
   },
   {
-    path: "",
+    path: "sign-up",
+    loadChildren: () => import("@frontend/auth").then((m) => m.SignUpModule),
+    data: { title: "Sign Up" },
+  },
+  {
+    path: "**",
     redirectTo: "/invoices",
     pathMatch: "full",
   },
