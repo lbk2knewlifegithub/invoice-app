@@ -1,12 +1,27 @@
 import { Injectable } from "@angular/core";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 import { routerNavigatedAction } from "@ngrx/router-store";
+import { Title } from "@angular/platform-browser";
+import * as fromRoot from "@frontend/state/selectors";
 import { Store } from "@ngrx/store";
-import { tap } from "rxjs";
+import { map, tap } from "rxjs";
 import { LayoutActions } from "../actions";
 
 @Injectable()
 export class RouterEffects {
+  updateTitle$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(routerNavigatedAction),
+        concatLatestFrom(() => this._store.select(fromRoot.selectRouteData)),
+        map(([, data]) => `Invoices - ${data["title"]}`),
+        tap((title) => this._titleService.setTitle(title))
+      ),
+    {
+      dispatch: false,
+    }
+  );
+
   autoCloseOverlay$ = createEffect(
     () =>
       this._actions$.pipe(
@@ -20,6 +35,7 @@ export class RouterEffects {
 
   constructor(
     private readonly _actions$: Actions,
-    private readonly _store: Store
+    private readonly _store: Store,
+    private readonly _titleService: Title
   ) {}
 }

@@ -1,9 +1,14 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewChild } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild
+} from "@angular/core";
 import {
   InvoicesPreviewPageActions,
   LayoutActions
 } from "@frontend/state/actions";
-import * as fromRoot from "@frontend/state/reducers";
+import * as fromRoot from "@frontend/state/selectors";
 import { CreateInvoiceDto, FilterDto } from "@lbk/dto";
 import { Invoice } from "@lbk/models";
 import { Store } from "@ngrx/store";

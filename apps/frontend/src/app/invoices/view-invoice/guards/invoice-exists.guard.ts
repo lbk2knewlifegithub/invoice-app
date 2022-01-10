@@ -8,7 +8,7 @@ import { Store } from "@ngrx/store";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, take, tap } from "rxjs/operators";
 import { InvoiceActions } from "../../../state/actions";
-import * as fromRoot from "../../../state/reducers";
+import * as fromRoot from "@frontend/state/selectors";
 
 @Injectable({
   providedIn: "root",

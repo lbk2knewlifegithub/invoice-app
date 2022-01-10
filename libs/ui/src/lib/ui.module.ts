@@ -25,6 +25,7 @@ const COMPONENTS = [
   fromDialogs.ConfirmDeleteDialogComponent,
   fromDialogs.ConfirmDeactivateDialogComponent,
   fromDialogs.FormInvalidDialog,
+  fromDialogs.LogoutConfirmationDialogComponent,
   MaskAsPaidSnackBarComponent,
   InvoiceStatusComponent,
   GoBackComponent,

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { LayoutActions, ViewInvoicePageActions } from "@frontend/state/actions";
-import * as fromRoot from "@frontend/state/reducers";
+import * as fromRoot from "@frontend/state/selectors";
 import { Invoice } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { Store } from "@ngrx/store";

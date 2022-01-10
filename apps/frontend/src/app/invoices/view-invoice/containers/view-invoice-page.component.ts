@@ -11,7 +11,7 @@ import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { map, Observable } from "rxjs";
 import { LayoutActions, ViewInvoicePageActions } from "../../../state/actions";
-import * as fromRoot from "../../../state/reducers";
+import * as fromRoot from "@frontend/state/selectors";
 import { EditOverlayComponent } from "../components/edit-invoice-overlay";
 
 @Component({

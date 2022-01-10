@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts"],
+  "include": ["**/*.ts", "../../libs/ui/src/lib/components/dialogs/logout-confirmation-dialog.component.ts", "../../libs/ui/src/lib/components/dialogs/logout-confirmation-dialog.component.spec.ts"],
   "compilerOptions": {
     "types": ["jest", "node"]
   }
