@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@angular/core";
-import { LOCAL_STORAGE_TOKEN } from "@frontend/invoices/constants";
+import { LOCAL_STORAGE_TOKEN } from "@frontend/constants";
 import { Observable, of, throwError } from "rxjs";
 import { map } from "rxjs/operators";
 

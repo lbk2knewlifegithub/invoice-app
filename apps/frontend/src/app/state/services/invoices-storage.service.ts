@@ -1,5 +1,5 @@
 import { Inject, Injectable } from "@angular/core";
-import { LOCAL_STORAGE_TOKEN } from "@frontend/invoices/constants";
+import { LOCAL_STORAGE_TOKEN } from "@frontend/constants";
 import * as fromData from "@frontend/shared/data";
 import { CreateInvoiceDto, UpdateInvoiceDto } from "@lbk/dto";
 import { Invoice } from "@lbk/models";

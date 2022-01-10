@@ -10,7 +10,7 @@ import * as fromRoot from "../../../state/reducers";
   selector: "lbk-selected-invoice-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <main
+    <div
       *ngIf="invoice$ | async as invoice"
       class="pt-8 md:pt-14 lg:pt-16 lg:grid lg:place-content-center "
     >
@@ -32,7 +32,7 @@ import * as fromRoot from "../../../state/reducers";
         (delete)="delete(invoice.id)"
         (maskAsPaid)="maskAsPaid(invoice.id)"
       ></lbk-invoice-details-actions>
-    </main>
+    </div>
   `,
 })
 export class SelectedInvoicePageComponent implements OnInit {
@@ -66,5 +66,4 @@ export class SelectedInvoicePageComponent implements OnInit {
   maskAsPaid(id: string) {
     this._store.dispatch(ViewInvoicePageActions.maskAsPaid({ id }));
   }
-
 }

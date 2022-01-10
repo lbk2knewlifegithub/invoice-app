@@ -1,9 +1,12 @@
-import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmDeleteDialogComponent } from '@lbk/ui';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
+import {
+  ConfirmDeactivateDialogComponent,
+  ConfirmDeleteDialogComponent
+} from "@lbk/ui";
+import { Observable } from "rxjs";
 
-@Injectable({ providedIn: 'root' })
+@Injectable({ providedIn: "root" })
 export class DialogService {
   constructor(private readonly _dialog: MatDialog) {}
 
@@ -11,8 +14,14 @@ export class DialogService {
     return this._dialog
       .open(ConfirmDeleteDialogComponent, {
         data: id,
-        panelClass: 'delete-dialog',
+        disableClose: true,
       })
+      .afterClosed();
+  }
+
+  confirmDeactivate(): Observable<boolean> {
+    return this._dialog
+      .open(ConfirmDeactivateDialogComponent, { data: "", disableClose: true })
       .afterClosed();
   }
 }

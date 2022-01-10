@@ -21,6 +21,7 @@ const COMPONENTS = [
   fromForm.InputArrayComponent,
   fromForm.InputComponent,
   fromDialogs.ConfirmDeleteDialogComponent,
+  fromDialogs.ConfirmDeactivateDialogComponent,
   InvoiceStatusComponent,
   GoBackComponent,
   InvoiceIdComponent,

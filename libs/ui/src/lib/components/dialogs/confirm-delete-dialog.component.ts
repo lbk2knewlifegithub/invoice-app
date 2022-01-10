@@ -9,8 +9,8 @@ import { MAT_DIALOG_DATA } from "@angular/material/dialog";
       <div class="space-y-2">
         <h3 class="text-fill-900">Confirm Deletion</h3>
         <p class="text-muted-900">
-          Are you sure you want delete invoice #{{ id }}? This action cannot be
-          undone.
+          Are you sure you want delete invoice
+          <strong>#{{ id | uppercase }}</strong> ? This action cannot be undone.
         </p>
       </div>
 

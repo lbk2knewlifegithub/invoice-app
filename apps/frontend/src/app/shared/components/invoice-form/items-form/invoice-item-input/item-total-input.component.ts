@@ -3,13 +3,13 @@ import {
   Component,
   OnDestroy,
   OnInit
-} from '@angular/core';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
-import { FormGroupComponent } from '@lbk/ui';
-import { combineLatestWith, of } from 'rxjs';
+} from "@angular/core";
+import { FormArray, FormControl, FormGroup } from "@angular/forms";
+import { FormGroupComponent } from "@lbk/ui";
+import { combineLatest, combineLatestWith, of, take } from "rxjs";
 
 @Component({
-  selector: 'lbk-item-total-input',
+  selector: "lbk-item-total-input",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <lbk-input-array
@@ -28,16 +28,27 @@ export class ItemTotalInputComponent
   implements OnInit, OnDestroy
 {
   ngOnInit(): void {
+    this.appendSub = combineLatest([
+      this.price.valueChanges,
+      this.quantity.valueChanges,
+    ]).subscribe(([price, quantity]) => {
+      this.setTotal(price, quantity);
+    });
+
     this.appendSub = this.quantity.valueChanges
-      .pipe(combineLatestWith(of(this.price.value)))
+      .pipe(combineLatestWith(of(this.price.value)), take(1))
       .subscribe(([quantity, price]) => {
+        this.price.setValue(price);
+        this.quantity.setValue(quantity);
         this.setTotal(quantity, price);
       });
 
     this.appendSub = this.price.valueChanges
-      .pipe(combineLatestWith(of(this.quantity.value)))
+      .pipe(combineLatestWith(of(this.quantity.value)), take(1))
       .subscribe(([price, quantity]) => {
-        this.setTotal(quantity, price);
+        this.price.setValue(price);
+        this.quantity.setValue(quantity);
+        this.setTotal(price, quantity);
       });
   }
 
@@ -46,22 +57,22 @@ export class ItemTotalInputComponent
   }
 
   get current(): FormControl {
-    return this.itemGroup.get('total') as FormControl;
+    return this.itemGroup.get("total") as FormControl;
   }
 
   get itemGroup(): FormGroup {
-    return this.items.get(this.groupName + '') as FormGroup;
+    return this.items.get(this.groupName + "") as FormGroup;
   }
 
   get price(): FormControl {
-    return this.itemGroup.get('price') as FormControl;
+    return this.itemGroup.get("price") as FormControl;
   }
 
   get quantity(): FormControl {
-    return this.itemGroup.get('quantity') as FormControl;
+    return this.itemGroup.get("quantity") as FormControl;
   }
 
   get items(): FormArray {
-    return this.parent.get('items') as FormArray;
+    return this.parent.get("items") as FormArray;
   }
 }

@@ -8,6 +8,7 @@ import { Component, EventEmitter, Input, Output } from "@angular/core";
         class="h-4 w-4 rounded-sm border text-primary-900 border-muted-900 mr-2 cursor-pointer checked:text-primary-900 checked:bg-primary-900 focus:ring-0 dark:border-primary-900"
         type="checkbox"
         (click)="onClick()"
+        [id]="label"
         [checked]="checked"
       />
 

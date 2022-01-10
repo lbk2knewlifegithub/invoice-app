@@ -12,16 +12,17 @@ import * as fromRoot from "../../../state/reducers";
   selector: "lbk-view-invoice-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <lbk-selected-invoice-page></lbk-selected-invoice-page>
+    <main *ngIf="invoice$ | async as invoice">
+      <lbk-selected-invoice-page></lbk-selected-invoice-page>
 
-    <lbk-edit-overlay
-      *ngIf="invoice$ | async as invoice"
-      [invoice]="invoice"
-      [open]="(showEditOverlay$ | async)!"
-      (goBack)="onEditGoBack()"
-      (cancel)="onEditCancel()"
-      (edit)="edit($event)"
-    ></lbk-edit-overlay>
+      <lbk-edit-overlay
+        [invoice]="invoice"
+        [open]="(showEditOverlay$ | async)!"
+        (goBack)="onEditGoBack()"
+        (cancel)="onEditCancel()"
+        (edit)="edit($event)"
+      ></lbk-edit-overlay>
+    </main>
   `,
 })
 export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
@@ -36,9 +37,6 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   }
 
   ngOnInit(): void {
-    this.showEditOverlay$ = this._store.select(fromRoot.selectShowEditOverlay);
-    this.invoice$ = this._store.select(fromRoot.selectSelectedInvoice);
-
     this.appendSub = this._route.params
       .pipe(
         map((params) =>
@@ -46,6 +44,9 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
         )
       )
       .subscribe((action) => this._store.dispatch(action));
+
+    this.showEditOverlay$ = this._store.select(fromRoot.selectShowEditOverlay);
+    this.invoice$ = this._store.select(fromRoot.selectSelectedInvoice);
   }
 
   onEditGoBack() {

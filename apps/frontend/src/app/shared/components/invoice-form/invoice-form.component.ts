@@ -23,21 +23,15 @@ export class InvoiceFormComponent implements OnInit {
 
   ngOnInit(): void {
     this._initForm();
-
-    setTimeout(() => {
-      this.createInvoiceDto();
-    }, 300);
   }
 
-  createInvoiceDto(
-    newStatus: Status | undefined = undefined
-  ): UpdateInvoiceDto | CreateInvoiceDto {
-    const { billFrom, billTo, items, status } = this.invoiceForm.value;
+  createInvoiceDto(newStatus: Status): UpdateInvoiceDto | CreateInvoiceDto {
+    const { billFrom, billTo, items } = this.invoiceForm.value;
     const { createdAt, paymentTerms } = billTo;
 
     return {
       senderAddress: billFrom,
-      status: newStatus ?? status,
+      status: newStatus,
       paymentDue: addDays(createdAt, paymentTerms),
       total: this.total(items),
       ...billTo,
@@ -62,6 +56,7 @@ export class InvoiceFormComponent implements OnInit {
       country: [country ?? "", [Validators.required, Validators.maxLength(20)]],
     });
   }
+
   private get _initBillTo(): FormGroup {
     const { clientName, clientEmail, createdAt, paymentTerms, description } =
       this.invoice || {};
