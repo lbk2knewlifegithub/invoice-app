@@ -5,10 +5,19 @@ import {
   ConfirmDeleteDialogComponent
 } from "@lbk/ui";
 import { Observable } from "rxjs";
+import { FormInvalidDialog } from "../components";
 
 @Injectable({ providedIn: "root" })
 export class DialogService {
   constructor(private readonly _dialog: MatDialog) {}
+
+  formInvalid(): Observable<boolean> {
+    return this._dialog
+      .open(FormInvalidDialog, {
+        disableClose: true,
+      })
+      .afterClosed();
+  }
 
   deleteDialog(id: string): Observable<boolean> {
     return this._dialog
@@ -21,7 +30,7 @@ export class DialogService {
 
   confirmDeactivate(): Observable<boolean> {
     return this._dialog
-      .open(ConfirmDeactivateDialogComponent, { data: "", disableClose: true })
+      .open(ConfirmDeactivateDialogComponent, { disableClose: true })
       .afterClosed();
   }
 }

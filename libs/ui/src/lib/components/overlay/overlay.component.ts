@@ -29,7 +29,7 @@ import { fromEvent, Subscription } from "rxjs";
 })
 export class OverlayComponent implements OnInit, OnDestroy {
   @Input() open!: boolean;
-  @Output() goBack = new EventEmitter<void>();
+  @Output() closed = new EventEmitter<void>();
   clicks$ = fromEvent(document, "click");
 
   subscription!: Subscription;
@@ -39,7 +39,7 @@ export class OverlayComponent implements OnInit, OnDestroy {
       const target = event.target as HTMLElement;
       const matches = target.matches(".overlay");
       if (matches) {
-        this.goBack.emit();
+        this.closed.emit();
       }
     });
   }

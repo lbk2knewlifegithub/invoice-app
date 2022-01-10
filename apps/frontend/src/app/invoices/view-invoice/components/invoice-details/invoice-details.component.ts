@@ -12,4 +12,9 @@ export class InvoiceDetailsComponent {
   @Output() edit = new EventEmitter<void>();
   @Output() delete = new EventEmitter<void>();
   @Output() maskAsPaid = new EventEmitter<void>();
+
+  onMaskAsPaid(){
+    if(this.invoice.status === "paid") return;
+    this.maskAsPaid.emit();
+  }
 }

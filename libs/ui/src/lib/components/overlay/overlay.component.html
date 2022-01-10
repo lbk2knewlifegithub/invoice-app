@@ -2,21 +2,19 @@
   *ngIf="open"
   @fadeInOnEnter
   @fadeOutOnLeave
-  class="overlay fixed inset-0 top-[72px] w-full h-full  md:top-[80px] z-10 bg-black/40 lg:top-0"
+  class="overlay fixed inset-0 top-[72px] w-full h-full md:top-[80px] z-10 bg-black/40 lg:top-0"
 >
   <div
     @fadeInLeftOnEnter
     @fadeOutLeftOnLeave
-    class="inline-block  bg-white sm:rounded-r-[20px] lg:pl-[103px] sm:pr-6 dark:bg-fill"
+    class="inline-block bg-white sm:rounded-r-[20px] lg:pl-[103px] sm:pr-6 dark:bg-fill"
   >
-    <div class="h-[calc(100vh-72px)] md:h-[calc(100vh-80px)]  overflow-y-scroll lg:h-screen">
+    <div
+      class="h-[calc(100vh-72px)] md:h-[calc(100vh-80px)] overflow-y-scroll lg:h-screen"
+    >
       <div class="px-6 pt-8 max-w-[616px] lg:p-14 lg:pb-4">
         <!-- back button -->
-        <lbk-go-back
-          class="lg:hidden"
-          [navigation]="false"
-          (click)="goBack.emit()"
-        ></lbk-go-back>
+        <lbk-go-back class="lg:hidden" (click)="closed.emit()"></lbk-go-back>
         <!-- end back button -->
 
         <!-- panel -->

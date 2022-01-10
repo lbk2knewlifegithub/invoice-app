@@ -1,5 +1,6 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   Input,
   OnInit
@@ -19,20 +20,28 @@ export class InvoiceFormComponent implements OnInit {
 
   invoiceForm!: FormGroup;
 
-  constructor(private readonly _fb: FormBuilder) {}
+  constructor(
+    private readonly _fb: FormBuilder,
+    private readonly _cd: ChangeDetectorRef
+  ) {}
 
   ngOnInit(): void {
-    this._initForm();
+    this.initForm();
   }
 
   createInvoiceDto(newStatus: Status): UpdateInvoiceDto | CreateInvoiceDto {
     const { billFrom, billTo, items } = this.invoiceForm.value;
-    const { createdAt, paymentTerms } = billTo;
+    let { createdAt, paymentTerms } = billTo;
 
+    const createdAtFormatted = (createdAt as Date).toISOString();
+    const paymentDue = addDays(createdAtFormatted, paymentTerms);
+
+    delete billTo.createdAt;
     return {
       senderAddress: billFrom,
       status: newStatus,
-      paymentDue: addDays(createdAt, paymentTerms),
+      createdAt: createdAtFormatted,
+      paymentDue,
       total: this.total(items),
       ...billTo,
       items,
@@ -68,7 +77,7 @@ export class InvoiceFormComponent implements OnInit {
       ],
       clientEmail: [clientEmail ?? "", [Validators.required, Validators.email]],
       clientAddress: this._initAddress(this.invoice?.clientAddress),
-      createdAt: [createdAt ?? new Date(), [Validators.required]],
+      createdAt: [createdAt ?? new Date().toISOString(), [Validators.required]],
       paymentTerms: [
         paymentTerms ?? 30,
         [Validators.required, Validators.pattern(decimalRegex)],
@@ -115,12 +124,14 @@ export class InvoiceFormComponent implements OnInit {
     });
   }
 
-  private _initForm() {
+  initForm(maskForCheck: boolean = false) {
     this.invoiceForm = this._fb.group({
       billFrom: this._initAddress(this.invoice?.senderAddress),
       billTo: this._initBillTo,
       items: this._initItems,
     });
+
+    if (maskForCheck) this._cd.markForCheck();
   }
 
   get isEdit() {

@@ -2,6 +2,7 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { MatDialogModule } from "@angular/material/dialog";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { RouterModule } from "@angular/router";
 import {
   CheckboxComponent,
@@ -9,6 +10,7 @@ import {
   GoBackComponent,
   InvoiceIdComponent,
   InvoiceStatusComponent,
+  MaskAsPaidSnackBarComponent,
   OverlayComponent,
   PriceComponent
 } from "./components";
@@ -22,6 +24,8 @@ const COMPONENTS = [
   fromForm.InputComponent,
   fromDialogs.ConfirmDeleteDialogComponent,
   fromDialogs.ConfirmDeactivateDialogComponent,
+  fromDialogs.FormInvalidDialog,
+  MaskAsPaidSnackBarComponent,
   InvoiceStatusComponent,
   GoBackComponent,
   InvoiceIdComponent,
@@ -34,7 +38,13 @@ const COMPONENTS = [
 const DIRECTIVES = [ScrollToDirective];
 
 @NgModule({
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, MatDialogModule],
+  imports: [
+    CommonModule,
+    RouterModule,
+    ReactiveFormsModule,
+    MatDialogModule,
+    MatSnackBarModule,
+  ],
   providers: [DialogService],
   declarations: [COMPONENTS, DIRECTIVES],
   exports: [COMPONENTS, DIRECTIVES],

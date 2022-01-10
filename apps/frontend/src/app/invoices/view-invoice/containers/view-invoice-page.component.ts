@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+  ViewChild
+} from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 import { UpdateInvoiceDto } from "@lbk/dto";
 import { Invoice } from "@lbk/models";
@@ -7,6 +12,7 @@ import { Store } from "@ngrx/store";
 import { map, Observable } from "rxjs";
 import { LayoutActions, ViewInvoicePageActions } from "../../../state/actions";
 import * as fromRoot from "../../../state/reducers";
+import { EditOverlayComponent } from "../components/edit-invoice-overlay";
 
 @Component({
   selector: "lbk-view-invoice-page",
@@ -29,6 +35,9 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   showEditOverlay$!: Observable<boolean>;
   invoice$!: Observable<Invoice | null | "" | undefined>;
 
+  @ViewChild(EditOverlayComponent)
+  editOverLayComponent!: EditOverlayComponent;
+
   constructor(
     private readonly _store: Store,
     private readonly _route: ActivatedRoute
@@ -50,11 +59,11 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   }
 
   onEditGoBack() {
-    this._store.dispatch(LayoutActions.closeEditOverlay());
+    this._store.dispatch(LayoutActions.closeAllOverlay());
   }
 
   onEditCancel() {
-    this._store.dispatch(LayoutActions.closeEditOverlay());
+    this._store.dispatch(LayoutActions.closeAllOverlay());
   }
 
   edit({

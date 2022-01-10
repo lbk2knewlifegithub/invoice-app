@@ -36,7 +36,7 @@ export class InvoiceExistsGuard implements CanActivate {
       tap((action) => this._store.dispatch(action)),
       map((invoice) => !!invoice),
       catchError(() => {
-        this._router.navigate(["/404"]);
+        this._router.navigate(["/"]);
         return of(false);
       })
     );

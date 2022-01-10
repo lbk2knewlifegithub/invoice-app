@@ -6,7 +6,6 @@ import {
 import * as fromRoot from "@frontend/state/reducers";
 import { CreateInvoiceDto, FilterDto } from "@lbk/dto";
 import { Invoice } from "@lbk/models";
-import { DialogService } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
@@ -21,9 +20,7 @@ export class InvoicePreviewPageComponent implements OnInit {
   totalInvoices$!: Observable<number>;
   searchStatus$!: Observable<string[]>;
 
-  constructor(
-    private readonly _store: Store,
-  ) {}
+  constructor(private readonly _store: Store) {}
 
   ngOnInit(): void {
     this.invoices$ = this._store.select(fromRoot.selectSearchResult);
@@ -45,10 +42,7 @@ export class InvoicePreviewPageComponent implements OnInit {
   }
 
   discard() {
-    this._store.dispatch(LayoutActions.closeNewInvoiceOverlay());
-  }
-  goBack() {
-    this._store.dispatch(LayoutActions.closeNewInvoiceOverlay());
+    this._store.dispatch(LayoutActions.closeAllOverlay());
   }
 
   create(createInvoiceDto: CreateInvoiceDto) {

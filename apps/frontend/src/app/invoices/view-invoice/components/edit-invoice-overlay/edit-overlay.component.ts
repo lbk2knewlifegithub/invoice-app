@@ -7,17 +7,17 @@ import {
   ViewChild
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { InvoiceFormComponent } from "@frontend/shared/components";
 import { UpdateInvoiceDto } from "@lbk/dto";
 import { Invoice } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { take } from "rxjs";
-import { InvoiceFormComponent } from "../../../../shared/components/invoice-form/invoice-form.component";
 
 @Component({
   selector: "lbk-edit-overlay",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <lbk-overlay (goBack)="goBack.emit()" [open]="open">
+    <lbk-overlay (closed)="onCancel()" [open]="open">
       <lbk-invoice-form class="panel" [invoice]="invoice"></lbk-invoice-form>
 
       <div class="actions flex gap-2 items-center justify-end">
@@ -46,9 +46,15 @@ export class EditOverlayComponent {
   constructor(private readonly _dialogService: DialogService) {}
 
   onSaveChanges() {
+    if (this.invoiceForm.invalid) {
+      this._dialogService.formInvalid().pipe(take(1)).subscribe();
+      return;
+    }
+
     const updateInvoiceDto = this.invoiceFormComponent.createInvoiceDto(
       this.invoice.status
     );
+
     this.edit.emit({ id: this.invoice.id, updateInvoiceDto });
   }
 
@@ -60,13 +66,30 @@ export class EditOverlayComponent {
         .subscribe((confirm) => {
           if (confirm) {
             this.cancel.emit();
+            this.invoiceFormComponent.initForm(true);
+          }
+        });
+
+      return;
+    }
+    this.cancel.emit();
+  }
+
+  onGoBack() {
+    if (this.invoiceForm.dirty) {
+      this._dialogService
+        .confirmDeactivate()
+        .pipe(take(1))
+        .subscribe((confirm) => {
+          if (confirm) {
+            this.goBack.emit();
           }
         });
 
       return;
     }
 
-    this.cancel.emit();
+    this.goBack.emit();
   }
 
   get invoiceForm(): FormGroup {

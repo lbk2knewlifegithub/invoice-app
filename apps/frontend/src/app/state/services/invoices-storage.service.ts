@@ -31,7 +31,7 @@ export class InvoicesStorageService implements InvoicesService {
     return this.getInvoices().pipe(
       map((invoices) => invoices.find((invoice) => invoice.id === id)),
       tap((invoice) => {
-        if (!invoice) throwError(() => "Not founded");
+        if (!invoice) throw new Error("Not founded");
       }),
       map((invoice) => invoice!)
     );

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { LayoutActions, ViewInvoicePageActions } from "@frontend/state/actions";
+import * as fromRoot from "@frontend/state/reducers";
 import { Invoice } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { Observable, take } from "rxjs";
-import { LayoutActions, ViewInvoicePageActions } from "../../../state/actions";
-import * as fromRoot from "../../../state/reducers";
 
 @Component({
   selector: "lbk-selected-invoice-page",
@@ -15,7 +15,7 @@ import * as fromRoot from "../../../state/reducers";
       class="pt-8 md:pt-14 lg:pt-16 lg:grid lg:place-content-center "
     >
       <div class="container max-w-[730px] w-full md:min-w-[730px] lg:h-full">
-        <lbk-go-back></lbk-go-back>
+        <lbk-go-back routerLink="/"></lbk-go-back>
 
         <lbk-invoice-detail
           class="block mt-8"

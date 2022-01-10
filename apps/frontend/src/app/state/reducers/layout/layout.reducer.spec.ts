@@ -29,18 +29,6 @@ describe("Layout Reducer", () => {
   });
 
   describe("Edit Invoice Overlay", () => {
-    it("should close edit overlay panel", () => {
-      const newState: fromLayout.State = {
-        darkTheme: false,
-        showEditOverlay: false,
-        showNewInvoiceOverlay: false,
-      };
-      const action = LayoutActions.closeEditOverlay();
-      const state = reducer(initialState, action);
-
-      expect(state).toEqual(newState);
-    });
-
     it("should open edit overlay panel", () => {
       const action = LayoutActions.showEditOverlay();
       const state = reducer(initialState, action);
@@ -58,12 +46,6 @@ describe("Layout Reducer", () => {
   });
 
   describe("New Invoice Overlay", () => {
-    it("should close new invoice overlay panel", () => {
-      const action = LayoutActions.closeNewInvoiceOverlay();
-      const state = reducer(initialState, action);
-      expect(state).toMatchObject({ showNewInvoiceOverlay: false });
-    });
-
     it("should open new invoice overlay panel", () => {
       const action = LayoutActions.showNewInvoiceOverlay();
       const state = reducer(initialState, action);
@@ -91,6 +73,20 @@ describe("Layout Reducer", () => {
       const action = LayoutActions.toLightTheme();
       const state = reducer(initialState, action);
       expect(state).toMatchObject({ darkTheme: false });
+    });
+  });
+
+  describe("Close all overlay", () => {
+    it("Should close all overlay", () => {
+      const action = LayoutActions.closeAllOverlay();
+      const state = reducer(
+        { ...initialState, showEditOverlay: true, showNewInvoiceOverlay: true },
+        action
+      );
+      expect(state).toMatchObject({
+        showEditOverlay: false,
+        showNewInvoiceOverlay: false,
+      });
     });
   });
 });

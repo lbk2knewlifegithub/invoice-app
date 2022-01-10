@@ -23,18 +23,13 @@ export const reducer = createReducer(
     showNewInvoiceOverlay: false,
     showEditOverlay: true,
   })),
-  on(LayoutActions.closeEditOverlay, (state) => ({
-    ...state,
-    showNewInvoiceOverlay: false,
-    showEditOverlay: false,
-  })),
   // New Invoice overlay
   on(LayoutActions.showNewInvoiceOverlay, (state) => ({
     ...state,
     showNewInvoiceOverlay: true,
     showEditOverlay: false,
   })),
-  on(LayoutActions.closeNewInvoiceOverlay, (state) => ({
+  on(LayoutActions.closeAllOverlay, (state) => ({
     ...state,
     showNewInvoiceOverlay: false,
     showEditOverlay: false,

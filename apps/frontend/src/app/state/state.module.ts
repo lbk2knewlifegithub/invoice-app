@@ -4,6 +4,7 @@ import {
   Optional,
   SkipSelf,
 } from "@angular/core";
+import { MatSnackBarModule } from "@angular/material/snack-bar";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreRouterConnectingModule } from "@ngrx/router-store";
 import { StoreModule } from "@ngrx/store";
@@ -31,6 +32,7 @@ import { metaReducers, ROOT_REDUCERS } from "./reducers";
       logOnly: environment.production,
       autoPause: true,
     }),
+    MatSnackBarModule,
     StoreRouterConnectingModule.forRoot(),
   ],
 })

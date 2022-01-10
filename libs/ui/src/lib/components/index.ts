@@ -1,6 +1,7 @@
 export * from './checkbox.component';
 export * from './dialogs';
 export * from './dropdown';
+export * from './snackbar';
 export * from './form';
 export * from './go-back.component';
 export * from './invoice-id';
