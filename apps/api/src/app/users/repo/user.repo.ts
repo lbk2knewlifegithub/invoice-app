@@ -5,7 +5,7 @@ import {
 import { InjectModel } from "@nestjs/mongoose";
 import { genSalt, hash } from "bcrypt";
 import { Model } from "mongoose";
-import { CredentialsDto } from "../dto";
+import { CredentialsDto } from "../../auth/dto";
 import { User, UserDocument } from "../schemas";
 
 /**
@@ -75,7 +75,7 @@ export class UserRepository {
     return null;
   }
 
-  async findOne(username: string): Promise<User | undefined> {
+  async findByUsername(username: string): Promise<User | undefined> {
     return await this._userModel.findOne({ username });
   }
 

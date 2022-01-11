@@ -16,6 +16,7 @@
     "baseUrl": ".",
     "paths": {
       "@frontend/*": ["apps/frontend/src/app/*"],
+      "@api/*": ["apps/api/src/app/*"],
       "@lbk/models": ["libs/models/src/index.ts"],
       "@lbk/ui": ["libs/ui/src/index.ts"],
       "@lbk/utils": ["libs/utils/src/index.ts"]
