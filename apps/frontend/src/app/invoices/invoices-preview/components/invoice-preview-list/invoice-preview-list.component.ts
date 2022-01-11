@@ -16,6 +16,6 @@ export class InvoicePreviewListComponent {
   @Input() invoices!: Invoice[];
 
   identifyInvoice(index: number, invoice: Invoice) {
-    return invoice.id;
+    return invoice._id;
   }
 }

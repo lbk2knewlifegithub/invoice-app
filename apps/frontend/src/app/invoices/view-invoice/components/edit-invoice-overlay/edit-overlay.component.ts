@@ -55,7 +55,7 @@ export class EditOverlayComponent {
       this.invoice.status
     );
 
-    this.edit.emit({ id: this.invoice.id, updateInvoiceDto });
+    this.edit.emit({ id: this.invoice._id, updateInvoiceDto });
 
     this.invoiceFormComponent.initForm(true);
   }

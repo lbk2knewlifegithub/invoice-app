@@ -22,10 +22,10 @@ describe("Invoices Reducer", () => {
   function createInvoicesState(): fromInvoices.State {
     return {
       selectedInvoiceId: null,
-      ids: [invoice1.id, invoice2.id],
+      ids: [invoice1._id, invoice2._id],
       entities: {
-        [invoice1.id]: invoice1,
-        [invoice2.id]: invoice2,
+        [invoice1._id]: invoice1,
+        [invoice2._id]: invoice2,
       },
     };
   }
@@ -48,10 +48,10 @@ describe("Invoices Reducer", () => {
       });
       const newState: fromInvoices.State = {
         selectedInvoiceId: null,
-        ids: [invoice1.id, invoice2.id],
+        ids: [invoice1._id, invoice2._id],
         entities: {
-          [invoice1.id]: invoice1,
-          [invoice2.id]: invoice2,
+          [invoice1._id]: invoice1,
+          [invoice2._id]: invoice2,
         },
       };
 
@@ -67,9 +67,9 @@ describe("Invoices Reducer", () => {
 
       const newState: fromInvoices.State = {
         selectedInvoiceId: null,
-        ids: [invoice1.id],
+        ids: [invoice1._id],
         entities: {
-          [invoice1.id]: invoice1,
+          [invoice1._id]: invoice1,
         },
       };
 
@@ -87,9 +87,9 @@ describe("Invoices Reducer", () => {
 
       const newState: fromInvoices.State = {
         selectedInvoiceId: null,
-        ids: [invoice1.id],
+        ids: [invoice1._id],
         entities: {
-          [invoice1.id]: invoice1,
+          [invoice1._id]: invoice1,
         },
       };
 
@@ -100,14 +100,14 @@ describe("Invoices Reducer", () => {
   });
   it("delete invoice success", () => {
     const action = InvoicesAPIActions.deleteInvoiceSuccess({
-      id: invoice1.id,
+      id: invoice1._id,
     });
 
     const newState: fromInvoices.State = {
       selectedInvoiceId: null,
-      ids: [invoice2.id],
+      ids: [invoice2._id],
       entities: {
-        [invoice2.id]: invoice2,
+        [invoice2._id]: invoice2,
       },
     };
 
@@ -117,18 +117,18 @@ describe("Invoices Reducer", () => {
   });
   it("maskAsPaidSuccess", () => {
     const action = InvoicesAPIActions.maskAsPaidSuccess({
-      id: invoice1.id,
+      id: invoice1._id,
     });
 
     const newState: fromInvoices.State = {
       selectedInvoiceId: null,
-      ids: [invoice1.id, invoice2.id],
+      ids: [invoice1._id, invoice2._id],
       entities: {
-        [invoice1.id]: {
+        [invoice1._id]: {
           ...invoice1,
           status: "paid",
         },
-        [invoice2.id]: invoice2,
+        [invoice2._id]: invoice2,
       },
     };
 
@@ -144,19 +144,19 @@ describe("Invoices Reducer", () => {
       clientEmail: "asdfasd@gmail.com",
     };
     const action = InvoicesAPIActions.updateInvoiceSuccess({
-      id: invoice1.id,
+      id: invoice1._id,
       updateInvoiceDto,
     });
 
     const newState: fromInvoices.State = {
       selectedInvoiceId: null,
-      ids: [invoice1.id, invoice2.id],
+      ids: [invoice1._id, invoice2._id],
       entities: {
-        [invoice1.id]: {
+        [invoice1._id]: {
           ...invoice1,
           ...updateInvoiceDto,
         },
-        [invoice2.id]: invoice2,
+        [invoice2._id]: invoice2,
       },
     };
 
@@ -167,10 +167,10 @@ describe("Invoices Reducer", () => {
 
   describe("selectInvoice", () => {
     it("should set the selected invoice id on the state", () => {
-      const action = ViewInvoicePageActions.selectInvoice({ id: invoice1.id });
+      const action = ViewInvoicePageActions.selectInvoice({ id: invoice1._id });
       const newState: fromInvoices.State = {
         ...createInvoicesState(),
-        selectedInvoiceId: invoice1.id,
+        selectedInvoiceId: invoice1._id,
       };
 
       const state = reducer(createInvoicesState(), action);

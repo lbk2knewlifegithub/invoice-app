@@ -29,7 +29,7 @@ export class InvoicesStorageService implements InvoicesService {
 
   retrieveInvoice(id: string): Observable<Invoice> {
     return this.getInvoices().pipe(
-      map((invoices) => invoices.find((invoice) => invoice.id === id)),
+      map((invoices) => invoices.find((invoice) => invoice._id === id)),
       tap((invoice) => {
         if (!invoice) throw new Error("Not founded");
       }),
@@ -39,7 +39,7 @@ export class InvoicesStorageService implements InvoicesService {
 
   deleteInvoice(id: string): Observable<Invoice[]> {
     return this.getInvoices().pipe(
-      map((invoices) => invoices.filter((invoice) => invoice.id !== id)),
+      map((invoices) => invoices.filter((invoice) => invoice._id !== id)),
       tap((invoices) => this.save(invoices))
     );
   }
@@ -48,7 +48,7 @@ export class InvoicesStorageService implements InvoicesService {
     return this.getInvoices().pipe(
       map((invoices) =>
         invoices.map((invoice) =>
-          invoice.id !== id
+          invoice._id !== id
             ? invoice
             : ({ ...invoice, status: "paid" } as Invoice)
         )
@@ -64,7 +64,7 @@ export class InvoicesStorageService implements InvoicesService {
     return this.getInvoices().pipe(
       map((invoices) =>
         invoices.map((invoice) =>
-          invoice.id !== id
+          invoice._id !== id
             ? invoice
             : ({ ...invoice, ...updateInvoiceDto } as Invoice)
         )
@@ -89,7 +89,7 @@ export class InvoicesStorageService implements InvoicesService {
   }
 
   createInvoice(createInvoiceDto: CreateInvoiceDto): Observable<Invoice> {
-    const newInvoice: Invoice = { id: this.createId(), ...createInvoiceDto };
+    const newInvoice: Invoice = { _id: this.createId(), ...createInvoiceDto };
     return this.getInvoices().pipe(
       map((invoices) => [newInvoice, ...invoices]),
       tap((invoices) => this.save(invoices)),

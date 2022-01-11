@@ -12,6 +12,6 @@ export class InvoicePreviewComponent {
   priceOptions: PriceOptions = { size: "text-lg" };
 
   get id() {
-    return this.invoice.id;
+    return this.invoice._id;
   }
 }

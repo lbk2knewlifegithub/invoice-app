@@ -12,10 +12,10 @@ export interface Item {
   total: number;
 }
 
-export type Status = 'draft' | 'paid' | 'pending';
+export type Status = "draft" | "paid" | "pending";
 
 export interface Invoice {
-  id: string;
+  _id: string;
   createdAt: string;
   paymentDue: string;
   description: string;

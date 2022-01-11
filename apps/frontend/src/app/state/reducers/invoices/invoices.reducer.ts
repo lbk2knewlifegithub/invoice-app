@@ -14,7 +14,7 @@ export interface State extends EntityState<Invoice> {
 }
 
 export const adapter: EntityAdapter<Invoice> = createEntityAdapter<Invoice>({
-  selectId: (invoice: Invoice) => invoice.id,
+  selectId: (invoice: Invoice) => invoice._id,
   sortComparer: false,
 });
 

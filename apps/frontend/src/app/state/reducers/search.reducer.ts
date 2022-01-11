@@ -29,7 +29,7 @@ export const reducer = createReducer(
     };
   }),
   on(InvoicesAPIActions.searchInvoiceSuccess, (state, { invoices }) => ({
-    ids: invoices.map((i) => i.id),
+    ids: invoices.map((i) => i._id),
     status: state.status,
   }))
 );
