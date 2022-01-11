@@ -5,7 +5,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { UpdateInvoiceDto } from "@lbk/dto";
+import { UpdateInvoiceDto } from "@frontend/dto";
 import { Invoice } from "@lbk/models";
 import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";

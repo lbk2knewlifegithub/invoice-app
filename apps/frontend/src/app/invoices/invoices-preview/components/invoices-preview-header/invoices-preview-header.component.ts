@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { FilterDto } from '@lbk/dto';
+import { FilterDto } from '@frontend/dto';
 
 @Component({
   selector: 'lbk-invoices-preview-header',

@@ -1,4 +1,4 @@
-import { CreateInvoiceDto, FilterDto } from '@lbk/dto';
+import { CreateInvoiceDto, FilterDto } from '@frontend/dto';
 import { createAction, props } from '@ngrx/store';
 
 export const enter = createAction('[Invoices Preview Page] Enter');

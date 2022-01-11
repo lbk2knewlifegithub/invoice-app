@@ -1,4 +1,4 @@
-import { CreateInvoiceDto, UpdateInvoiceDto } from "@lbk/dto";
+import { CreateInvoiceDto, UpdateInvoiceDto } from "@frontend/dto";
 import { Invoice } from "@lbk/models";
 import { Observable } from "rxjs";
 

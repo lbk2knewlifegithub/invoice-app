@@ -1,4 +1,4 @@
-import { UpdateInvoiceDto } from '@lbk/dto';
+import { UpdateInvoiceDto } from '@frontend/dto';
 import { Invoice } from '@lbk/models';
 import { createAction, props } from '@ngrx/store';
 

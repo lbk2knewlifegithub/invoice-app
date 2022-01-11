@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@frontend/*": ["apps/frontend/src/app/*"],
-      "@lbk/dto": ["libs/dto/src/index.ts"],
       "@lbk/models": ["libs/models/src/index.ts"],
       "@lbk/ui": ["libs/ui/src/index.ts"],
       "@lbk/utils": ["libs/utils/src/index.ts"]

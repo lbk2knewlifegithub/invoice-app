@@ -1,4 +1,4 @@
-import { UpdateInvoiceDto } from '@lbk/dto';
+import { UpdateInvoiceDto } from '@frontend/dto';
 import { createAction, props } from '@ngrx/store';
 
 export const selectInvoice = createAction(

@@ -6,7 +6,7 @@ import {
   OnInit
 } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { CreateInvoiceDto, UpdateInvoiceDto } from "@lbk/dto";
+import { CreateInvoiceDto, UpdateInvoiceDto } from "@frontend/dto";
 import { Address, Invoice, Item, Status } from "@lbk/models";
 import { addDays, decimalRegex } from "@lbk/utils";
 

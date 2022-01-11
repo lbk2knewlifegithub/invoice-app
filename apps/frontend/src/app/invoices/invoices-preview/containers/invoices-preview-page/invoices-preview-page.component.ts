@@ -9,7 +9,7 @@ import {
   LayoutActions
 } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
-import { CreateInvoiceDto, FilterDto } from "@lbk/dto";
+import { CreateInvoiceDto, FilterDto } from "@frontend/dto";
 import { Invoice } from "@lbk/models";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";

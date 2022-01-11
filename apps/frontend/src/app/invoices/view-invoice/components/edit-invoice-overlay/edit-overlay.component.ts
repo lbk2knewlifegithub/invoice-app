@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { InvoiceFormComponent } from "@frontend/shared/components";
-import { UpdateInvoiceDto } from "@lbk/dto";
+import { UpdateInvoiceDto } from "@frontend/dto";
 import { Invoice } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { take } from "rxjs";

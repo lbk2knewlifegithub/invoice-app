@@ -4,7 +4,7 @@ import {
   InvoicesAPIActions,
   ViewInvoicePageActions
 } from "@frontend/state/actions";
-import { UpdateInvoiceDto } from "@lbk/dto";
+import { UpdateInvoiceDto } from "@frontend/dto";
 import * as fromInvoices from "./invoices.reducer";
 
 describe("Invoices Reducer", () => {

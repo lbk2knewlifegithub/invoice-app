@@ -2,7 +2,6 @@ import { Injectable } from "@angular/core";
 import { Credentials, User } from "@lbk/models";
 import { Observable, of, throwError } from "rxjs";
 
-
 @Injectable({
   providedIn: "root",
 })
@@ -18,7 +17,7 @@ export class AuthService {
       return throwError("Invalid username or password");
     }
 
-    return of({ name: "User" });
+    return of({ name: "User", id: "12s" });
   }
 
   logout() {
