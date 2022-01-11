@@ -48,10 +48,7 @@ describe("Auth Controller", () => {
 
   describe("Sign Up", () => {
     it("should return access token when user sign up success", async () => {
-      const result = await controller.signUp({
-        username: "another",
-        password: "banana",
-      });
+      const result = await controller.signUp(anotherCredentialStubs());
       expect(result).toEqual({
         accessToken: "abc",
       });
@@ -63,11 +60,9 @@ describe("Auth Controller", () => {
     });
 
     it("should throw error ConflictException when existed ", async () => {
-      await expect(controller.signUp(credentialStubs()))
-      .rejects.toThrow(
+      await expect(controller.signUp(credentialStubs())).rejects.toThrow(
         ConflictException
       );
-
     });
   });
 
