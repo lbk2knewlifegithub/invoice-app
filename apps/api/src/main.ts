@@ -7,7 +7,7 @@ import { DataInterceptor } from "./app/interceptor";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = "api";
-  app.setGlobalPrefix(globalPrefix);
+  app.setGlobalPrefix("api");
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(new DataInterceptor());
 

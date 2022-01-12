@@ -1,18 +1,18 @@
 import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { AuthModule } from "../auth";
-import { InvoicesController } from "./controller/invoices.controller";
-import { InvoicesRepo } from "./repo/invoices.repo";
+import { InvoicesController } from "./invoices.controller";
+import { InvoicesRepo } from "./invoices.repo";
+import { InvoicesService } from "./invoices.service";
 import { AddressSchema, InvoiceSchema, ItemSchema } from "./schemas";
-import { InvoicesService } from "./services";
 
 @Module({
   imports: [
     AuthModule,
     MongooseModule.forFeature([
-      { name: "Invoice", schema: InvoiceSchema },
-      { name: "Address", schema: AddressSchema },
-      { name: "Item", schema: ItemSchema },
+      { name: "InvoiceEntity", schema: InvoiceSchema },
+      { name: "AddressEntity", schema: AddressSchema },
+      { name: "ItemEntity", schema: ItemSchema },
     ]),
   ],
   controllers: [InvoicesController],

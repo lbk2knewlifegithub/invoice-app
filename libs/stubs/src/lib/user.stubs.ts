@@ -1,5 +1,4 @@
-import { CredentialsDto } from "@api/auth/dto";
-
+import { CredentialsDto } from "@api/auth/credentials.dto";
 export const credentialStubs = (): CredentialsDto => ({
   username: "banana",
   password: "what the fuck",

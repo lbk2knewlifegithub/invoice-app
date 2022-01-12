@@ -16,8 +16,6 @@ export class AddressEntity implements Address {
   country: string;
 }
 
-// documents
 export type AddressDocument = AddressEntity & Document;
 
-// schema
 export const AddressSchema = SchemaFactory.createForClass(AddressEntity);

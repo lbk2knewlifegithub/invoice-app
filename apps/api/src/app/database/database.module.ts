@@ -7,12 +7,14 @@ import { DatabaseService } from "./database.service";
   imports: [
     MongooseModule.forRootAsync({
       inject: [ConfigService],
-      useFactory: (configService: ConfigService) => ({
-        uri:
-          configService.get<string>("NODE_ENV") === "test"
-            ? configService.get<string>("MONGO_TEST_CONNECTION_URL")
-            : configService.get<string>("MONGO_CONNECTION_URI"),
-      }),
+      useFactory: (config: ConfigService) => {
+        return {
+          uri:
+            config.get<string>("NODE_ENV") === "test"
+              ? config.get<string>("MONGO_TEST_CONNECTION_URL")
+              : config.get<string>("MONGO_CONNECTION_URI"),
+        };
+      },
     }),
   ],
   providers: [DatabaseService],

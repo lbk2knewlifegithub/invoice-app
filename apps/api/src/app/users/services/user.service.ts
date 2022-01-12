@@ -1,6 +1,6 @@
+import { CredentialsDto } from "@api/auth/credentials.dto";
 import { Injectable } from "@nestjs/common";
 import { UserEntity } from "..";
-import { CredentialsDto } from "../../auth/dto";
 import { UserRepository } from "../repo";
 
 @Injectable()

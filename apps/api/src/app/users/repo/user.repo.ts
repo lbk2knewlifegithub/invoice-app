@@ -1,3 +1,4 @@
+import { CredentialsDto } from "@api/auth/credentials.dto";
 import {
   ConflictException,
   Injectable,
@@ -6,7 +7,6 @@ import {
 import { InjectModel } from "@nestjs/mongoose";
 import { genSalt, hash } from "bcrypt";
 import { Model } from "mongoose";
-import { CredentialsDto } from "../../auth/dto";
 import { UserDocument, UserEntity } from "../schemas";
 
 /**

@@ -1,4 +1,4 @@
-export * from "./controller";
-export * from "./services";
 export * from "./invoices.module";
+export * from "./invoices.service";
+export * from "./invoices.controller";
 
