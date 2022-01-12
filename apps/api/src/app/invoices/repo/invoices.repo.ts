@@ -1,6 +1,6 @@
 import { Invoice, User } from "@lbk/models";
 import { Injectable } from "@nestjs/common";
-import { CreateInvoiceDto } from "../dto";
+import { CreateInvoiceDto, UpdateInvoiceDto } from "../dto";
 
 /**
  * - Invoice Repository
@@ -35,7 +35,6 @@ export class InvoicesRepo {
     // if (result.affected === 0) {
     //   throw new NotFoundException(`Invoice width ID ${id} not found.`);
     // }
-
     throw new Error("Not implement yet");
   }
 
@@ -43,7 +42,14 @@ export class InvoicesRepo {
     throw new Error("Not implement yet");
   }
 
-  findInvoiceById() {
+  async findInvoiceById(_id: string): Promise<Invoice | undefined> {
+    throw new Error("Not implement yet");
+  }
+  async updateInvoice(
+    _id: string,
+    user: User,
+    updateInvoiceDto: UpdateInvoiceDto
+  ): Promise<Invoice> {
     throw new Error("Not implement yet");
   }
 }

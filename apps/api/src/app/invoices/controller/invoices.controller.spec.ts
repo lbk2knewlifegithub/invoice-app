@@ -43,24 +43,24 @@ describe("Invoices Controller", () => {
 
   describe("Get All Invoices", () => {
     it("should return all invoices", async () => {
-      const result = await controller.getInvoices(userStub);
+      const result = await controller.getAllInvoices(userStub);
       expect(result).toEqual(invoicesStub());
     });
     it("should call getAllInvoices of InvoicesService", async () => {
-      await controller.getInvoices(userStub);
+      await controller.getAllInvoices(userStub);
       expect(mockInvoiceService.getAllInvoices).toBeCalledWith(userStub);
     });
   });
 
   describe("Get Invoice", () => {
     it("should return invoice by id", async () => {
-      const result = await controller.getInvoice("abc", userStub);
+      const result = await controller.getInvoice("abc");
       expect(result).toEqual({ ...invoiceStub(), _id: "abc" });
     });
 
     it("should call getInvoice of InvoicesService", async () => {
-      await controller.getInvoice("abc", userStub);
-      expect(mockInvoiceService.getInvoice).toBeCalledWith("abc", userStub);
+      await controller.getInvoice("abc");
+      expect(mockInvoiceService.getInvoice).toBeCalledWith("abc" );
     });
   });
 
