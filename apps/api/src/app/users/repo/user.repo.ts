@@ -1,19 +1,21 @@
 import {
   ConflictException,
+  Injectable,
   InternalServerErrorException
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { genSalt, hash } from "bcrypt";
 import { Model } from "mongoose";
 import { CredentialsDto } from "../../auth/dto";
-import { User, UserDocument } from "../schemas";
+import { UserDocument, UserEntity } from "../schemas";
 
 /**
  * - User Repository
  */
+@Injectable()
 export class UserRepository {
   constructor(
-    @InjectModel("User")
+    @InjectModel("UserEntity")
     private readonly _userModel: Model<UserDocument>
   ) {}
 
@@ -27,7 +29,7 @@ export class UserRepository {
     // Generator salt
     const salt = await genSalt();
 
-    const user = new User({
+    const user = new UserEntity({
       password: await UserRepository.hashPassword(password, salt),
       username,
       salt,
@@ -40,6 +42,7 @@ export class UserRepository {
       if (e.code === "ER_DUP_ENTRY") {
         throw new ConflictException(`User already exits`);
       } else {
+        console.log(e);
         throw new InternalServerErrorException();
       }
     }
@@ -75,8 +78,12 @@ export class UserRepository {
     return null;
   }
 
-  async findByUsername(username: string): Promise<User | undefined> {
+  async findByUsername(username: string): Promise<UserEntity | undefined> {
     return await this._userModel.findOne({ username });
+  }
+
+  async userExisted(username: string): Promise<boolean> {
+    return !!(await this._userModel.findOne({ username }));
   }
 
   async validatePassword(

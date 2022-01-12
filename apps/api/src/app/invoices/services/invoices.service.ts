@@ -5,7 +5,7 @@ import { InvoicesRepo } from "../repo/invoices.repo";
 
 @Injectable()
 export class InvoicesService {
-  constructor(private _repo: InvoicesRepo) {}
+  constructor(private readonly _repo: InvoicesRepo) {}
 
   async createInvoice(
     user: User,

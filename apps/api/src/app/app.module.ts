@@ -4,14 +4,14 @@ import { AppController } from "./app.controller";
 import { AuthModule } from "./auth/auth.module";
 import configuration from "./config/configuration";
 import { DatabaseModule } from "./database";
-import { InvoicesModule } from "./invoices/invoices.module";
+import { InvoicesModule } from "./invoices";
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
-    InvoicesModule,
     DatabaseModule,
     AuthModule,
+    InvoicesModule
   ],
   controllers: [AppController],
 })

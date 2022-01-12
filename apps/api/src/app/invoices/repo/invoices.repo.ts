@@ -1,7 +1,5 @@
 import { Invoice, User } from "@lbk/models";
-import {
-  Injectable
-} from "@nestjs/common";
+import { Injectable } from "@nestjs/common";
 import { CreateInvoiceDto } from "../dto";
 
 /**

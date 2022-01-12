@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { User } from "..";
+import { UserEntity } from "..";
 import { CredentialsDto } from "../../auth/dto";
 import { UserRepository } from "../repo";
 
@@ -15,7 +15,11 @@ export class UserService {
     return this._repo.validateUsernamePassword(credentialsDto);
   }
 
-  async findByUserName(username: string): Promise<User | undefined> {
+  async findByUserName(username: string): Promise<UserEntity | undefined> {
     return this._repo.findByUsername(username);
+  }
+
+  async userExisted(username: string): Promise<boolean> {
+    return this._repo.userExisted(username);
   }
 }

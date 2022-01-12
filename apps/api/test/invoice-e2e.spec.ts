@@ -83,4 +83,36 @@ describe("Invoices Control", () => {
   //       expect(banana).toBeDefined();
   //   });
   // });
+
+  describe("Get all invoices", () => {
+    it.todo("should return all invoices of user");
+
+    it.todo("should return status code 200");
+    it.todo("should return status code 401 when user not login");
+  });
+
+  describe("Get invoice by id", () => {
+    it.todo("should return status code 200");
+    it.todo("should retrieve invoice by id");
+    it.todo("should return status code 404");
+    it.todo("should return status code 401 when user not login");
+  });
+
+  describe("delete invoice", () => {
+    it.todo("should return status code 200 when delete invoice success");
+    it.todo("should return status code 404 when id not found");
+    it.todo("should return status code 401 when user not login");
+  });
+
+  describe("Create invoice", () => {
+    it.todo("should return status code 201 when create invoice success");
+
+    it.todo("should return status code 401 when status invalid");
+    it.todo("should return status code 401 when status createdAt invalid");
+    it.todo("should return status code 401 when status description invalid");
+    it.todo("should return status code 401 when status clientName invalid");
+    it.todo("should return status code 401 when status clientName invalid");
+  });
+  it.todo("should update invoice");
+  it.todo("should create invoice");
 });

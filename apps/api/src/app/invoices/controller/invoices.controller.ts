@@ -10,15 +10,15 @@ import {
   Post,
   UseGuards
 } from "@nestjs/common";
-import { InvoicesService } from "..";
+import { InvoicesService } from "../services";
 import { CreateInvoiceDto } from "../dto";
 
-@Controller("invoices")
+@Controller("/invoices")
 @UseGuards(JwtAuthGuard)
 export class InvoicesController {
   constructor(private readonly _invoiceService: InvoicesService) {}
 
-  @Get()
+  @Get("/")
   async getInvoices(@GetUser() user: User): Promise<Invoice[]> {
     return await this._invoiceService.getAllInvoices(user);
   }
