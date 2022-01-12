@@ -1,7 +1,7 @@
 import { Address, Invoice, Item, Status } from "@lbk/models";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 
-@Schema()
+@Schema({ collection: "invoices" })
 export class InvoiceEntity implements Invoice {
   _id: string;
 

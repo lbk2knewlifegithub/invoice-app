@@ -39,10 +39,9 @@ export class UserRepository {
       // await user.save();
       await this._userModel.create(user);
     } catch (e) {
-      if (e.code === "ER_DUP_ENTRY") {
+      if (e.code === 11000) {
         throw new ConflictException(`User already exits`);
       } else {
-        console.log(e);
         throw new InternalServerErrorException();
       }
     }

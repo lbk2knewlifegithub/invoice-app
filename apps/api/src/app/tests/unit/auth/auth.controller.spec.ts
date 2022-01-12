@@ -1,7 +1,7 @@
 import { AuthController } from "@api/auth/auth.controller";
 import { AuthService } from "@api/auth/auth.service";
 import { CredentialsDto } from "@api/auth/credentials.dto";
-import { anotherCredentialStubs, credentialStubs } from "@lbk/stubs";
+import { anotherCredentialsStub, credentialsStub } from "@lbk/stubs";
 import { ConflictException, UnauthorizedException } from "@nestjs/common";
 import { Test } from "@nestjs/testing";
 
@@ -10,7 +10,7 @@ describe("Auth Controller", () => {
 
   let mockAuthService = {
     signUp: jest.fn().mockImplementation(({ username }: CredentialsDto) => {
-      if (username === credentialStubs().username)
+      if (username === credentialsStub().username)
         throw new ConflictException();
 
       return {
@@ -20,7 +20,7 @@ describe("Auth Controller", () => {
     login: jest
       .fn()
       .mockImplementation(({ password, username }: CredentialsDto) => {
-        const stub = credentialStubs();
+        const stub = credentialsStub();
         if (stub.password === password && username === stub.username)
           return {
             accessToken: "abc",
@@ -48,19 +48,19 @@ describe("Auth Controller", () => {
 
   describe("Sign Up", () => {
     it("should return access token when user sign up success", async () => {
-      const result = await controller.signUp(anotherCredentialStubs());
+      const result = await controller.signUp(anotherCredentialsStub());
       expect(result).toEqual({
         accessToken: "abc",
       });
     });
 
     it("should call signUp function of AuthService", async () => {
-      await controller.signUp(anotherCredentialStubs());
-      expect(mockAuthService.signUp).toBeCalledWith(anotherCredentialStubs());
+      await controller.signUp(anotherCredentialsStub());
+      expect(mockAuthService.signUp).toBeCalledWith(anotherCredentialsStub());
     });
 
     it("should throw error ConflictException when existed ", async () => {
-      await expect(controller.signUp(credentialStubs())).rejects.toThrow(
+      await expect(controller.signUp(credentialsStub())).rejects.toThrow(
         ConflictException
       );
     });
@@ -68,17 +68,17 @@ describe("Auth Controller", () => {
 
   describe("Login ", () => {
     it("should call login function of AuthService", async () => {
-      await controller.login(credentialStubs());
-      expect(mockAuthService.login).toBeCalledWith(credentialStubs());
+      await controller.login(credentialsStub());
+      expect(mockAuthService.login).toBeCalledWith(credentialsStub());
     });
 
     it("should login in", async () => {
-      const result = await controller.login(credentialStubs());
+      const result = await controller.login(credentialsStub());
       expect(result).toEqual({ accessToken: "abc" });
     });
 
     it("should throw error UnauthorizedException", async () => {
-      await expect(controller.login(anotherCredentialStubs())).rejects.toThrow(
+      await expect(controller.login(anotherCredentialsStub())).rejects.toThrow(
         UnauthorizedException
       );
     });

@@ -1,5 +1,6 @@
 import { UsersModule } from "@api/users";
-import { Module } from "@nestjs/common";
+import { Module, ValidationPipe } from "@nestjs/common";
+import { APP_PIPE } from "@nestjs/core";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { AuthController } from "./auth.controller";
@@ -16,6 +17,13 @@ import { JwtStrategy } from "./jwt.strategy";
     }),
   ],
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy],
+  providers: [
+    AuthService,
+    JwtStrategy,
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+  ],
 })
 export class AuthModule {}

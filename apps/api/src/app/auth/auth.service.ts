@@ -18,8 +18,15 @@ export class AuthService {
     private readonly _jwtService: JwtService
   ) {}
 
-  async signUp(credentialsDto: CredentialsDto): Promise<void> {
-    return await this._userService.signUp(credentialsDto);
+  async signUp(
+    credentialsDto: CredentialsDto
+  ): Promise<{ accessToken: string }> {
+    await this._userService.signUp(credentialsDto);
+    return {
+      accessToken: await this.createAccessToken({
+        username: credentialsDto.username,
+      }),
+    };
   }
 
   /**
@@ -35,11 +42,12 @@ export class AuthService {
       throw new UnauthorizedException("Invalid credentials");
     }
 
-    const payload: JwtPayload = { username };
+    return { accessToken: await this.createAccessToken({ username }) };
+  }
 
+  private async createAccessToken(payload: JwtPayload): Promise<string> {
     try {
-      const accessToken = await this._jwtService.signAsync(payload);
-      return { accessToken };
+      return await this._jwtService.signAsync(payload);
     } catch (e) {
       throw new InternalServerErrorException();
     }

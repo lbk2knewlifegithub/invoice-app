@@ -11,6 +11,7 @@ describe("Invoices Controller (e2e)", () => {
   let controller: InvoicesController;
   let httpServer: any;
   let app: INestApplication;
+  let accessToken: string;
 
   beforeAll(async () => {
     const moduleFixture = await Test.createTestingModule({
@@ -35,32 +36,44 @@ describe("Invoices Controller (e2e)", () => {
   });
 
   beforeEach(async () => {
-    await dbConnection.collection("invoices").deleteMany({});
+    accessToken = await login();
   });
+
+  beforeEach(async () => {
+    await dbConnection.collection("invoices").deleteMany({});
+    await dbConnection.collection("users").deleteMany({});
+  });
+
+  async function login() {
+    const response = await request(httpServer)
+      .post("/auth/signup")
+      .send({ username: "username", password: "password" });
+    return response.body.accessToken;
+  }
 
   it("should defined", () => {
     expect(controller).toBeDefined();
   });
 
-  describe("Authentication", () => {
-    it("should return status code 401", async () => {
+  describe("Get all invoices", () => {
+    it.todo("should return array of invoices");
+
+    it("should return status code 200", async () => {
+      const response = await request(httpServer)
+        .get("/invoices")
+        .set({
+          Authorization: `Bearer ${accessToken}`,
+          Accept: "application/json",
+        });
+
+      expect(response.status).toBe(200);
+    });
+
+    it("should return status code 401 when user not login", async () => {
       const response = await request(httpServer).get("/invoices");
       expect(response.status).toBe(401);
     });
   });
-
-  // describe("Get Invoices", () => {
-  //   it("should return array of invoices", async () => {
-  //     const invoice = invoiceStub();
-  //     invoice._id = undefined;
-  //     await dbConnection.collection("invoices").insertOne({ invoice });
-
-  //     const response = await request(httpServer).get("/invoices");
-
-  //     expect(response.status).toBe(200);
-  //     expect(response.body).toEqual(invoiceStub());
-  //   });
-  // });
 
   // describe("Create Invoice", () => {
   //   it("should create a invoice", async () => {
@@ -83,13 +96,6 @@ describe("Invoices Controller (e2e)", () => {
   //       expect(banana).toBeDefined();
   //   });
   // });
-
-  describe("Get all invoices", () => {
-    it.todo("should return all invoices of user");
-
-    it.todo("should return status code 200");
-    it.todo("should return status code 401 when user not login");
-  });
 
   describe("Get invoice by id", () => {
     it.todo("should return status code 200");

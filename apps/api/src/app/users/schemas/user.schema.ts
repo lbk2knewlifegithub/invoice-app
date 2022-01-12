@@ -2,7 +2,7 @@ import { InvoiceEntity, InvoiceSchema } from "@api/invoices/schemas";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { hash } from "bcrypt";
 
-@Schema()
+@Schema({ collection: "users" })
 export class UserEntity {
   _id: string;
 
