@@ -7,11 +7,12 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   UseGuards
 } from "@nestjs/common";
+import { CreateInvoiceDto, UpdateInvoiceDto } from "../dto";
 import { InvoicesService } from "../services";
-import { CreateInvoiceDto } from "../dto";
 
 @Controller("/invoices")
 @UseGuards(JwtAuthGuard)
@@ -23,35 +24,36 @@ export class InvoicesController {
     return await this._invoiceService.getAllInvoices(user);
   }
 
-  @Get(":id")
-  async getInvoiceById(
-    @Param("id") id: string,
+  @Get(":_id")
+  async getInvoice(
+    @Param("_id") _id: string,
     @GetUser() user: User
   ): Promise<Invoice> {
-    return await this._invoiceService.getInvoiceById(user, id);
+    return await this._invoiceService.getInvoice(_id, user);
   }
 
-  /**
-   * - Create new task
-   * @param createTaskDto
-   * @param user
-   */
   @Post()
   async createInvoice(
-    @Body() createInvoiceDto: CreateInvoiceDto,
-    @GetUser() user: User
+    @GetUser() user: User,
+    @Body() createInvoiceDto: CreateInvoiceDto
   ): Promise<Invoice> {
     return await this._invoiceService.createInvoice(user, createInvoiceDto);
   }
 
-  /**
-   * - Delete task by id
-   */
-  @Delete(":id")
-  async deleteInvoiceById(
+  @Patch(":_id")
+  async updateInvoice(
+    @Param("_id") _id: string,
     @GetUser() user: User,
-    @Param("id") id: number
+    @Body() updateInvoiceDto: UpdateInvoiceDto
+  ): Promise<Invoice> {
+    return await this._invoiceService.updateInvoice(_id, user, updateInvoiceDto);
+  }
+
+  @Delete(":_id")
+  async deleteInvoice(
+    @Param("_id") _id: string,
+    @GetUser() user: User
   ): Promise<void> {
-    return await this._invoiceService.deleteInvoiceById(user, id);
+    return await this._invoiceService.deleteInvoice(_id, user);
   }
 }

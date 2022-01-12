@@ -1,6 +1,6 @@
 import { Invoice, User } from "@lbk/models";
 import { Injectable } from "@nestjs/common";
-import { CreateInvoiceDto } from "../dto";
+import { CreateInvoiceDto, UpdateInvoiceDto } from "../dto";
 import { InvoicesRepo } from "../repo/invoices.repo";
 
 @Injectable()
@@ -14,9 +14,8 @@ export class InvoicesService {
     return await this._repo.createInvoice(user, createInvoiceDto);
   }
 
-  async deleteInvoiceById(user: User, id: number): Promise<void> {
-    await this._repo.deleteTaskById(user, id);
-    return;
+  async deleteInvoice(_id: string, user: User): Promise<void> {
+    return await this._repo.deleteInvoice(_id, user);
   }
 
   /**
@@ -33,7 +32,7 @@ export class InvoicesService {
    * @param user
    * @param id
    */
-  async getInvoiceById(user: User, id: string): Promise<Invoice> {
+  async getInvoice(_id: string, user: User): Promise<Invoice> {
     // const found = await this._repo.findInvoiceById({ where: { id, userId: user.id }, });
 
     // if (!found) {
@@ -42,5 +41,13 @@ export class InvoicesService {
 
     // return found;
     return {} as Invoice;
+  }
+
+  async updateInvoice(
+    _id: string,
+    user: User,
+    updateInvoiceDto: UpdateInvoiceDto
+  ): Promise<Invoice> {
+    throw new Error("Not implement yet");
   }
 }

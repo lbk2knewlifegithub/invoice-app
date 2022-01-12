@@ -29,7 +29,7 @@ export class InvoicesRepo {
    * @param user
    * @param id
    */
-  async deleteTaskById(user: User, id: number): Promise<void> {
+  async deleteInvoice(_id: string, user: User): Promise<void> {
     // const result = await this.delete({ id, userId: user.id });
 
     // if (result.affected === 0) {
