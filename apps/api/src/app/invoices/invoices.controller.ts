@@ -1,7 +1,7 @@
 import { JwtAuthGuard } from "@api/auth/jwt-auth.guard";
 import { ObjectIdValidationPipe } from "@api/pipes";
-import { GetUser } from "@api/users";
-import { Invoice, User } from "@lbk/models";
+import { GetUser, UserEntity } from "@api/users";
+import { Invoice } from "@lbk/models";
 import {
   Body,
   Controller,
@@ -14,27 +14,31 @@ import {
 } from "@nestjs/common";
 import { CreateInvoiceDto, UpdateInvoiceDto } from "./dto";
 import { InvoicesService } from "./invoices.service";
+import { InvoiceEntity } from "./schemas";
 
-@Controller("/invoices")
+@Controller("invoices")
 @UseGuards(JwtAuthGuard)
 export class InvoicesController {
   constructor(private readonly _invoiceService: InvoicesService) {}
 
-  @Get("/")
-  async getAllInvoices(@GetUser() user: User): Promise<Invoice[]> {
-    return await this._invoiceService.getAllInvoices(user);
+  @Get()
+  async getAllInvoices(
+    @GetUser() userEntity: UserEntity
+  ): Promise<InvoiceEntity[]> {
+    return this._invoiceService.getAllInvoices(userEntity);
   }
 
-  @Get(":_id")
+  @Get(":id")
   async getInvoice(
-    @Param("_id", ObjectIdValidationPipe) _id: string
-  ): Promise<Invoice> {
-    return await this._invoiceService.getInvoice(_id);
+    @GetUser() userEntity: UserEntity,
+    @Param("id") id: number
+  ): Promise<InvoiceEntity> {
+    return this._invoiceService.getInvoice(userEntity, id);
   }
 
   @Post()
   async createInvoice(
-    @GetUser() user: User,
+    @GetUser() user: UserEntity,
     @Body() createInvoiceDto: CreateInvoiceDto
   ): Promise<Invoice> {
     return await this._invoiceService.createInvoice(user, createInvoiceDto);
@@ -43,7 +47,7 @@ export class InvoicesController {
   @Patch(":_id")
   async updateInvoice(
     @Param("_id", ObjectIdValidationPipe) _id: string,
-    @GetUser() user: User,
+    @GetUser() user: UserEntity,
     @Body() updateInvoiceDto: UpdateInvoiceDto
   ): Promise<Invoice> {
     return await this._invoiceService.updateInvoice(
@@ -53,11 +57,11 @@ export class InvoicesController {
     );
   }
 
-  @Delete(":_id")
+  @Delete(":id")
   async deleteInvoice(
-    @Param("_id", ObjectIdValidationPipe) _id: string,
-    @GetUser() user: User
+    @GetUser() user: UserEntity,
+    @Param("id") id: number
   ): Promise<void> {
-    return await this._invoiceService.deleteInvoice(_id, user);
+    return this._invoiceService.deleteInvoice(user, id);
   }
 }

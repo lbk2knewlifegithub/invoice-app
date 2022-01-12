@@ -1,9 +1,12 @@
-import { Address, Invoice, Item, Status } from "@lbk/models";
+import { Invoice, Status } from "@lbk/models";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
+import { AddressEntity, AddressSchema } from "./address.schema";
+import { ItemEntity, ItemSchema } from "./item.schema";
 
-@Schema({ collection: "invoices" })
+@Schema({ _id: false, collection: "invoices" })
 export class InvoiceEntity implements Invoice {
-  _id: string;
+  @Prop({ required: true, type: Number })
+  id: number;
 
   @Prop({ required: true, type: Date })
   createdAt: string;
@@ -26,10 +29,16 @@ export class InvoiceEntity implements Invoice {
   @Prop({ required: true, type: String })
   status: Status;
 
-  @Prop({ required: true, type: String })
-  senderAddress: Address;
-  clientAddress: Address;
-  items: Item[];
+  @Prop({ type: AddressSchema })
+  senderAddress: AddressEntity;
+
+  @Prop({ type: AddressSchema })
+  clientAddress: AddressEntity;
+
+  @Prop({ required: true, type: [ItemSchema] })
+  items: ItemEntity[];
+
+  @Prop({ required: true, type: Number })
   total: number;
 }
 

@@ -1,30 +1,40 @@
+import { UserEntity } from "@api/users";
+import { UserRepository } from "@api/users/repo";
 import { Invoice, User } from "@lbk/models";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateInvoiceDto, UpdateInvoiceDto } from "./dto";
-import { InvoicesRepo } from "./invoices.repo";
+import { InvoiceEntity } from "./schemas";
 
 @Injectable()
 export class InvoicesService {
-  constructor(private readonly _repo: InvoicesRepo) {}
+  constructor(private readonly _repo: UserRepository) {}
 
-  async getAllInvoices(user: User): Promise<Invoice[]> {
-    return await this._repo.getAllInvoices(user);
+  async getAllInvoices(userEntity: UserEntity): Promise<InvoiceEntity[]> {
+    return Array.from(userEntity.invoices.values());
   }
 
   async createInvoice(
     user: User,
     createInvoiceDto: CreateInvoiceDto
   ): Promise<Invoice> {
-    return await this._repo.createInvoice(user, createInvoiceDto);
+    throw new Error("Not implement yet");
+    // return await this._repo.createInvoice(user, createInvoiceDto);
   }
 
-  async deleteInvoice(_id: string, user: User): Promise<void> {
-    return await this._repo.deleteInvoice(_id, user);
+  async deleteInvoice(userEntity: UserEntity, id: number): Promise<void> {
+    const { modifiedCount } = await this._repo.deleteInvoice(
+      userEntity.username,
+      id
+    );
+
+    if (modifiedCount === 0) {
+      throw new NotFoundException();
+    }
   }
 
-  async getInvoice(_id: string): Promise<Invoice> {
-    const found = await this._repo.findInvoiceById(_id);
-    if (!found) throw new NotFoundException(`Invoice ${_id} not found;`);
+  async getInvoice(userEntity: UserEntity, id: number): Promise<InvoiceEntity> {
+    const found = userEntity.invoices.get(id);
+    if (!found) throw new NotFoundException();
     return found;
   }
 
@@ -33,6 +43,7 @@ export class InvoicesService {
     user: User,
     updateInvoiceDto: UpdateInvoiceDto
   ): Promise<Invoice> {
-    return this._repo.updateInvoice(_id, user, updateInvoiceDto);
+    throw new Error("Not implement yet");
+    // return this._repo.updateInvoice(_id, user, updateInvoiceDto);
   }
 }

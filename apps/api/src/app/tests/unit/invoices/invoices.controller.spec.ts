@@ -1,12 +1,18 @@
 import { InvoicesController, InvoicesService } from "@api/invoices";
 import { UpdateInvoiceDto } from "@api/invoices/dto";
+import { UserEntity } from "@api/users";
 import { User } from "@lbk/models";
 import { invoicesStub, invoiceStub } from "@lbk/stubs";
 import { Test } from "@nestjs/testing";
 
 describe("Invoices Controller", () => {
   let controller: InvoicesController;
-  const userStub = { username: "banana" };
+  const userStub = new UserEntity({
+    username: "banana",
+    password: "bansdsana",
+    salt: "bansdsana",
+    invoices: new Map(),
+  });
 
   let mockInvoiceService = {
     getAllInvoices: jest.fn().mockImplementation(() => invoicesStub()),
@@ -53,12 +59,12 @@ describe("Invoices Controller", () => {
 
   describe("Get Invoice", () => {
     it("should return invoice by id", async () => {
-      const result = await controller.getInvoice("abc");
+      const result = await controller.getInvoice(userStub, 1);
       expect(result).toEqual({ ...invoiceStub(), _id: "abc" });
     });
 
     it("should call getInvoice of InvoicesService", async () => {
-      await controller.getInvoice("abc");
+      await controller.getInvoice(userStub, 1);
       expect(mockInvoiceService.getInvoice).toBeCalledWith("abc");
     });
   });
@@ -66,7 +72,6 @@ describe("Invoices Controller", () => {
   describe("Create Invoice", () => {
     function createInvoiceDto(): any {
       const createInvoiceDto = invoiceStub();
-      delete createInvoiceDto._id;
       return createInvoiceDto;
     }
 
@@ -90,21 +95,20 @@ describe("Invoices Controller", () => {
 
   describe("Delete Invoice", () => {
     it("should delete invoice by id", async () => {
-      const result = await controller.deleteInvoice("abc", userStub);
+      const result = await controller.deleteInvoice(userStub, 1);
       expect(result).toEqual(undefined);
     });
 
     it("should call deleteInvoice of InvoicesService", async () => {
-      await controller.deleteInvoice("abc", userStub);
+      await controller.deleteInvoice(userStub, 1);
 
-      expect(mockInvoiceService.deleteInvoice).toBeCalledWith("abc", userStub);
+      expect(mockInvoiceService.deleteInvoice).toBeCalledWith(userStub, 1);
     });
   });
 
   describe("Update Invoice", () => {
     function updateInvoiceDto(): any {
       const updateInvoiceDto = invoiceStub();
-      delete updateInvoiceDto._id;
       return updateInvoiceDto;
     }
 

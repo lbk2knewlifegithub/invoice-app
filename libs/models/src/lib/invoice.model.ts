@@ -15,7 +15,7 @@ export interface Item {
 export type Status = "draft" | "paid" | "pending";
 
 export interface Invoice {
-  _id: string;
+  id: number;
   createdAt: string;
   paymentDue: string;
   description: string;

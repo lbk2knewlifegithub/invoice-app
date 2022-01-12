@@ -1,6 +1,7 @@
 import { InvoicesService } from "@api/invoices";
 import { UpdateInvoiceDto } from "@api/invoices/dto";
 import { InvoicesRepo } from "@api/invoices/invoices.repo";
+import { UserEntity } from "@api/users";
 import { User } from "@lbk/models";
 import { invoicesStub, invoiceStub } from "@lbk/stubs";
 import { NotFoundException } from "@nestjs/common";
@@ -8,7 +9,12 @@ import { Test } from "@nestjs/testing";
 
 describe("Invoices Services", () => {
   let service: InvoicesService;
-  const userStub = { username: "banana" };
+  const userStub = new UserEntity({
+    username: "banana",
+    password: "bansdsana",
+    salt: "bansdsana",
+    invoices: new Map(),
+  });
 
   let mockInvoicesRepo = {
     getAllInvoices: jest.fn().mockImplementation(() => invoicesStub()),
@@ -58,17 +64,17 @@ describe("Invoices Services", () => {
 
   describe("Get Invoice", () => {
     it("should return invoice by id", async () => {
-      const result = await service.getInvoice("abc");
+      const result = await service.getInvoice(userStub, 1);
       expect(result).toEqual({ ...invoiceStub(), _id: "abc" });
     });
 
     it("should call getInvoice of InvoicesRepo", async () => {
-      await service.getInvoice("abc");
+      await service.getInvoice(userStub, 1);
       expect(mockInvoicesRepo.findInvoiceById).toBeCalledWith("abc");
     });
 
     it("should throw NotFoundException when not found the invoice", async () => {
-      await expect(service.getInvoice("another")).rejects.toThrow(
+      await expect(service.getInvoice(userStub, -1)).rejects.toThrow(
         NotFoundException
       );
     });
@@ -77,7 +83,6 @@ describe("Invoices Services", () => {
   describe("Create Invoice", () => {
     function createInvoiceDto(): any {
       const createInvoiceDto = invoiceStub();
-      delete createInvoiceDto._id;
       return createInvoiceDto;
     }
 
@@ -98,21 +103,20 @@ describe("Invoices Services", () => {
 
   describe("Delete Invoice", () => {
     it("should delete invoice by id", async () => {
-      const result = await service.deleteInvoice("abc", userStub);
+      const result = await service.deleteInvoice(userStub, 1);
       expect(result).toEqual(undefined);
     });
 
     it("should call deleteInvoice of InvoicesRepo", async () => {
-      await service.deleteInvoice("abc", userStub);
+      await service.deleteInvoice(userStub, 1);
 
-      expect(mockInvoicesRepo.deleteInvoice).toBeCalledWith("abc", userStub);
+      expect(mockInvoicesRepo.deleteInvoice).toBeCalledWith(userStub, 1);
     });
   });
 
   describe("Update Invoice", () => {
     function updateInvoiceDto(): any {
       const updateInvoiceDto = invoiceStub();
-      delete updateInvoiceDto._id;
       return updateInvoiceDto;
     }
 

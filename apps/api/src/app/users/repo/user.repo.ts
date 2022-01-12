@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { genSalt, hash } from "bcrypt";
-import { Model } from "mongoose";
+import { Model, UpdateWriteOpResult } from "mongoose";
 import { UserDocument, UserEntity } from "../schemas";
 
 /**
@@ -15,7 +15,7 @@ import { UserDocument, UserEntity } from "../schemas";
 @Injectable()
 export class UserRepository {
   constructor(
-    @InjectModel("UserEntity")
+    @InjectModel(UserEntity.name)
     private readonly _userModel: Model<UserDocument>
   ) {}
 
@@ -78,7 +78,7 @@ export class UserRepository {
   }
 
   async findByUsername(username: string): Promise<UserEntity | undefined> {
-    return await this._userModel.findOne({ username });
+    return this._userModel.findOne({ username });
   }
 
   async userExisted(username: string): Promise<boolean> {
@@ -91,5 +91,25 @@ export class UserRepository {
     password2: string
   ): Promise<boolean> {
     return password1 === (await hash(password2, salt));
+  }
+
+  /**
+   *
+   * @param username
+   * @param id  - Id of invoice
+   * @returns
+   */
+  async deleteInvoice(
+    username: string,
+    id: number
+  ): Promise<UpdateWriteOpResult> {
+    return this._userModel.updateOne(
+      { username },
+      {
+        $unset: {
+          [`invoices.${id}`]: 1,
+        },
+      }
+    );
   }
 }

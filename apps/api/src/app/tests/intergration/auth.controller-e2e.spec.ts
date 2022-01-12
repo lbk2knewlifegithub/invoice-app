@@ -36,6 +36,7 @@ describe("Auth Controller (e2e)", () => {
   });
 
   afterAll(async () => {
+    await usersCollection().deleteMany({});
     await app.close();
   });
 
@@ -67,6 +68,16 @@ describe("Auth Controller (e2e)", () => {
         .send(credentialsStub())
         .expect(201);
     });
+
+    it("should create user in database", async () => {
+      await request(httpServer).post("/auth/signup").send(credentialsStub());
+
+      const found = await usersCollection().findOne({
+        username: credentialsStub().username,
+      });
+      expect(found).toBeDefined();
+    });
+
     it("should return code 409 when username existed", async () => {
       await request(httpServer).post("/auth/signup").send(credentialsStub());
 
@@ -82,6 +93,18 @@ describe("Auth Controller (e2e)", () => {
 
       const accessToken = response.body.accessToken;
       expect(await jwtService.verifyAsync(accessToken)).toBeTruthy();
+    });
+
+    describe("invoices", () => {
+      it("should return empty object for invoices", async () => {
+        await request(httpServer).post("/auth/signup").send(credentialsStub());
+
+        const user = await usersCollection().findOne({
+          username: credentialsStub().username,
+        });
+
+        expect(user.invoices).toEqual({});
+      });
     });
 
     describe("username", () => {

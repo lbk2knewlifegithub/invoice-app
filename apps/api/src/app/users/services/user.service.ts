@@ -18,7 +18,6 @@ export class UserService {
   async findByUserName(username: string): Promise<UserEntity | undefined> {
     return this._repo.findByUsername(username);
   }
-
   async userExisted(username: string): Promise<boolean> {
     return this._repo.userExisted(username);
   }

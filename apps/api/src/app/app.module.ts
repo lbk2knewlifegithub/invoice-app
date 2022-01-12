@@ -1,9 +1,12 @@
-import { Module } from "@nestjs/common";
+import { Module, ValidationPipe } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
+import { APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
 import { AppController } from "./app.controller";
 import { AuthModule } from "./auth/auth.module";
 import { DatabaseModule } from "./database";
+import { DataInterceptor } from "./interceptor";
 import { InvoicesModule } from "./invoices";
+import { DataPipe } from "./pipes";
 
 @Module({
   imports: [
@@ -13,6 +16,20 @@ import { InvoicesModule } from "./invoices";
     DatabaseModule,
     AuthModule,
     InvoicesModule,
+  ],
+  providers: [
+    {
+      provide: APP_PIPE,
+      useClass: ValidationPipe,
+    },
+    // {
+    //   provide: APP_PIPE,
+    //   useClass: DataPipe,
+    // },
+    // {
+    //   provide: APP_INTERCEPTOR,
+    //   useClass: DataInterceptor,
+    // },
   ],
   controllers: [AppController],
 })

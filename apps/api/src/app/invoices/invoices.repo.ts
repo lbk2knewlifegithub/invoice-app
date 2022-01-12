@@ -1,18 +1,18 @@
+import { UserEntity } from "@api/users";
 import { Invoice, User } from "@lbk/models";
 import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from "mongoose";
 import { CreateInvoiceDto, UpdateInvoiceDto } from "./dto";
-import { InvoiceDocument } from "./schemas";
+import { InvoiceDocument, InvoiceEntity } from "./schemas";
 
 /**
  * - Invoice Repository
  */
 @Injectable()
 export class InvoicesRepo {
-
   constructor(
-    @InjectModel("InvoiceEntity")
+    @InjectModel(InvoiceEntity.name)
     private readonly _invoiceModel: Model<InvoiceDocument>
   ) {}
 
@@ -38,8 +38,8 @@ export class InvoicesRepo {
    * @param user
    * @param id
    */
-  async deleteInvoice(_id: string, user: User): Promise<void> {
-    // const result = await this.delete({ id, userId: user.id });
+  async deleteInvoice(userEntity: UserEntity, id: number): Promise<void> {
+    // const result = await this.({ id, userId: user.id });
 
     // if (result.affected === 0) {
     //   throw new NotFoundException(`Invoice width ID ${id} not found.`);
@@ -47,13 +47,14 @@ export class InvoicesRepo {
     throw new Error("Not implement yet");
   }
 
-  async getAllInvoices(user: User): Promise<Invoice[]> {
+  async getAllInvoices(userEntity: UserEntity): Promise<Invoice[]> {
     throw new Error("Not implement yet");
   }
 
   async findInvoiceById(_id: string): Promise<Invoice | undefined> {
     throw new Error("Not implement yet");
   }
+
   async updateInvoice(
     _id: string,
     user: User,

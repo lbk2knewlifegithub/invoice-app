@@ -1,9 +1,10 @@
 import { InvoiceEntity, InvoiceSchema } from "@api/invoices/schemas";
+import { User } from "@lbk/models";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { hash } from "bcrypt";
 
 @Schema({ collection: "users" })
-export class UserEntity {
+export class UserEntity implements User {
   _id: string;
 
   @Prop({ required: true, type: String, unique: true })
@@ -15,8 +16,11 @@ export class UserEntity {
   @Prop({ required: true, type: String })
   salt: string;
 
-  @Prop({ required: true, type: Map, of: InvoiceSchema })
-  invoices: { [key: string]: InvoiceEntity } = {};
+  @Prop({ required: true, of: InvoiceSchema, type: Map, default: {} })
+  invoices: Map<number, InvoiceEntity>;
+
+  // @Prop({ required: true })
+  // invoices: InvoiceEntity[] = [];
 
   constructor(init: Partial<UserEntity>) {
     Object.assign(this, init);
