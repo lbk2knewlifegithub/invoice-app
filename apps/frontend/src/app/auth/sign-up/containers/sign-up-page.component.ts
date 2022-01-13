@@ -5,14 +5,16 @@ import { Credentials } from "@lbk/models";
 import { Store } from "@ngrx/store";
 
 @Component({
-  selector: "bc-login-page",
+  selector: "lbk-signup-page",
   template: `
-    <lbk-sign-up-form
-      (submitted)="onSubmit($event)"
-      [pending]="(pending$ | async)!"
-      [errorMessage]="error$ | async"
-    >
-    </lbk-sign-up-form>
+    <main class="lg:h-screen grid place-content-center ">
+      <lbk-sign-up-form
+        (submitted)="onSubmit($event)"
+        [pending]="(pending$ | async)!"
+        [errorMessage]="error$ | async"
+      >
+      </lbk-sign-up-form>
+    </main>
   `,
   styles: [],
 })

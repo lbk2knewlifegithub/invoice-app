@@ -7,12 +7,16 @@ import { Store } from "@ngrx/store";
 @Component({
   selector: "bc-login-page",
   template: `
-    <lbk-login-form
-      (submitted)="onSubmit($event)"
-      [pending]="(pending$ | async)!"
-      [errorMessage]="error$ | async"
-    >
-    </lbk-login-form>
+    <main class="lg:h-screen grid place-content-center ">
+      <div class="container ">
+        <lbk-login-form
+          (submitted)="onSubmit($event)"
+          [pending]="(pending$ | async)!"
+          [errorMessage]="error$ | async"
+        >
+        </lbk-login-form>
+      </div>
+    </main>
   `,
   styles: [],
 })

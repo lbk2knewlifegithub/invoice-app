@@ -1,13 +1,13 @@
 import {
   InvoicesAPIActions,
   InvoicesPreviewPageActions
-} from '@frontend/state/actions';
-import { createReducer, on } from '@ngrx/store';
+} from "@frontend/state/actions";
+import { createReducer, on } from "@ngrx/store";
 
-export const searchFeatureKey = 'search';
+export const searchFeatureKey = "search";
 
 export interface State {
-  ids: string[];
+  ids: number[];
   status: string[];
 }
 
@@ -29,7 +29,7 @@ export const reducer = createReducer(
     };
   }),
   on(InvoicesAPIActions.searchInvoiceSuccess, (state, { invoices }) => ({
-    ids: invoices.map((i) => i._id),
+    ids: invoices.map((i) => i.id),
     status: state.status,
   }))
 );

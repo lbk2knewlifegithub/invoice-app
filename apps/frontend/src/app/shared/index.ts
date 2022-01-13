@@ -1,4 +1,3 @@
-export * from './data';
-export * from './shared.module';
-export * from './custom-reuse.strategy';
+export * from "./custom-reuse.strategy";
+export * from "./shared.module";
 

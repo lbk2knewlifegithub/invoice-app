@@ -19,7 +19,7 @@ export class DialogService {
       .afterClosed();
   }
 
-  deleteDialog(id: string): Observable<boolean> {
+  deleteDialog(id: number): Observable<boolean> {
     return this._dialog
       .open(ConfirmDeleteDialogComponent, {
         data: id,

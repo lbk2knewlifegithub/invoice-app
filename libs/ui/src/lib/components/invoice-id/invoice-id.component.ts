@@ -7,11 +7,11 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
     <p class="md:text-lg">
       <span class="text-muted-800">#</span>
       <span class="font-bold">
-        {{ value | uppercase }}
+        {{ value | number }}
       </span>
     </p>
   `,
 })
 export class InvoiceIdComponent {
-  @Input() value!: string;
+  @Input() value!: number;
 }

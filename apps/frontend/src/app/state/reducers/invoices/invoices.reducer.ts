@@ -1,20 +1,20 @@
-import { Invoice } from '@lbk/models';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-import { createReducer, on } from '@ngrx/store';
+import { Invoice, InvoiceStatus } from "@lbk/models";
+import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
+import { createReducer, on } from "@ngrx/store";
 import {
   InvoiceActions,
   InvoicesAPIActions,
   ViewInvoicePageActions
-} from '../../actions';
+} from "../../actions";
 
-export const invoicesFeatureKey = 'invoices';
+export const invoicesFeatureKey = "invoices";
 
 export interface State extends EntityState<Invoice> {
-  selectedInvoiceId: string | null;
+  selectedInvoiceId: number | null;
 }
 
 export const adapter: EntityAdapter<Invoice> = createEntityAdapter<Invoice>({
-  selectId: (invoice: Invoice) => invoice._id,
+  selectId: (invoice: Invoice) => invoice.id,
   sortComparer: false,
 });
 
@@ -35,9 +35,11 @@ export const reducer = createReducer(
     InvoicesAPIActions.createInvoiceSuccess,
     (state, { invoice }) => adapter.addOne(invoice, state)
   ),
-  on(InvoicesAPIActions.deleteInvoiceSuccess, (state, { id }) => adapter.removeOne(id, state)),
+  on(InvoicesAPIActions.deleteInvoiceSuccess, (state, { id }) =>
+    adapter.removeOne(id, state)
+  ),
   on(InvoicesAPIActions.maskAsPaidSuccess, (state, { id }) =>
-    adapter.updateOne({ id, changes: { status: 'paid' } }, state)
+    adapter.updateOne({ id, changes: { status: InvoiceStatus.PAID } }, state)
   ),
   // Update Invoice Success
   on(

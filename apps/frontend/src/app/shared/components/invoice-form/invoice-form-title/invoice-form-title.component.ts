@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
         <p class="md:text-lg lg:text-2xl">
           <span class="text-muted-800">#</span>
           <span class="font-bold">
-            {{ id | uppercase }}
+            {{ id | number }}
           </span>
         </p>
         <!-- id -->
@@ -22,5 +22,5 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
   `,
 })
 export class InvoiceFormTitleComponent {
-  @Input() id?: string;
+  @Input() id?: number;
 }

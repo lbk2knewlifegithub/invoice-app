@@ -8,7 +8,7 @@ export class SnackBarService {
 
   constructor(private _snackBar: MatSnackBar) {}
 
-  maskAsPaid(id: string) {
+  maskAsPaid(id: number) {
     this._snackBar.openFromComponent(MaskAsPaidSnackBarComponent, {
       duration: this.durationInSeconds * 1000,
       data: id,

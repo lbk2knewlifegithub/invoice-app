@@ -11400,6 +11400,11 @@ memfs@^3.1.2, memfs@^3.2.2:
   dependencies:
     fs-monkey "1.0.3"
 
+memo-decorator@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/memo-decorator/-/memo-decorator-2.0.1.tgz#599db686337a53af3e2f59991f5f61b96e96c62b"
+  integrity sha512-Cydoauo7y1Uad1UuznJqhuEQCt6adIl1w5ik3WmNl4FJeBmWAaMs64qyGRahaXWK/Dlmt/+QNesRTeFUcpJPkQ==
+
 memoizerific@^1.11.3:
   version "1.11.3"
   resolved "https://registry.npmjs.org/memoizerific/-/memoizerific-1.11.3.tgz"

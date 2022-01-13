@@ -39,7 +39,7 @@ export class EditOverlayComponent {
   @Output() goBack = new EventEmitter<void>();
   @Output() cancel = new EventEmitter<void>();
   @Output() edit = new EventEmitter<{
-    id: string;
+    id: number;
     updateInvoiceDto: UpdateInvoiceDto;
   }>();
 
@@ -55,7 +55,7 @@ export class EditOverlayComponent {
       this.invoice.status
     );
 
-    this.edit.emit({ id: this.invoice._id, updateInvoiceDto });
+    this.edit.emit({ id: this.invoice.id, updateInvoiceDto });
 
     this.invoiceFormComponent.initForm(true);
   }

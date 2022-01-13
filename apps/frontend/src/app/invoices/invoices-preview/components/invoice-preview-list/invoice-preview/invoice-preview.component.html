@@ -7,7 +7,7 @@
   <p class="md:text-lg md:order-first">
     <span class="text-muted-800">#</span>
     <span class="font-bold">
-      {{ invoice.id | uppercase }}
+      {{ invoice.id | number }}
     </span>
   </p>
   <!-- end id -->
@@ -29,7 +29,7 @@
     <lbk-price
       [options]="priceOptions"
       class="block mt-2 md:hidden"
-      [value]="invoice.total"
+      [value]="invoice | totalPriceInvoice"
     ></lbk-price>
     <!-- end price -->
   </div>
@@ -38,7 +38,7 @@
   <lbk-price
     [options]="priceOptions"
     class="hidden md:block md:order-9"
-    [value]="invoice.total"
+    [value]="invoice | totalPriceInvoice"
   ></lbk-price>
   <!-- end price tablet -->
 

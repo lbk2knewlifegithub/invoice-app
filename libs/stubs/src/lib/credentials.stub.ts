@@ -1,11 +1,11 @@
-import { CredentialsDto } from "@api/auth/credentials.dto";
+import { Credentials } from "@lbk/models";
 
-export const credentialsStub = (): CredentialsDto => ({
+export const credentialsStub = (): Credentials => ({
   username: "banana",
   password: "what the fuck",
 });
 
-export const anotherCredentialsStub = (): CredentialsDto => ({
+export const anotherCredentialsStub = (): Credentials => ({
   username: "another",
   password: "what the fuck",
 });

@@ -1,5 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, CanActivate, Router } from "@angular/router";
+import * as fromRoot from "@frontend/state/selectors";
 import {
   InvoicesService,
   InvoicesStorageService
@@ -8,7 +9,6 @@ import { Store } from "@ngrx/store";
 import { Observable, of } from "rxjs";
 import { catchError, map, switchMap, take, tap } from "rxjs/operators";
 import { InvoiceActions } from "../../../state/actions";
-import * as fromRoot from "@frontend/state/selectors";
 
 @Injectable({
   providedIn: "root",
@@ -21,14 +21,14 @@ export class InvoiceExistsGuard implements CanActivate {
     private readonly _router: Router
   ) {}
 
-  hasInvoiceInStore(id: string): Observable<boolean> {
+  hasInvoiceInStore(id: number): Observable<boolean> {
     return this._store.select(fromRoot.selectInvoiceEntities).pipe(
       map((entities) => !!entities[id]),
       take(1)
     );
   }
 
-  hasInvoiceInApi(id: string): Observable<boolean> {
+  hasInvoiceInApi(id: number): Observable<boolean> {
     return this._invoicesService.retrieveInvoice(id).pipe(
       map((invoiceEntity) =>
         InvoiceActions.loadInvoice({ invoice: invoiceEntity })
@@ -42,7 +42,7 @@ export class InvoiceExistsGuard implements CanActivate {
     );
   }
 
-  hasInvoice(id: string): Observable<boolean> {
+  hasInvoice(id: number): Observable<boolean> {
     return this.hasInvoiceInStore(id).pipe(
       switchMap((inStore) => {
         if (inStore) {

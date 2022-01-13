@@ -34,12 +34,12 @@ const routes: Routes = [
   {
     path: "login",
     loadChildren: () => import("@frontend/auth").then((m) => m.LoginModule),
-    data: { title: "Login" },
+    data: { title: "Login", animation: "Login" },
   },
   {
     path: "sign-up",
     loadChildren: () => import("@frontend/auth").then((m) => m.SignUpModule),
-    data: { title: "Sign Up" },
+    data: { title: "Sign Up", animation: "SignUp" },
   },
   {
     path: "**",

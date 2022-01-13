@@ -67,7 +67,9 @@
 
     <div *ngIf="invoice.items.length > 0" class="overflow-hidden rounded-lg">
       <lbk-invoice-item-list [items]="invoice.items"></lbk-invoice-item-list>
-      <lbk-grand-total [grandTotal]="invoice.total"></lbk-grand-total>
+      <lbk-grand-total
+        [grandTotal]="invoice | totalPriceInvoice"
+      ></lbk-grand-total>
     </div>
   </div>
 </section>

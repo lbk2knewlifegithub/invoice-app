@@ -7,8 +7,9 @@ import {
   ViewChild
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { InvoiceFormComponent } from "@frontend/shared/components";
 import { CreateInvoiceDto } from "@frontend/dto";
+import { InvoiceFormComponent } from "@frontend/shared/components";
+import { InvoiceStatus } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { take } from "rxjs";
 
@@ -75,7 +76,9 @@ export class NewInvoiceOverlayComponent {
       return;
     }
 
-    this.create.emit(this.invoiceFormComponent.createInvoiceDto("pending"));
+    this.create.emit(
+      this.invoiceFormComponent.createInvoiceDto(InvoiceStatus.PENDING)
+    );
     this.invoiceFormComponent.initForm(true);
   }
 
@@ -87,7 +90,9 @@ export class NewInvoiceOverlayComponent {
       return;
     }
 
-    this.create.emit(this.invoiceFormComponent.createInvoiceDto("draft"));
+    this.create.emit(
+      this.invoiceFormComponent.createInvoiceDto(InvoiceStatus.DRAFT)
+    );
     this.invoiceFormComponent.initForm(true);
   }
 }

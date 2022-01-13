@@ -3,8 +3,7 @@ import { Invoice, InvoiceStatus, Item } from "@lbk/models";
 export const itemStub = (): Item => ({
   name: "abcded",
   price: 232,
-  quantity: 11,
-  total: 2320,
+  quantity: 10,
 });
 
 export const anotherInvoiceStub = (): Invoice => ({
@@ -33,16 +32,13 @@ export const anotherInvoiceStub = (): Invoice => ({
       name: "Banner Design",
       quantity: 1,
       price: 156.0,
-      total: 156.0,
     },
     {
       name: "Email Design",
       quantity: 2,
       price: 200.0,
-      total: 400.0,
     },
   ],
-  total: 556.0,
 });
 
 export const invoiceStub = (): Invoice => ({
@@ -71,10 +67,8 @@ export const invoiceStub = (): Invoice => ({
       name: "Brand Guidelines",
       quantity: 1,
       price: 1800.9,
-      total: 1800.9,
     },
   ],
-  total: 1800.9,
 });
 
 export const invoicesStub = (): Invoice[] => [
@@ -104,10 +98,8 @@ export const invoicesStub = (): Invoice[] => [
         name: "Brand Guidelines",
         quantity: 1,
         price: 1800.9,
-        total: 1800.9,
       },
     ],
-    total: 1800.9,
   },
   {
     id: 2,
@@ -135,15 +127,12 @@ export const invoicesStub = (): Invoice[] => [
         name: "Banner Design",
         quantity: 1,
         price: 156.0,
-        total: 156.0,
       },
       {
         name: "Email Design",
         quantity: 2,
         price: 200.0,
-        total: 400.0,
       },
     ],
-    total: 556.0,
   },
 ];

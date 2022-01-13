@@ -4,7 +4,7 @@ import { Invoice, PriceOptions } from "@lbk/models";
 @Component({
   selector: "lbk-invoice-preview",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './invoice-preview.component.html'
+  templateUrl: "./invoice-preview.component.html",
 })
 export class InvoicePreviewComponent {
   @Input() invoice!: Invoice;
@@ -12,6 +12,6 @@ export class InvoicePreviewComponent {
   priceOptions: PriceOptions = { size: "text-lg" };
 
   get id() {
-    return this.invoice._id;
+    return this.invoice.id;
   }
 }

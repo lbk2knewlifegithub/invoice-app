@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CreateInvoiceDto, UpdateInvoiceDto } from "@frontend/dto";
-import { Address, Invoice, Item, Status } from "@lbk/models";
+import { Address, Invoice, InvoiceStatus, Item } from "@lbk/models";
 import { addDays, decimalRegex } from "@lbk/utils";
 
 @Component({
@@ -29,7 +29,9 @@ export class InvoiceFormComponent implements OnInit {
     this.initForm();
   }
 
-  createInvoiceDto(newStatus: Status): UpdateInvoiceDto | CreateInvoiceDto {
+  createInvoiceDto(
+    newStatus: InvoiceStatus
+  ): UpdateInvoiceDto | CreateInvoiceDto {
     const { billFrom, billTo, items } = this.invoiceForm.value;
     let { createdAt, paymentTerms } = billTo;
 
@@ -100,7 +102,7 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   private createItem(item: Partial<Item>) {
-    const { name, quantity, price, total } = item;
+    const { name, quantity, price } = item;
     return this._fb.group({
       name: [name ?? "", [Validators.required, Validators.maxLength(50)]],
 
@@ -122,7 +124,6 @@ export class InvoiceFormComponent implements OnInit {
         ],
       ],
       total: [
-        total ?? 1,
         [
           Validators.required,
           Validators.min(1),

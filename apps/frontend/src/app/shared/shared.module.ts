@@ -6,8 +6,10 @@ import { RouterModule } from "@angular/router";
 import { UIModule } from "@lbk/ui";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
 import { fromInvoiceForm, LogoComponent } from "./components";
+import { TotalPriceInvoicePipe, TotalPriceItemPipe } from "./pipes";
 
 export const COMPONENTS = [fromInvoiceForm.COMPONENTS, LogoComponent];
+export const PIPES = [TotalPriceInvoicePipe, TotalPriceItemPipe];
 
 @NgModule({
   imports: [
@@ -19,7 +21,8 @@ export const COMPONENTS = [fromInvoiceForm.COMPONENTS, LogoComponent];
     OwlNativeDateTimeModule,
     MatRippleModule,
   ],
-  declarations: [COMPONENTS],
-  exports: [COMPONENTS],
+  declarations: [COMPONENTS, PIPES],
+  providers: [PIPES],
+  exports: [COMPONENTS, PIPES],
 })
 export class SharedModule {}

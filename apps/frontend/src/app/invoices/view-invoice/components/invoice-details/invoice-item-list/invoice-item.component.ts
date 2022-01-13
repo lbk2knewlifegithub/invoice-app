@@ -25,7 +25,7 @@ import { Item, PriceOptions } from '@lbk/models';
       </div>
 
       <!-- total -->
-      <lbk-price [value]="item.total"></lbk-price>
+      <lbk-price [value]="item | totalPriceItem"></lbk-price>
       <!-- end total -->
     </div>
   `,

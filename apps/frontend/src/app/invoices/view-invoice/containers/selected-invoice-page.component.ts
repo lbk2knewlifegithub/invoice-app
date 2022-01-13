@@ -36,7 +36,7 @@ import { Observable, take } from "rxjs";
   `,
 })
 export class SelectedInvoicePageComponent implements OnInit {
-  invoice$!: Observable<Invoice | null | undefined | "">;
+  invoice$!: Observable<Invoice | null | undefined | 0>;
 
   constructor(
     private readonly _store: Store,
@@ -51,7 +51,7 @@ export class SelectedInvoicePageComponent implements OnInit {
     this._store.dispatch(LayoutActions.showEditOverlay());
   }
 
-  delete(id: string) {
+  delete(id: number) {
     this._dialogService
       .deleteDialog(id)
       .pipe(take(1))
@@ -63,7 +63,7 @@ export class SelectedInvoicePageComponent implements OnInit {
       });
   }
 
-  maskAsPaid(id: string) {
+  maskAsPaid(id: number) {
     this._store.dispatch(ViewInvoicePageActions.maskAsPaid({ id }));
   }
 }

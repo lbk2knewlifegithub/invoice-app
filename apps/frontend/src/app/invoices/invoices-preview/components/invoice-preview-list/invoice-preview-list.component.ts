@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Invoice } from '@lbk/models';
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
+import { Invoice } from "@lbk/models";
 
 @Component({
-  selector: 'lbk-invoice-preview-list',
+  selector: "lbk-invoice-preview-list",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div class="grid gap-4">
@@ -16,6 +16,6 @@ export class InvoicePreviewListComponent {
   @Input() invoices!: Invoice[];
 
   identifyInvoice(index: number, invoice: Invoice) {
-    return invoice._id;
+    return invoice.id;
   }
 }

@@ -5,13 +5,13 @@ import { Observable } from "rxjs";
 export interface InvoicesService {
   getInvoices(): Observable<Invoice[]>;
 
-  retrieveInvoice(id: string): Observable<Invoice>;
+  retrieveInvoice(id: number): Observable<Invoice>;
 
-  deleteInvoice(id: string): Observable<Invoice[]>;
-  maskAsPaid(id: string): Observable<Invoice[]>;
+  deleteInvoice(id: number): Observable<Invoice[]>;
+  maskAsPaid(id: number): Observable<Invoice[]>;
 
   updateInvoice(
-    id: string,
+    id: number,
     updateInvoiceDto: UpdateInvoiceDto
   ): Observable<Invoice[]>;
 

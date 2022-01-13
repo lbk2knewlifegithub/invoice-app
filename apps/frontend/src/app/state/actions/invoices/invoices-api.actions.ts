@@ -1,17 +1,17 @@
-import { UpdateInvoiceDto } from '@frontend/dto';
-import { Invoice } from '@lbk/models';
-import { createAction, props } from '@ngrx/store';
+import { UpdateInvoiceDto } from "@frontend/dto";
+import { Invoice } from "@lbk/models";
+import { createAction, props } from "@ngrx/store";
 
 /**
  * - Load invoices
  */
 export const loadInvoicesSuccess = createAction(
-  '[Invoices/API] Load Invoices Success',
+  "[Invoices/API] Load Invoices Success",
   props<{ invoices: Invoice[] }>()
 );
 
 export const loadInvoicesFailure = createAction(
-  '[Invoices/API] Load Invoices Failure',
+  "[Invoices/API] Load Invoices Failure",
   props<{ error: any }>()
 );
 
@@ -19,12 +19,12 @@ export const loadInvoicesFailure = createAction(
  * - Delete Invoice
  */
 export const deleteInvoiceSuccess = createAction(
-  '[Invoices/API] Delete Invoice Success',
-  props<{ id: string }>()
+  "[Invoices/API] Delete Invoice Success",
+  props<{ id: number }>()
 );
 
 export const deleteInvoiceFailure = createAction(
-  '[Invoices/API] Delete Invoice Failure',
+  "[Invoices/API] Delete Invoice Failure",
   props<{ error: any }>()
 );
 
@@ -32,12 +32,12 @@ export const deleteInvoiceFailure = createAction(
  * - Mask Invoice as Paid
  */
 export const maskAsPaidSuccess = createAction(
-  '[Invoices/API] Mask As Paid Success',
-  props<{ id: string }>()
+  "[Invoices/API] Mask As Paid Success",
+  props<{ id: number }>()
 );
 
 export const maskAsPaidFailure = createAction(
-  '[Invoices/API] Mask As Paid Failure',
+  "[Invoices/API] Mask As Paid Failure",
   props<{ error: any }>()
 );
 
@@ -45,12 +45,12 @@ export const maskAsPaidFailure = createAction(
  * - Edit Invoice
  */
 export const updateInvoiceSuccess = createAction(
-  '[Invoices/API] Edit Invoice Success',
-  props<{ id: string; updateInvoiceDto: UpdateInvoiceDto }>()
+  "[Invoices/API] Edit Invoice Success",
+  props<{ id: number; updateInvoiceDto: UpdateInvoiceDto }>()
 );
 
 export const editInvoiceFailure = createAction(
-  '[Invoices/API] Edit Invoice Failure',
+  "[Invoices/API] Edit Invoice Failure",
   props<{ error: any }>()
 );
 
@@ -58,12 +58,12 @@ export const editInvoiceFailure = createAction(
  * - Search Invoice
  */
 export const searchInvoiceSuccess = createAction(
-  '[Invoices/API] Search Invoice Success',
+  "[Invoices/API] Search Invoice Success",
   props<{ invoices: Invoice[] }>()
 );
 
 export const searchInvoiceFailure = createAction(
-  '[Invoices/API] Search Invoice Failure',
+  "[Invoices/API] Search Invoice Failure",
   props<{ error: any }>()
 );
 
@@ -71,11 +71,11 @@ export const searchInvoiceFailure = createAction(
  * - Create Invoice
  */
 export const createInvoiceSuccess = createAction(
-  '[Invoices/API] Create Invoice Success',
+  "[Invoices/API] Create Invoice Success",
   props<{ invoice: Invoice }>()
 );
 
 export const createInvoiceFailure = createAction(
-  '[Invoices/API] Create Invoice Failure',
+  "[Invoices/API] Create Invoice Failure",
   props<{ error: any }>()
 );

@@ -32,7 +32,7 @@ import { EditOverlayComponent } from "../components/edit-invoice-overlay";
 })
 export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   showEditOverlay$!: Observable<boolean>;
-  invoice$!: Observable<Invoice | null | "" | undefined>;
+  invoice$!: Observable<Invoice | null | 0 | undefined>;
 
   @ViewChild(EditOverlayComponent)
   editOverLayComponent!: EditOverlayComponent;
@@ -65,7 +65,7 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
     id,
     updateInvoiceDto,
   }: {
-    id: string;
+    id: number;
     updateInvoiceDto: UpdateInvoiceDto;
   }) {
     this._store.dispatch(
