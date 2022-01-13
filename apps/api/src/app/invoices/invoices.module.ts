@@ -3,7 +3,6 @@ import { Module } from "@nestjs/common";
 import { MongooseModule } from "@nestjs/mongoose";
 import { AuthModule } from "../auth";
 import { InvoicesController } from "./invoices.controller";
-import { InvoicesRepo } from "./invoices.repo";
 import { InvoicesService } from "./invoices.service";
 import {
   AddressEntity,
@@ -25,7 +24,7 @@ import {
     ]),
   ],
   controllers: [InvoicesController],
-  providers: [InvoicesService, InvoicesRepo],
-  exports: [InvoicesService, InvoicesRepo],
+  providers: [InvoicesService],
+  exports: [InvoicesService],
 })
 export class InvoicesModule {}

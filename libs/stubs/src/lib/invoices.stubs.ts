@@ -1,4 +1,11 @@
-import { Invoice } from "@lbk/models";
+import { Invoice, InvoiceStatus, Item } from "@lbk/models";
+
+export const itemStub = (): Item => ({
+  name: "abcded",
+  price: 232,
+  quantity: 11,
+  total: 2320,
+});
 
 export const anotherInvoiceStub = (): Invoice => ({
   id: 1,
@@ -8,7 +15,7 @@ export const anotherInvoiceStub = (): Invoice => ({
   paymentTerms: 30,
   clientName: "Alex Grim",
   clientEmail: "alexgrim@mail.com",
-  status: "pending",
+  status: InvoiceStatus.PENDING,
   senderAddress: {
     street: "19 Union Terrace",
     city: "London",
@@ -46,7 +53,7 @@ export const invoiceStub = (): Invoice => ({
   paymentTerms: 1,
   clientName: "Jensen Huang",
   clientEmail: "jensenh@mail.com",
-  status: "paid",
+  status: InvoiceStatus.PAID,
   senderAddress: {
     street: "19 Union Terrace",
     city: "London",
@@ -79,7 +86,7 @@ export const invoicesStub = (): Invoice[] => [
     paymentTerms: 1,
     clientName: "Jensen Huang",
     clientEmail: "jensenh@mail.com",
-    status: "paid",
+    status: InvoiceStatus.PAID,
     senderAddress: {
       street: "19 Union Terrace",
       city: "London",
@@ -110,7 +117,7 @@ export const invoicesStub = (): Invoice[] => [
     paymentTerms: 30,
     clientName: "Alex Grim",
     clientEmail: "alexgrim@mail.com",
-    status: "pending",
+    status: InvoiceStatus.PENDING,
     senderAddress: {
       street: "19 Union Terrace",
       city: "London",

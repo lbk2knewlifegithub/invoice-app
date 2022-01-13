@@ -6,13 +6,14 @@ import { AuthModule } from "./auth/auth.module";
 import { DatabaseModule } from "./database";
 import { DataInterceptor } from "./interceptor";
 import { InvoicesModule } from "./invoices";
-import { DataPipe } from "./pipes";
+import { SharedModule } from "./shared.module";
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    SharedModule,
     DatabaseModule,
     AuthModule,
     InvoicesModule,

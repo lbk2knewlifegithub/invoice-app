@@ -113,7 +113,7 @@ describe("Invoices Controller", () => {
     }
 
     it("should update invoice by id", async () => {
-      const result = await controller.updateInvoice(
+      const result = await controller.patchInvoice(
         "abc",
         userStub,
         updateInvoiceDto()
@@ -122,7 +122,7 @@ describe("Invoices Controller", () => {
     });
 
     it("should call updateInvoice of InvoicesService", async () => {
-      await controller.updateInvoice("abc", userStub, updateInvoiceDto());
+      await controller.patchInvoice("abc", userStub, updateInvoiceDto());
 
       expect(mockInvoiceService.updateInvoice).toBeCalledWith(
         "abc",

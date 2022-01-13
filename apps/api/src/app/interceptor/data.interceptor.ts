@@ -1,12 +1,19 @@
-import { CallHandler, ExecutionContext, Injectable, NestInterceptor } from '@nestjs/common';
-import { map, Observable } from 'rxjs';
-import { classToPlain } from 'class-transformer';
+import {
+  CallHandler,
+  ExecutionContext,
+  Injectable,
+  NestInterceptor
+} from "@nestjs/common";
+import { instanceToPlain } from "class-transformer";
+import { map, Observable } from "rxjs";
 
 @Injectable()
 export class DataInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-    // return next.handle().pipe(map((data) => classToPlain(data)));
-    return next.handle();
+    return next.handle().pipe(map((data) => {
+      const banana =  instanceToPlain(data);
+      console.log(banana);
+      return data;
+    }));
   }
 }
-

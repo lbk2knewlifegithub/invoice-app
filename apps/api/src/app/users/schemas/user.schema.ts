@@ -1,10 +1,11 @@
-import { InvoiceEntity, InvoiceSchema } from "@api/invoices/schemas";
+import { InvoiceDocument, InvoiceEntity, InvoiceSchema } from "@api/invoices/schemas";
 import { User } from "@lbk/models";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { hash } from "bcrypt";
+import { Document } from "mongoose";
 
 @Schema({ collection: "users" })
-export class UserEntity implements User {
+export class UserEntity implements User  {
   _id: string;
 
   @Prop({ required: true, type: String, unique: true })

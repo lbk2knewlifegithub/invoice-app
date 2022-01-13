@@ -1,11 +1,18 @@
 import { CredentialsDto } from "@api/auth/credentials.dto";
+import { CACHE_NUMBERS_OF_INVOICES } from "@api/constants";
+import { InvoiceDto, ItemDto } from "@api/invoices/dto";
+import { InvoiceEntity, ItemEntity } from "@api/invoices/schemas";
+import { addDays } from "@lbk/utils";
 import {
+  CACHE_MANAGER,
   ConflictException,
+  Inject,
   Injectable,
   InternalServerErrorException
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { genSalt, hash } from "bcrypt";
+import { Cache } from "cache-manager";
 import { Model, UpdateWriteOpResult } from "mongoose";
 import { UserDocument, UserEntity } from "../schemas";
 
@@ -16,7 +23,9 @@ import { UserDocument, UserEntity } from "../schemas";
 export class UserRepository {
   constructor(
     @InjectModel(UserEntity.name)
-    private readonly _userModel: Model<UserDocument>
+    private readonly _userModel: Model<UserDocument>,
+    @Inject(CACHE_MANAGER)
+    private readonly _cacheManager: Cache
   ) {}
 
   /**
@@ -110,6 +119,126 @@ export class UserRepository {
           [`invoices.${id}`]: 1,
         },
       }
+    );
+  }
+
+  async createInvoice(
+    { username }: UserEntity,
+    createInvoiceDto: InvoiceDto
+  ): Promise<InvoiceEntity> {
+    // create invoice id
+    const id = await this.createInvoiceId();
+
+    const items = this.createItems(createInvoiceDto.items);
+    const newInvoice: InvoiceEntity = new InvoiceEntity({
+      ...createInvoiceDto,
+      id,
+      items,
+      total: this.createTotal(items),
+      createdAt: new Date(createInvoiceDto.createdAt),
+      paymentDue: this.createPaymentDue(createInvoiceDto),
+    });
+
+    await this._userModel.updateOne(
+      { username },
+      {
+        $set: {
+          invoices: {
+            [id]: newInvoice,
+          },
+        },
+      }
+    );
+
+    return newInvoice;
+  }
+
+  private createPaymentDue({ createdAt, paymentTerms }: InvoiceDto): Date {
+    return new Date(addDays(createdAt, paymentTerms));
+  }
+
+  private createTotal(itemEntities: ItemEntity[]) {
+    return itemEntities.reduce((sum, i) => sum + i.total, 0);
+  }
+
+  private createItems(itemsDto: ItemDto[]): ItemEntity[] {
+    return itemsDto.map((dto) => ({
+      ...dto,
+      total: dto.price * dto.quantity,
+    }));
+  }
+
+  private async createInvoiceId(): Promise<number> {
+    const length = await this._cacheManager.get(CACHE_NUMBERS_OF_INVOICES);
+
+    if (!length) {
+      const numberOfInvoices = await this.numberOfInvoices();
+      await this._cacheManager.set(CACHE_NUMBERS_OF_INVOICES, numberOfInvoices);
+      return numberOfInvoices;
+    }
+
+    // increment id
+    const result = parseInt(length as string) + 1;
+    await this._cacheManager.set(CACHE_NUMBERS_OF_INVOICES, result);
+    return result;
+  }
+
+  // async patchInvoice(
+  //   id: number,
+  //   { username, invoices }: UserEntity,
+  //   updateInvoiceDto: UpdateInvoiceDto
+  // ): Promise<InvoiceEntity | undefined> {
+  //   const invoice = invoices.get(id);
+  //   if (!invoice) return undefined;
+
+  //   const newInvoice = _.assignIn(
+  //     (invoice as InvoiceDocument).toObject(),
+  //     updateInvoiceDto
+  //   );
+
+  //   console.log(newInvoice);
+
+  //   // When update createdAt or paymentTerms will affected to paymentDue
+  //   if (updateInvoiceDto.paymentTerms || updateInvoiceDto.createdAt) {
+  //     newInvoice.paymentDue = new Date(
+  //       addDays(newInvoice.createdAt, newInvoice.paymentTerms)
+  //     );
+  //   }
+
+  //   const result = await this._userModel.findOneAndUpdate(
+  //     { username },
+  //     {
+  //       [`invoices.${id}`]: updateInvoiceDto,
+  //     },
+  //     { new: true }
+  //   );
+  //   console.log("fuck");
+  //   console.log(result);
+
+  //   return result!.invoices.get(id);
+  // }
+
+  async updateInvoice(
+    id: number,
+    { username }: UserEntity,
+    invoiceDto: InvoiceDto
+  ): Promise<boolean> {
+    const updated = await this._userModel.updateOne(
+      { username },
+      {
+        $set: {
+          [`invoices.${id}`]: invoiceDto,
+        },
+      }
+    );
+    return updated.modifiedCount === 1;
+  }
+
+  private async numberOfInvoices(): Promise<number> {
+    const users = await this._userModel.find({});
+    return users.reduce(
+      (sum: number, user: UserDocument) => sum + user.invoices.size,
+      0
     );
   }
 }

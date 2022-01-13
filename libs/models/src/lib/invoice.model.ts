@@ -9,7 +9,6 @@ export interface Item {
   name: string;
   quantity: number;
   price: number;
-  total: number;
 }
 
 export type Status = "draft" | "paid" | "pending";
@@ -19,12 +18,23 @@ export interface Invoice {
   createdAt: string;
   paymentDue: string;
   description: string;
-  paymentTerms: number;
+  paymentTerms: PaymentTerms;
   clientName: string;
   clientEmail: string;
-  status: Status;
+  status: InvoiceStatus;
   senderAddress: Address;
   clientAddress: Address;
   items: Item[];
-  total: number;
+}
+
+export enum PaymentTerms {
+  ONE_DAY = 1,
+  SEVEN_DAYS = 7,
+  THIRTY_DAYS = 30,
+}
+
+export enum InvoiceStatus {
+  DRAFT = "draft",
+  PAID = "paid",
+  PENDING = "pending",
 }

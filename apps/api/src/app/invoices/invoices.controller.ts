@@ -1,18 +1,16 @@
 import { JwtAuthGuard } from "@api/auth/jwt-auth.guard";
-import { ObjectIdValidationPipe } from "@api/pipes";
 import { GetUser, UserEntity } from "@api/users";
-import { Invoice } from "@lbk/models";
 import {
   Body,
   Controller,
   Delete,
   Get,
   Param,
-  Patch,
   Post,
+  Put,
   UseGuards
 } from "@nestjs/common";
-import { CreateInvoiceDto, UpdateInvoiceDto } from "./dto";
+import { InvoiceDto } from "./dto";
 import { InvoicesService } from "./invoices.service";
 import { InvoiceEntity } from "./schemas";
 
@@ -38,24 +36,29 @@ export class InvoicesController {
 
   @Post()
   async createInvoice(
-    @GetUser() user: UserEntity,
-    @Body() createInvoiceDto: CreateInvoiceDto
-  ): Promise<Invoice> {
-    return await this._invoiceService.createInvoice(user, createInvoiceDto);
+    @GetUser() userEntity: UserEntity,
+    @Body() createInvoiceDto: InvoiceDto
+  ): Promise<InvoiceEntity> {
+    return this._invoiceService.createInvoice(userEntity, createInvoiceDto);
   }
 
-  @Patch(":_id")
+  @Put(":id")
   async updateInvoice(
-    @Param("_id", ObjectIdValidationPipe) _id: string,
+    @Param("id") id: number,
     @GetUser() user: UserEntity,
-    @Body() updateInvoiceDto: UpdateInvoiceDto
-  ): Promise<Invoice> {
-    return await this._invoiceService.updateInvoice(
-      _id,
-      user,
-      updateInvoiceDto
-    );
+    @Body() invoiceDto: InvoiceDto
+  ): Promise<void> {
+    return this._invoiceService.updateInvoice(id, user, invoiceDto);
   }
+
+  // @Patch(":id")
+  // async patchInvoice(
+  //   @Param("id") id: number,
+  //   @GetUser() user: UserEntity,
+  //   @Body() updateInvoiceDto: UpdateInvoiceDto
+  // ): Promise<InvoiceEntity> {
+  //   return await this._invoiceService.updateInvoice(id, user, updateInvoiceDto);
+  // }
 
   @Delete(":id")
   async deleteInvoice(
