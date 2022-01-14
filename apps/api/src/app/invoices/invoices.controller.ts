@@ -6,11 +6,12 @@ import {
   Delete,
   Get,
   Param,
+  Patch,
   Post,
   Put,
   UseGuards
 } from "@nestjs/common";
-import { InvoiceDto } from "./dto";
+import { InvoiceDto, UpdateStatusDto } from "./dto";
 import { InvoicesService } from "./invoices.service";
 import { InvoiceEntity } from "./schemas";
 
@@ -51,14 +52,14 @@ export class InvoicesController {
     return this._invoiceService.updateInvoice(id, user, invoiceDto);
   }
 
-  // @Patch(":id")
-  // async patchInvoice(
-  //   @Param("id") id: number,
-  //   @GetUser() user: UserEntity,
-  //   @Body() updateInvoiceDto: UpdateInvoiceDto
-  // ): Promise<InvoiceEntity> {
-  //   return await this._invoiceService.updateInvoice(id, user, updateInvoiceDto);
-  // }
+  @Patch(":id/status")
+  async updateStatus(
+    @Param("id") id: number,
+    @GetUser() user: UserEntity,
+    @Body() updateStatusDto: UpdateStatusDto
+  ): Promise<void> {
+     await this._invoiceService.updateStatus(id, user, updateStatusDto);
+  }
 
   @Delete(":id")
   async deleteInvoice(

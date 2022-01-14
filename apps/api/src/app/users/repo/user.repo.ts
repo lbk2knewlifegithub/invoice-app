@@ -1,6 +1,6 @@
 import { CredentialsDto } from "@api/auth/credentials.dto";
 import { CACHE_NUMBERS_OF_INVOICES } from "@api/constants";
-import { InvoiceDto } from "@api/invoices/dto";
+import { InvoiceDto, UpdateStatusDto } from "@api/invoices/dto";
 import { InvoiceEntity } from "@api/invoices/schemas";
 import { addDays } from "@lbk/utils";
 import {
@@ -216,6 +216,21 @@ export class UserRepository {
       }
     );
     return updated.modifiedCount === 1;
+  }
+
+  async updateInvoiceStatus(
+    id: number,
+    { username }: UserEntity,
+    { status }: UpdateStatusDto
+  ) {
+    await this._userModel.updateOne(
+      { username },
+      {
+        $set: {
+          [`invoices.${id}.status`]: status,
+        },
+      }
+    );
   }
 
   private async numberOfInvoices(): Promise<number> {

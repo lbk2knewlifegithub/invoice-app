@@ -1,7 +1,7 @@
 import { UserDocument, UserEntity } from "@api/users";
 import { UserRepository } from "@api/users/repo";
 import { Injectable, NotFoundException } from "@nestjs/common";
-import { InvoiceDto } from "./dto";
+import { InvoiceDto, UpdateStatusDto } from "./dto";
 import { InvoiceDocument, InvoiceEntity } from "./schemas";
 
 @Injectable()
@@ -58,5 +58,17 @@ export class InvoicesService {
     const updated = await this._repo.updateInvoice(id, userEntity, invoiceDto);
 
     if (!updated) throw new NotFoundException();
+  }
+
+
+  async updateStatus(
+    id: number,
+    userEntity: UserEntity,
+     updateStatusDto: UpdateStatusDto
+  ): Promise<void> {
+    // check invoice existed
+    await this.getInvoice(userEntity, id);
+
+    await this._repo.updateInvoiceStatus(id,userEntity,  updateStatusDto);
   }
 }

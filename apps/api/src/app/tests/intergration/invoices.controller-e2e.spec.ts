@@ -99,25 +99,52 @@ describe("Invoices Controller (e2e)", () => {
     return response.body.accessToken;
   }
 
+  async function putRequest(url: string, accessToken: string, body: any) {
+    return request(httpServer)
+      .put(url)
+      .send(body)
+      .set({ Authorization: `Bearer ${accessToken}` });
+  }
+
+  async function deleteRequest(url: string, accessToken: string) {
+    return request(httpServer)
+      .delete(url)
+      .set({ Authorization: `Bearer ${accessToken}` });
+  }
+
+  async function getRequest(
+    url: string,
+    accessToken: string
+  ): Promise<request.Test> {
+    return request(httpServer)
+      .get(url)
+      .set({ Authorization: `Bearer ${accessToken}` });
+  }
+
+  async function post(url: string, accessToken: string, body: any) {
+    return request(httpServer)
+      .post(url)
+      .send(body)
+      .set({ Authorization: `Bearer ${accessToken}` });
+  }
+
+  async function patchRequest(url: string, accessToken: string, body: any) {
+    return request(httpServer)
+      .patch(url)
+      .send(body)
+      .set({ Authorization: `Bearer ${accessToken}` });
+  }
+
   it("should defined", () => {
     expect(controller).toBeDefined();
   });
 
   describe("GET", () => {
-    async function get(
-      url: string,
-      accessToken: string
-    ): Promise<request.Test> {
-      return request(httpServer)
-        .get(url)
-        .set({ Authorization: `Bearer ${accessToken}` });
-    }
-
     describe("Get all invoices", () => {
       it("should return array of invoices", async () => {
         const accessToken = await signUp();
         const invoice = await insertInvoice();
-        const response = await get("/invoices", accessToken);
+        const response = await getRequest("/invoices", accessToken);
 
         expect(response.body).toMatchObject([invoice]);
       });
@@ -144,25 +171,31 @@ describe("Invoices Controller (e2e)", () => {
       it("should return status code 200", async () => {
         const accessToken = await signUp();
         const invoice = await insertInvoice();
-        const response = await get(`/invoices/${invoice.id}`, accessToken);
+        const response = await getRequest(
+          `/invoices/${invoice.id}`,
+          accessToken
+        );
 
         expect(response.status).toBe(200);
       });
       it("should return invoice by id", async () => {
         const accessToken = await signUp();
         const invoice = await insertInvoice();
-        const response = await get(`/invoices/${invoice.id}`, accessToken);
+        const response = await getRequest(
+          `/invoices/${invoice.id}`,
+          accessToken
+        );
         expect(response.body).toEqual(invoice);
       });
       it("should return status code 404 when invoice not found", async () => {
         const accessToken = await signUp();
         await insertInvoice();
-        const response = await get(`/invoices/notfound`, accessToken);
+        const response = await getRequest(`/invoices/notfound`, accessToken);
         expect(response.status).toBe(404);
       });
 
       it("should return status code 401 when user not login", async () => {
-        const response = await get(`/invoices/notfound`, "");
+        const response = await getRequest(`/invoices/notfound`, "");
         expect(response.status).toBe(401);
       });
     });
@@ -170,12 +203,6 @@ describe("Invoices Controller (e2e)", () => {
 
   describe("DELETE", () => {
     describe("delete invoice", () => {
-      async function deleteRequest(url: string, accessToken: string) {
-        return request(httpServer)
-          .delete(url)
-          .set({ Authorization: `Bearer ${accessToken}` });
-      }
-
       it("should return status code 200 when delete invoice success", async () => {
         const accessToken = await signUp();
         await insertInvoice();
@@ -209,14 +236,7 @@ describe("Invoices Controller (e2e)", () => {
     });
   });
   describe("POST", () => {
-    async function post(url: string, accessToken: string, body: any) {
-      return request(httpServer)
-        .post(url)
-        .send(body)
-        .set({ Authorization: `Bearer ${accessToken}` });
-    }
-
-    it.only("should return have two invoice in database", async () => {
+    it("should return have two invoice in database", async () => {
       const accessToken = await signUp();
       const stub = invoiceStub();
       await post("/invoices", accessToken, stub);
@@ -786,13 +806,6 @@ describe("Invoices Controller (e2e)", () => {
   });
 
   describe("PUT", () => {
-    async function putRequest(url: string, accessToken: string, body: any) {
-      return request(httpServer)
-        .put(url)
-        .send(body)
-        .set({ Authorization: `Bearer ${accessToken}` });
-    }
-
     it("should return 401 when user not login", async () => {
       await signUp();
       const response = await putRequest("/invoices/invalid", "invalid", {});
@@ -1633,6 +1646,62 @@ describe("Invoices Controller (e2e)", () => {
             expect(response.status).toBe(400);
           });
         });
+      });
+    });
+  });
+
+  describe("PATCH", () => {
+    describe("maskAsPaid", () => {
+      it("should return 401 when user not login", async () => {
+        const accessToken = await signUp();
+        const invoice = await insertInvoice();
+        const response = await patchRequest(
+          `/invoices/${invoice.id}/status`,
+          "invalid",
+          { status: InvoiceStatus.PAID }
+        );
+
+        expect(response.status).toBe(401);
+      });
+
+      it("should return 200 when maskAsPaid success", async () => {
+        const accessToken = await signUp();
+        const invoice = await insertInvoice();
+        const response = await patchRequest(
+          `/invoices/${invoice.id}/status`,
+          accessToken,
+          { status: InvoiceStatus.PAID }
+        );
+
+        expect(response.status).toBe(200);
+      });
+
+      it("should update status in database", async () => {
+        const accessToken = await signUp();
+        const invoice = await insertInvoice();
+        await patchRequest(`/invoices/${invoice.id}/status`, accessToken, {
+          status: InvoiceStatus.DRAFT,
+        });
+
+        const user = await usersCollection().findOne({
+          username: credentialsStub().username,
+        });
+
+        const updated = user.invoices[invoice.id];
+
+        expect(updated.status).toBe(InvoiceStatus.DRAFT);
+      });
+
+      it.only("return return 404 when invoice not found", async () => {
+        const accessToken = await signUp();
+        await insertInvoice();
+        const response = await patchRequest(
+          `/invoices/invalid/status`,
+          accessToken,
+          { status: InvoiceStatus.PAID }
+        );
+
+        expect(response.status).toBe(404);
       });
     });
   });
