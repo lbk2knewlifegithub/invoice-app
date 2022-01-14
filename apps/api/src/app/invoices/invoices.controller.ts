@@ -49,7 +49,10 @@ export class InvoicesController {
     @GetUser() user: UserEntity,
     @Body() invoiceDto: InvoiceDto
   ): Promise<void> {
-    return this._invoiceService.updateInvoice(id, user, invoiceDto);
+    console.log(id);
+    console.log(invoiceDto);
+
+    await this._invoiceService.updateInvoice(id, user, invoiceDto);
   }
 
   @Patch(":id/status")
@@ -58,7 +61,7 @@ export class InvoicesController {
     @GetUser() user: UserEntity,
     @Body() updateStatusDto: UpdateStatusDto
   ): Promise<void> {
-     await this._invoiceService.updateStatus(id, user, updateStatusDto);
+    await this._invoiceService.updateStatus(id, user, updateStatusDto);
   }
 
   @Delete(":id")

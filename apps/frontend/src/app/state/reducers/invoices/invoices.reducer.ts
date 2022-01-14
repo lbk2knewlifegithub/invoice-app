@@ -2,6 +2,7 @@ import { Invoice, InvoiceStatus } from "@lbk/models";
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { createReducer, on } from "@ngrx/store";
 import {
+  AuthApiActions,
   InvoiceActions,
   InvoicesAPIActions,
   ViewInvoicePageActions
@@ -25,6 +26,7 @@ export const initialState: State = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
+  on(AuthApiActions.loginSuccess, (_) => initialState),
   on(
     // BooksApiActions.searchSuccess,
     InvoicesAPIActions.loadInvoicesSuccess,
@@ -42,10 +44,8 @@ export const reducer = createReducer(
     adapter.updateOne({ id, changes: { status: InvoiceStatus.PAID } }, state)
   ),
   // Update Invoice Success
-  on(
-    InvoicesAPIActions.updateInvoiceSuccess,
-    (state, { id, updateInvoiceDto }) =>
-      adapter.updateOne({ id, changes: { ...updateInvoiceDto } }, state)
+  on(InvoicesAPIActions.updateInvoiceSuccess, (state, { id, invoiceDto }) =>
+    adapter.updateOne({ id, changes: { ...invoiceDto } }, state)
   ),
   on(ViewInvoicePageActions.selectInvoice, (state, { id }) => ({
     ...state,

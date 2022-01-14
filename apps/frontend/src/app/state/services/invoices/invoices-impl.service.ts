@@ -1,6 +1,6 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CreateInvoiceDto, UpdateInvoiceDto } from "@frontend/dto";
+import {InvoiceDto} from "@frontend/dto";
 import { Invoice, InvoiceStatus } from "@lbk/models";
 import { Observable } from "rxjs";
 import { InvoicesService } from "..";
@@ -29,12 +29,14 @@ export class InvoicesImplService implements InvoicesService {
 
   updateInvoice(
     id: number,
-    updateInvoiceDto: UpdateInvoiceDto
+    invoiceDto: InvoiceDto
   ): Observable<void> {
-    return this._http.put<void>(`/api/invoices/${id}`, updateInvoiceDto);
+    console.log(id);
+    console.log(invoiceDto);
+    return this._http.put<void>(`/api/invoices/${id}`, invoiceDto);
   }
 
-  createInvoice(createInvoiceDto: CreateInvoiceDto): Observable<Invoice> {
-    return this._http.post<Invoice>("/api/invoices", createInvoiceDto);
+  createInvoice(invoiceDto: InvoiceDto): Observable<Invoice> {
+    return this._http.post<Invoice>("/api/invoices", invoiceDto);
   }
 }

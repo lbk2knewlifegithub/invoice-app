@@ -7,8 +7,8 @@ import {
   ViewChild
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
+import { InvoiceDto } from "@frontend/dto";
 import { InvoiceFormComponent } from "@frontend/shared/components";
-import { UpdateInvoiceDto } from "@frontend/dto";
 import { Invoice } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { take } from "rxjs";
@@ -40,7 +40,7 @@ export class EditOverlayComponent {
   @Output() cancel = new EventEmitter<void>();
   @Output() edit = new EventEmitter<{
     id: number;
-    updateInvoiceDto: UpdateInvoiceDto;
+    invoiceDto: InvoiceDto;
   }>();
 
   constructor(private readonly _dialogService: DialogService) {}
@@ -51,11 +51,11 @@ export class EditOverlayComponent {
       return;
     }
 
-    const updateInvoiceDto = this.invoiceFormComponent.createInvoiceDto(
+    const invoiceDto = this.invoiceFormComponent.createInvoiceDto(
       this.invoice.status
     );
 
-    this.edit.emit({ id: this.invoice.id, updateInvoiceDto });
+    this.edit.emit({ id: this.invoice.id, invoiceDto });
 
     this.invoiceFormComponent.initForm(true);
   }

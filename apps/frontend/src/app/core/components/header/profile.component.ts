@@ -4,13 +4,13 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
   selector: "lbk-profile",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a routerLink="/">
+    <button>
       <img
         class="aspect-square max-w-[32px] rounded-full lg:max-w-[40px]"
         src="assets/image-avatar.jpg"
         alt="Avatar"
       />
-    </a>
+    </button>
   `,
 })
 export class ProfileComponent {}

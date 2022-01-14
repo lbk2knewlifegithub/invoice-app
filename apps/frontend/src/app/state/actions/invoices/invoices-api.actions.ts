@@ -1,4 +1,4 @@
-import { UpdateInvoiceDto } from "@frontend/dto";
+import { InvoiceDto } from "@frontend/dto";
 import { Invoice } from "@lbk/models";
 import { createAction, props } from "@ngrx/store";
 
@@ -46,7 +46,7 @@ export const maskAsPaidFailure = createAction(
  */
 export const updateInvoiceSuccess = createAction(
   "[Invoices/API] Edit Invoice Success",
-  props<{ id: number; updateInvoiceDto: UpdateInvoiceDto }>()
+  props<{ id: number; invoiceDto: InvoiceDto }>()
 );
 
 export const editInvoiceFailure = createAction(

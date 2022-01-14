@@ -211,7 +211,7 @@ export class UserRepository {
       { username },
       {
         $set: {
-          [`invoices.${id}`]: invoiceDto,
+          [`invoices.${id}`]: { ...invoiceDto, id },
         },
       }
     );

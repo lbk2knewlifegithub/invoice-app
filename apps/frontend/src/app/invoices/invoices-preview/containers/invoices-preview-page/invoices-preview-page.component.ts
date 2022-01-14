@@ -4,12 +4,12 @@ import {
   OnInit,
   ViewChild
 } from "@angular/core";
+import { FilterDto, InvoiceDto } from "@frontend/dto";
 import {
   InvoicesPreviewPageActions,
   LayoutActions
 } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
-import { CreateInvoiceDto, FilterDto } from "@frontend/dto";
 import { Invoice } from "@lbk/models";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
@@ -54,9 +54,9 @@ export class InvoicePreviewPageComponent implements OnInit {
     this._store.dispatch(LayoutActions.closeAllOverlay());
   }
 
-  create(createInvoiceDto: CreateInvoiceDto) {
+  create(createInvoiceDto: InvoiceDto) {
     this._store.dispatch(
-      InvoicesPreviewPageActions.createInvoice({ createInvoiceDto })
+      InvoicesPreviewPageActions.createInvoice({ invoiceDto: createInvoiceDto })
     );
   }
 }

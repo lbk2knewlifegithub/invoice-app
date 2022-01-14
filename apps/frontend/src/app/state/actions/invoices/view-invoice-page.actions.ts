@@ -1,4 +1,4 @@
-import { UpdateInvoiceDto } from "@frontend/dto";
+import { InvoiceDto } from "@frontend/dto";
 import { createAction, props } from "@ngrx/store";
 
 export const selectInvoice = createAction(
@@ -18,5 +18,5 @@ export const maskAsPaid = createAction(
 
 export const updateInvoice = createAction(
   "[View Invoice Page] Update Invoice",
-  props<{ id: number; updateInvoiceDto: UpdateInvoiceDto }>()
+  props<{ id: number; invoiceDto: InvoiceDto }>()
 );

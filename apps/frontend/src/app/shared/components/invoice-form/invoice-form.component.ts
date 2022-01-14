@@ -6,7 +6,7 @@ import {
   OnInit
 } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { CreateInvoiceDto, UpdateInvoiceDto } from "@frontend/dto";
+import { InvoiceDto } from "@frontend/dto";
 import { Address, Invoice, InvoiceStatus, Item } from "@lbk/models";
 import { addDays, decimalRegex } from "@lbk/utils";
 
@@ -29,9 +29,7 @@ export class InvoiceFormComponent implements OnInit {
     this.initForm();
   }
 
-  createInvoiceDto(
-    newStatus: InvoiceStatus
-  ): UpdateInvoiceDto | CreateInvoiceDto {
+  createInvoiceDto(newStatus: InvoiceStatus): InvoiceDto {
     const { billFrom, billTo, items } = this.invoiceForm.value;
     let { createdAt, paymentTerms } = billTo;
 
@@ -44,10 +42,18 @@ export class InvoiceFormComponent implements OnInit {
       status: newStatus,
       createdAt: createdAtFormatted,
       paymentDue,
-      total: this.total(items),
       ...billTo,
-      items,
+      paymentTerms: parseInt(billTo.paymentTerms),
+      items: this.formatItems(items),
     };
+  }
+
+  private formatItems(items: any) {
+    return (items as Item[]).map((i) => ({
+      name: i.name,
+      quantity: parseInt(i.quantity + ""),
+      price: parseFloat(i.price + ""),
+    }));
   }
 
   private formatDate(date: any) {
@@ -56,10 +62,6 @@ export class InvoiceFormComponent implements OnInit {
     } catch (error) {
       return date;
     }
-  }
-
-  private total(items: Item[]): number {
-    return items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   }
 
   private _initAddress(address: Partial<Address | undefined>) {
@@ -160,13 +162,6 @@ export class InvoiceFormComponent implements OnInit {
       ],
       price: [
         price ?? 1,
-        [
-          Validators.required,
-          Validators.min(1),
-          Validators.pattern(decimalRegex),
-        ],
-      ],
-      total: [
         [
           Validators.required,
           Validators.min(1),

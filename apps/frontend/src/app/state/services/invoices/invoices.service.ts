@@ -1,4 +1,4 @@
-import { CreateInvoiceDto, UpdateInvoiceDto } from "@frontend/dto";
+import { InvoiceDto } from "@frontend/dto";
 import { Invoice } from "@lbk/models";
 import { Observable } from "rxjs";
 
@@ -11,10 +11,7 @@ export interface InvoicesService {
 
   maskAsPaid(id: number): Observable<void>;
 
-  updateInvoice(
-    id: number,
-    updateInvoiceDto: UpdateInvoiceDto
-  ): Observable<void>;
+  updateInvoice(id: number, invoiceDto: InvoiceDto): Observable<void>;
 
-  createInvoice(createInvoiceDto: CreateInvoiceDto): Observable<Invoice>;
+  createInvoice(createInvoiceDto: InvoiceDto): Observable<Invoice>;
 }

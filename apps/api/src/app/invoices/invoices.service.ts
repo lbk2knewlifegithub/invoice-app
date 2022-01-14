@@ -20,6 +20,7 @@ export class InvoicesService {
       result.push(value.toObject());
     }
 
+    console.log(result);
     return result;
   }
 
@@ -60,15 +61,14 @@ export class InvoicesService {
     if (!updated) throw new NotFoundException();
   }
 
-
   async updateStatus(
     id: number,
     userEntity: UserEntity,
-     updateStatusDto: UpdateStatusDto
+    updateStatusDto: UpdateStatusDto
   ): Promise<void> {
     // check invoice existed
     await this.getInvoice(userEntity, id);
 
-    await this._repo.updateInvoiceStatus(id,userEntity,  updateStatusDto);
+    await this._repo.updateInvoiceStatus(id, userEntity, updateStatusDto);
   }
 }

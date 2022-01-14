@@ -39,12 +39,7 @@
       <!-- end price -->
 
       <!-- total -->
-      <lbk-item-total-input
-        [arrayName]="arrayName"
-        [groupName]="groupName"
-        [parent]="parent"
-        class="col-span-2"
-      >
+      <lbk-item-total-input [total]="(total$ | async)!" class="col-span-2">
       </lbk-item-total-input>
       <!-- end total -->
 

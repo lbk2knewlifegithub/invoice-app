@@ -11,7 +11,6 @@ import { SharedModule } from "./shared.module";
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-
     }),
     SharedModule,
     DatabaseModule,

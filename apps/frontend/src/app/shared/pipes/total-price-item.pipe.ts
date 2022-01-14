@@ -6,9 +6,10 @@ import memo from "memo-decorator";
   name: "totalPriceItem",
 })
 export class TotalPriceItemPipe implements PipeTransform {
-
   @memo()
-  transform({ price, quantity }: Item): number {
-    return price * quantity;
+  transform(item: Item): number {
+
+    const { price, quantity } = item;
+    return parseFloat(price.toString()) * parseFloat(quantity.toString());
   }
 }

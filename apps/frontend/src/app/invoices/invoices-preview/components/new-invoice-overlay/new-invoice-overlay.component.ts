@@ -8,7 +8,7 @@ import {
   ViewChild
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
-import { CreateInvoiceDto } from "@frontend/dto";
+import { InvoiceDto } from "@frontend/dto";
 import { InvoiceFormComponent } from "@frontend/shared/components";
 import { Invoice, InvoiceStatus } from "@lbk/models";
 import { invoiceStub } from "@lbk/stubs";
@@ -38,8 +38,8 @@ export class NewInvoiceOverlayComponent implements OnInit {
   @Input() open!: boolean;
 
   @Output() discard = new EventEmitter<void>();
-  @Output() saveAsDraft = new EventEmitter<CreateInvoiceDto>();
-  @Output() create = new EventEmitter<CreateInvoiceDto>();
+  @Output() saveAsDraft = new EventEmitter<InvoiceDto>();
+  @Output() create = new EventEmitter<InvoiceDto>();
 
   invoice!: Invoice;
 

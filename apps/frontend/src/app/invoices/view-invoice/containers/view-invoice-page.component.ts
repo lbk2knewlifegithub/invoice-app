@@ -5,13 +5,13 @@ import {
   ViewChild
 } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
-import { UpdateInvoiceDto } from "@frontend/dto";
+import { InvoiceDto } from "@frontend/dto";
+import * as fromRoot from "@frontend/state/selectors";
 import { Invoice } from "@lbk/models";
 import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { map, Observable } from "rxjs";
 import { LayoutActions, ViewInvoicePageActions } from "../../../state/actions";
-import * as fromRoot from "@frontend/state/selectors";
 import { EditOverlayComponent } from "../components/edit-invoice-overlay";
 
 @Component({
@@ -61,15 +61,9 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
     this._store.dispatch(LayoutActions.closeAllOverlay());
   }
 
-  edit({
-    id,
-    updateInvoiceDto,
-  }: {
-    id: number;
-    updateInvoiceDto: UpdateInvoiceDto;
-  }) {
+  edit({ id, invoiceDto }: { id: number; invoiceDto: InvoiceDto }) {
     this._store.dispatch(
-      ViewInvoicePageActions.updateInvoice({ id, updateInvoiceDto })
+      ViewInvoicePageActions.updateInvoice({ id, invoiceDto: invoiceDto })
     );
   }
 }

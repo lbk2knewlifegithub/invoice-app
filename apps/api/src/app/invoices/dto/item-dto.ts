@@ -9,7 +9,7 @@ import {
   MinLength
 } from "class-validator";
 
-export class ItemDto implements Omit<Item, "total"> {
+export class ItemDto implements Item {
   @IsString()
   @MinLength(3)
   @MaxLength(100)

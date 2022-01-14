@@ -64,10 +64,10 @@ export class InvoicesEffects {
   editInvoice$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ViewInvoicePageActions.updateInvoice),
-      exhaustMap(({ id, updateInvoiceDto }) =>
-        this._invoicesService.updateInvoice(id, updateInvoiceDto).pipe(
+      exhaustMap(({ id, invoiceDto  }) =>
+        this._invoicesService.updateInvoice(id, invoiceDto).pipe(
           map(() =>
-            InvoicesAPIActions.updateInvoiceSuccess({ id, updateInvoiceDto })
+            InvoicesAPIActions.updateInvoiceSuccess({ id, invoiceDto: invoiceDto })
           ),
           tap(() => this._store.dispatch(LayoutActions.closeAllOverlay())),
           catchError((error) =>
@@ -81,7 +81,7 @@ export class InvoicesEffects {
   createInvoice$ = createEffect(() =>
     this._actions$.pipe(
       ofType(InvoicesPreviewPageActions.createInvoice),
-      exhaustMap(({ createInvoiceDto }) =>
+      exhaustMap(({ invoiceDto: createInvoiceDto }) =>
         this._invoicesService.createInvoice(createInvoiceDto).pipe(
           map((invoice) => InvoicesAPIActions.createInvoiceSuccess({ invoice })),
           tap(() => this._store.dispatch(LayoutActions.closeAllOverlay())),
