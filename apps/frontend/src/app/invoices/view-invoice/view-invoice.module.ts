@@ -1,6 +1,6 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { UIModule } from "@lbk/ui";
+import { LoadingModule, UIModule } from "@lbk/ui";
 import { SharedModule } from "../../shared";
 import * as fromViewInvoice from "./components";
 import {
@@ -14,7 +14,13 @@ const COMPONENTS = [fromViewInvoice.COMPONENTS];
 const CONTAINERS = [ViewInvoicePageComponent, SelectedInvoicePageComponent];
 
 @NgModule({
-  imports: [CommonModule, ViewInvoiceRoutingModule, UIModule, SharedModule],
+  imports: [
+    CommonModule,
+    ViewInvoiceRoutingModule,
+    UIModule,
+    SharedModule,
+    LoadingModule,
+  ],
   declarations: [COMPONENTS, CONTAINERS],
 })
 export class ViewInvoiceModule {}

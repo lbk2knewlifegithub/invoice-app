@@ -3,6 +3,7 @@ import { LoginPageActions } from "@frontend/state/actions";
 import * as fromAuth from "@frontend/state/selectors";
 import { Credentials } from "@lbk/models";
 import { Store } from "@ngrx/store";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "lbk-login-page",
@@ -21,12 +22,14 @@ import { Store } from "@ngrx/store";
   styles: [],
 })
 export class LoginPageComponent {
-  pending$ = this.store.select(fromAuth.selectLoginPagePending);
-  error$ = this.store.select(fromAuth.selectLoginPageError);
+  pending$!: Observable<boolean>;
+  error$!: Observable<string | null>;
 
   constructor(private store: Store) {}
 
   onSubmit(credentials: Credentials) {
     this.store.dispatch(LoginPageActions.login({ credentials }));
+    this.pending$ = this.store.select(fromAuth.selectLoginPagePending);
+    this.error$ = this.store.select(fromAuth.selectLoginPageError);
   }
 }

@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   Output
 } from "@angular/core";
 
@@ -9,7 +10,9 @@ import {
   selector: "lbk-invoice-details-actions",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div class="bg-elements flex flex-wrap justify-end gap-2 py-5 shadow-md px-6 md:bg-transparent md:shadow-none md:py-0 md:px-0">
+    <div
+      class="bg-elements flex flex-wrap justify-end gap-2 py-5 shadow-md px-6 md:bg-transparent md:shadow-none md:py-0 md:px-0"
+    >
       <!-- edit -->
       <button (click)="edit.emit()" class="btn btn-basic">Edit</button>
       <!-- end edit -->
@@ -19,14 +22,23 @@ import {
       <!-- end delete -->
 
       <!-- mask as paid -->
-      <button (click)="maskAsPaid.emit()" class="btn btn-primary">
-        Mask as Paid
+      <button
+        [disabled]="disabledMaskAsPaid"
+        (click)="maskAsPaid.emit()"
+        class="btn btn-primary"
+      >
+        <span [hidden]="pending"> Mask as Paid </span>
+        <lbk-spinner [hidden]="!pending"></lbk-spinner>
       </button>
       <!-- end mask as paid -->
     </div>
   `,
 })
 export class InvoiceDetailsActions {
+  @Input() errorMessage!: string | null;
+  @Input() pending!: boolean;
+  @Input() disabledMaskAsPaid!: boolean;
+
   @Output() edit = new EventEmitter<void>();
   @Output() delete = new EventEmitter<void>();
   @Output() maskAsPaid = new EventEmitter<void>();

@@ -1,10 +1,11 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { LayoutActions, ViewInvoicePageActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
-import { Invoice } from "@lbk/models";
+import * as fromViewInvoicePage from "@frontend/state/selectors/view-invoice-page.selector";
+import { Invoice, InvoiceStatus } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { Store } from "@ngrx/store";
-import { Observable, take } from "rxjs";
+import { combineLatest, map, Observable, take } from "rxjs";
 
 @Component({
   selector: "lbk-selected-invoice-page",
@@ -20,6 +21,8 @@ import { Observable, take } from "rxjs";
         <lbk-invoice-detail
           class="block mt-8"
           [invoice]="invoice"
+          [pending]="(pending$ | async)!"
+          [errorMessage]="error$ | async"
           (edit)="edit()"
           (delete)="delete(invoice.id)"
           (maskAsPaid)="maskAsPaid(invoice.id)"
@@ -28,6 +31,9 @@ import { Observable, take } from "rxjs";
 
       <lbk-invoice-details-actions
         class="block mt-14 md:hidden"
+        [pending]="(pending$ | async)!"
+        [disabledMaskAsPaid]="(disabledMaskAsPaid$ | async)!"
+        [errorMessage]="error$ | async"
         (edit)="edit()"
         (delete)="delete(invoice.id)"
         (maskAsPaid)="maskAsPaid(invoice.id)"
@@ -37,6 +43,10 @@ import { Observable, take } from "rxjs";
 })
 export class SelectedInvoicePageComponent implements OnInit {
   invoice$!: Observable<Invoice | null | undefined | 0>;
+  pending$!: Observable<boolean>;
+  error$!: Observable<string | null>;
+
+  disabledMaskAsPaid$!: Observable<boolean>;
 
   constructor(
     private readonly _store: Store,
@@ -45,6 +55,22 @@ export class SelectedInvoicePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.invoice$ = this._store.select(fromRoot.selectSelectedInvoice);
+    this.pending$ = this._store.select(
+      fromViewInvoicePage.selectViewInvoicePagePending
+    );
+    this.error$ = this._store.select(
+      fromViewInvoicePage.selectViewInvoicePageError
+    );
+
+    this.disabledMaskAsPaid$ = combineLatest([
+      this.pending$,
+      this.invoice$,
+    ]).pipe(
+      map(
+        ([pending, invoice]) =>
+          pending || (invoice as Invoice)?.status === InvoiceStatus.PAID
+      )
+    );
   }
 
   edit() {
@@ -56,7 +82,10 @@ export class SelectedInvoicePageComponent implements OnInit {
       .deleteDialog(id)
       .pipe(take(1))
       .subscribe((confirmed) => {
-        if (confirmed) return this._store.dispatch( ViewInvoicePageActions.deleteInvoice({ id }));
+        if (confirmed)
+          return this._store.dispatch(
+            ViewInvoicePageActions.deleteInvoice({ id })
+          );
       });
   }
 

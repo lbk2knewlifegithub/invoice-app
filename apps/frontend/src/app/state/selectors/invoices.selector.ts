@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import * as fromInvoices from "../reducers/invoices";
+import * as fromInvoices from "../reducers/invoices/invoices.reducer";
 /**
  * Invoices selector
  */

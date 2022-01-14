@@ -10,7 +10,8 @@ import { environment } from "apps/frontend/src/environments/environment";
 import * as fromAuth from "./auth/auth.reducer";
 import * as fromLoginPage from "./auth/login-page.reducer";
 import * as fromSignUpPage from "./auth/sign-up-page.reducer";
-import * as fromInvoices from "./invoices";
+import * as fromInvoices from "./invoices/invoices.reducer";
+import * as fromViewInvoicePage from "./invoices/view-invoice-page.reducer";
 import * as fromLayout from "./layout";
 import * as fromSearch from "./search.reducer";
 
@@ -21,6 +22,7 @@ export interface State {
   [fromAuth.statusFeatureKey]: fromAuth.State;
   [fromLoginPage.loginPageFeatureKey]: fromLoginPage.State;
   [fromSignUpPage.signUpPageFeatureKey]: fromSignUpPage.State;
+  [fromViewInvoicePage.viewInvoicePageFeatureKey]: fromViewInvoicePage.State;
   router: fromRouter.RouterReducerState<any>;
 }
 
@@ -34,6 +36,8 @@ export const ROOT_REDUCERS = new InjectionToken<
     [fromAuth.statusFeatureKey]: fromAuth.reducer,
     [fromLoginPage.loginPageFeatureKey]: fromLoginPage.reducer,
     [fromSignUpPage.signUpPageFeatureKey]: fromSignUpPage.reducer,
+    [fromViewInvoicePage.viewInvoicePageFeatureKey]:
+      fromViewInvoicePage.reducer,
     router: fromRouter.routerReducer,
   }),
 });

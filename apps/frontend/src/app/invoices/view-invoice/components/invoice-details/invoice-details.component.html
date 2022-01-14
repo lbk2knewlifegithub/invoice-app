@@ -8,9 +8,12 @@
 
     <lbk-invoice-details-actions
       class="hidden md:block"
-      (edit)="edit.emit()"
+      [pending]="pending"
+      [disabledMaskAsPaid]="disabledMaskAsPaid"
+      [errorMessage]="errorMessage"
       (delete)="delete.emit()"
       (maskAsPaid)="onMaskAsPaid()"
+      (edit)="edit.emit()"
     ></lbk-invoice-details-actions>
   </div>
 
