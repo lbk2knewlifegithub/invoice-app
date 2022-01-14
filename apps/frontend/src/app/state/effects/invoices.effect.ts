@@ -83,9 +83,7 @@ export class InvoicesEffects {
       ofType(InvoicesPreviewPageActions.createInvoice),
       exhaustMap(({ createInvoiceDto }) =>
         this._invoicesService.createInvoice(createInvoiceDto).pipe(
-          map((invoice) =>
-            InvoicesAPIActions.createInvoiceSuccess({ invoice })
-          ),
+          map((invoice) => InvoicesAPIActions.createInvoiceSuccess({ invoice })),
           tap(() => this._store.dispatch(LayoutActions.closeAllOverlay())),
           catchError((error) =>
             of(InvoicesAPIActions.createInvoiceFailure({ error }))

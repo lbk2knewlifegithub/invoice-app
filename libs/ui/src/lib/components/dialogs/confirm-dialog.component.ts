@@ -1,8 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Inject
-} from "@angular/core";
+import { ChangeDetectionStrategy, Component, Inject } from "@angular/core";
 import { MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { Dialog } from "@lbk/models";
 
@@ -12,9 +8,8 @@ import { Dialog } from "@lbk/models";
   template: `
     <div class="bg-fill">
       <div class="space-y-2">
-        <h3 class="text-fill-900">{{ dialog.title }}</h3>
+        <h3 class="text-fill-900"></h3>
         <p class="text-muted-900">
-          {{ dialog.message }}
         </p>
       </div>
 

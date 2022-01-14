@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { LayoutActions } from "@frontend/state/actions";
+import { AuthActions, LayoutActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
-import { slideInAnimation } from "@lbk/ui";
+import { DialogService, slideInAnimation } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
@@ -11,9 +11,10 @@ import { Observable } from "rxjs";
   template: `
     <lbk-header
       [darkTheme]="(darkTheme$ | async)!"
+      [openOverlay]="(openOverlay$ | async)!"
       (toDarkTheme)="toDarkTheme()"
       (toLightTheme)="toLightTheme()"
-      [openOverlay]="(openOverlay$ | async)!"
+      (logout)="logout()"
     ></lbk-header>
 
     <!-- <div [@routeAnimations]="prepareRoute(outlet)"> -->
@@ -27,7 +28,10 @@ export class ShellComponent implements OnInit {
   openOverlay$!: Observable<boolean>;
   darkTheme$!: Observable<boolean>;
 
-  constructor(private readonly _store: Store) {}
+  constructor(
+    private readonly _store: Store,
+    private readonly _dialog: DialogService
+  ) {}
 
   ngOnInit(): void {
     this.openOverlay$ = this._store.select(fromRoot.selectShowOverlay);
@@ -35,11 +39,17 @@ export class ShellComponent implements OnInit {
 
     this._store.dispatch(LayoutActions.loadTheme());
   }
+
   toDarkTheme() {
     this._store.dispatch(LayoutActions.toDarkTheme());
   }
+
   toLightTheme() {
     this._store.dispatch(LayoutActions.toLightTheme());
+  }
+
+  logout() {
+    this._store.dispatch(AuthActions.logoutConfirmation());
   }
 
   // prepareRoute(outlet: RouterOutlet) {

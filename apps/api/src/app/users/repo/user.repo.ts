@@ -1,7 +1,7 @@
 import { CredentialsDto } from "@api/auth/credentials.dto";
 import { CACHE_NUMBERS_OF_INVOICES } from "@api/constants";
-import { InvoiceDto, ItemDto } from "@api/invoices/dto";
-import { InvoiceEntity, ItemEntity } from "@api/invoices/schemas";
+import { InvoiceDto } from "@api/invoices/dto";
+import { InvoiceEntity } from "@api/invoices/schemas";
 import { addDays } from "@lbk/utils";
 import {
   CACHE_MANAGER,
@@ -129,12 +129,9 @@ export class UserRepository {
     // create invoice id
     const id = await this.createInvoiceId();
 
-    const items = this.createItems(createInvoiceDto.items);
     const newInvoice: InvoiceEntity = new InvoiceEntity({
       ...createInvoiceDto,
       id,
-      items,
-      total: this.createTotal(items),
       createdAt: new Date(createInvoiceDto.createdAt),
       paymentDue: this.createPaymentDue(createInvoiceDto),
     });
@@ -143,9 +140,7 @@ export class UserRepository {
       { username },
       {
         $set: {
-          invoices: {
-            [id]: newInvoice,
-          },
+          [`invoices.${id}`]: newInvoice,
         },
       }
     );
@@ -155,17 +150,6 @@ export class UserRepository {
 
   private createPaymentDue({ createdAt, paymentTerms }: InvoiceDto): Date {
     return new Date(addDays(createdAt, paymentTerms));
-  }
-
-  private createTotal(itemEntities: ItemEntity[]) {
-    return itemEntities.reduce((sum, i) => sum + i.total, 0);
-  }
-
-  private createItems(itemsDto: ItemDto[]): ItemEntity[] {
-    return itemsDto.map((dto) => ({
-      ...dto,
-      total: dto.price * dto.quantity,
-    }));
   }
 
   private async createInvoiceId(): Promise<number> {

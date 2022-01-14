@@ -1,9 +1,6 @@
 import { credentialsStub } from "@lbk/stubs";
 describe("login", () => {
   beforeEach(() => cy.visit("/login"));
-  afterEach(() => {
-    cy.clearLocalStorage();
-  });
 
   it("should login success", () => {
     const { username, password } = credentialsStub();

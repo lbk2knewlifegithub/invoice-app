@@ -7,13 +7,14 @@ export interface InvoicesService {
 
   retrieveInvoice(id: number): Observable<Invoice>;
 
-  deleteInvoice(id: number): Observable<Invoice[]>;
-  maskAsPaid(id: number): Observable<Invoice[]>;
+  deleteInvoice(id: number): Observable<void>;
+
+  maskAsPaid(id: number): Observable<void>;
 
   updateInvoice(
     id: number,
     updateInvoiceDto: UpdateInvoiceDto
-  ): Observable<Invoice[]>;
+  ): Observable<void>;
 
   createInvoice(createInvoiceDto: CreateInvoiceDto): Observable<Invoice>;
 }

@@ -1,4 +1,4 @@
-import { UserEntity } from "@api/users";
+import { UserDocument, UserEntity } from "@api/users";
 import { UserRepository } from "@api/users/repo";
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { InvoiceDto } from "./dto";
@@ -9,8 +9,18 @@ export class InvoicesService {
   constructor(private readonly _repo: UserRepository) {}
 
   async getAllInvoices(userEntity: UserEntity): Promise<InvoiceEntity[]> {
-    const invoices = userEntity.invoices as Map<number, InvoiceDocument>;
-    return Array.from(invoices.values());
+    const formatted = (userEntity as UserDocument).toObject();
+    const invoices = formatted.invoices.values();
+
+    let result = [];
+
+    while (true) {
+      const { value, done } = invoices.next();
+      if (done) break;
+      result.push(value.toObject());
+    }
+
+    return result;
   }
 
   async createInvoice(

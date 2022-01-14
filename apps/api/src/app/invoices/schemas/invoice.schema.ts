@@ -53,9 +53,6 @@ export class InvoiceEntity
   @Prop({ required: true, type: [ItemSchema] })
   items: ItemEntity[];
 
-  @Prop({ required: true, type: Number, min: 0 })
-  total: number;
-
   constructor(init: Partial<InvoiceEntity>) {
     Object.assign(this, init);
   }

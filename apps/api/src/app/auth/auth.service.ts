@@ -46,7 +46,6 @@ export class AuthService {
   }
 
   async me(accessToken: string) {
-    console.log(accessToken)
     try {
       await this._jwtService.verifyAsync(accessToken);
     } catch {
@@ -58,6 +57,7 @@ export class AuthService {
     try {
       return await this._jwtService.signAsync(payload);
     } catch (e) {
+
       throw new InternalServerErrorException();
     }
   }

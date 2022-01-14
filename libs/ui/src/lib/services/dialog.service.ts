@@ -5,7 +5,10 @@ import {
   ConfirmDeleteDialogComponent
 } from "@lbk/ui";
 import { Observable } from "rxjs";
-import { FormInvalidDialog } from "../components";
+import {
+  FormInvalidDialog,
+  LogoutConfirmationDialogComponent
+} from "../components";
 
 @Injectable({ providedIn: "root" })
 export class DialogService {
@@ -31,6 +34,12 @@ export class DialogService {
   confirmDeactivate(): Observable<boolean> {
     return this._dialog
       .open(ConfirmDeactivateDialogComponent, { disableClose: true })
+      .afterClosed();
+  }
+
+  confirmLogout(): Observable<boolean> {
+    return this._dialog
+      .open(LogoutConfirmationDialogComponent, { disableClose: true })
       .afterClosed();
   }
 }

@@ -3,13 +3,15 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnInit,
   Output,
   ViewChild
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { CreateInvoiceDto } from "@frontend/dto";
 import { InvoiceFormComponent } from "@frontend/shared/components";
-import { InvoiceStatus } from "@lbk/models";
+import { Invoice, InvoiceStatus } from "@lbk/models";
+import { invoiceStub } from "@lbk/stubs";
 import { DialogService } from "@lbk/ui";
 import { take } from "rxjs";
 
@@ -18,7 +20,7 @@ import { take } from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <lbk-overlay (closed)="onDiscard()" [open]="open">
-      <lbk-invoice-form class="panel"></lbk-invoice-form>
+      <lbk-invoice-form [invoice]="invoice" class="panel"></lbk-invoice-form>
 
       <lbk-new-invoice-actions
         class="actions"
@@ -29,7 +31,7 @@ import { take } from "rxjs";
     </lbk-overlay>
   `,
 })
-export class NewInvoiceOverlayComponent {
+export class NewInvoiceOverlayComponent implements OnInit {
   @ViewChild(InvoiceFormComponent, { static: true })
   invoiceFormComponent!: InvoiceFormComponent;
 
@@ -39,7 +41,12 @@ export class NewInvoiceOverlayComponent {
   @Output() saveAsDraft = new EventEmitter<CreateInvoiceDto>();
   @Output() create = new EventEmitter<CreateInvoiceDto>();
 
+  invoice!: Invoice;
+
   constructor(private readonly _dialogService: DialogService) {}
+  ngOnInit(): void {
+    this.invoice = invoiceStub();
+  }
 
   get invalid() {
     return this.invoiceForm.invalid;
@@ -93,6 +100,7 @@ export class NewInvoiceOverlayComponent {
     this.create.emit(
       this.invoiceFormComponent.createInvoiceDto(InvoiceStatus.DRAFT)
     );
+
     this.invoiceFormComponent.initForm(true);
   }
 }

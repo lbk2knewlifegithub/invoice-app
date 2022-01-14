@@ -22,6 +22,10 @@ export class TokenService {
     );
   }
 
+  clear() {
+    this.storage.removeItem(TokenService.TOKEN_KEY);
+  }
+
   decode(token: string): User {
     return this._jwtHelper.decodeToken(token);
   }

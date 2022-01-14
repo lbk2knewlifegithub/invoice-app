@@ -5,15 +5,15 @@ export const createItem = () => {
 };
 
 export const fillForm = () => {
-  cy.get('[data-cy="sender-address"] [controlName="street"]').type(
+  cy.get('[data-cy="bill-from"] [controlName="street"]').type(
     "Test Sender"
   );
 
-  cy.get('[data-cy="sender-address"] [controlName="city"]').type("Lonnon");
+  cy.get('[data-cy="bill-from"] [controlName="city"]').type("Lonnon");
 
-  cy.get('[data-cy="sender-address"] [controlName="postCode"]').type("2323");
+  cy.get('[data-cy="bill-from"] [controlName="postCode"]').type("2323");
 
-  cy.get('[data-cy="sender-address"] [controlName="country"]').type(
+  cy.get('[data-cy="bill-from"] [controlName="country"]').type(
     "UnitedKingdom"
   );
 

@@ -12,7 +12,6 @@ export class DataInterceptor implements NestInterceptor {
   intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
     return next.handle().pipe(map((data) => {
       const banana =  instanceToPlain(data);
-      console.log(banana);
       return data;
     }));
   }

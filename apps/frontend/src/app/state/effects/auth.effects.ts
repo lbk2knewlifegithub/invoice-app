@@ -44,20 +44,21 @@ export class AuthEffects {
     )
   );
 
-  loginSuccess$ = createEffect(
+  authenticationSuccess$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(AuthApiActions.loginSuccess),
+        ofType(AuthApiActions.loginSuccess, AuthApiActions.signUpSuccess),
         tap(() => this._router.navigate(["/"]))
       ),
     { dispatch: false }
   );
 
-  signUpSuccess$ = createEffect(
+  logout$ = createEffect(
     () =>
       this._actions$.pipe(
-        ofType(AuthApiActions.signUpSuccess),
-        tap(() => this._router.navigate(["/"]))
+        ofType(AuthActions.logout),
+        tap(() => this._tokenService.clear()),
+        tap(() => this._router.navigate(["/login"]))
       ),
     { dispatch: false }
   );
@@ -87,10 +88,8 @@ export class AuthEffects {
   logoutConfirmation$ = createEffect(() =>
     this._actions$.pipe(
       ofType(AuthActions.logoutConfirmation),
-      exhaustMap(() => {
-        // TODO
-        return of(true);
-      }),
+      exhaustMap(() => this._dialogService.confirmLogout()),
+      tap((result) => console.log(result)),
       map((result) =>
         result ? AuthActions.logout() : AuthActions.logoutConfirmationDismiss()
       )

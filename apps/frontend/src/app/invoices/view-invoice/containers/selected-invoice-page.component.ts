@@ -56,10 +56,7 @@ export class SelectedInvoicePageComponent implements OnInit {
       .deleteDialog(id)
       .pipe(take(1))
       .subscribe((confirmed) => {
-        if (confirmed)
-          return this._store.dispatch(
-            ViewInvoicePageActions.deleteInvoice({ id })
-          );
+        if (confirmed) return this._store.dispatch( ViewInvoicePageActions.deleteInvoice({ id }));
       });
   }
 

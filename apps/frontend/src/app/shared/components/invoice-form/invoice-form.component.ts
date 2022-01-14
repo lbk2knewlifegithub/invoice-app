@@ -66,13 +66,38 @@ export class InvoiceFormComponent implements OnInit {
     const { street, city, postCode, country } = address ?? {};
 
     return this._fb.group({
-      street: [street ?? "", [Validators.required, Validators.maxLength(50)]],
-      city: [city ?? "", [Validators.required, Validators.maxLength(20)]],
+      street: [
+        street ?? "",
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(50),
+        ],
+      ],
+      city: [
+        city ?? "",
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(50),
+        ],
+      ],
       postCode: [
         postCode ?? "",
-        [Validators.required, Validators.maxLength(10)],
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+        ],
       ],
-      country: [country ?? "", [Validators.required, Validators.maxLength(20)]],
+      country: [
+        country ?? "",
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(20),
+        ],
+      ],
     });
   }
 
@@ -83,7 +108,11 @@ export class InvoiceFormComponent implements OnInit {
     return this._fb.group({
       clientName: [
         clientName ?? "",
-        [Validators.required, Validators.maxLength(50)],
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(30),
+        ],
       ],
       clientEmail: [clientEmail ?? "", [Validators.required, Validators.email]],
       clientAddress: this._initAddress(this.invoice?.clientAddress),
@@ -92,7 +121,14 @@ export class InvoiceFormComponent implements OnInit {
         paymentTerms ?? 30,
         [Validators.required, Validators.pattern(decimalRegex)],
       ],
-      description: [description ?? "", [Validators.required]],
+      description: [
+        description ?? "",
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(500),
+        ],
+      ],
     });
   }
 
@@ -104,14 +140,21 @@ export class InvoiceFormComponent implements OnInit {
   private createItem(item: Partial<Item>) {
     const { name, quantity, price } = item;
     return this._fb.group({
-      name: [name ?? "", [Validators.required, Validators.maxLength(50)]],
+      name: [
+        name ?? "",
+        [
+          Validators.required,
+          Validators.minLength(3),
+          Validators.maxLength(100),
+        ],
+      ],
 
       quantity: [
         quantity ?? 1,
         [
           Validators.required,
           Validators.min(1),
-          Validators.max(1_000_000),
+          Validators.max(100_000_000),
           Validators.pattern(decimalRegex),
         ],
       ],

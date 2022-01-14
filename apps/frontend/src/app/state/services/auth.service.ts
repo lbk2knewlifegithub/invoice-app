@@ -26,7 +26,6 @@ export class AuthService {
       .post<Token>("/api/auth/signup", credentials, { observe: "body" })
       .pipe(
         catchError((error: HttpErrorResponse) => {
-          console.log(error);
           return error.status === 409
             ? throwError(() => "User name already existed ")
             : throwError(() => "Something wrong. Please try again.");

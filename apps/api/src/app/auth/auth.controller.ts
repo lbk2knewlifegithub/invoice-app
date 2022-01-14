@@ -25,4 +25,5 @@ export class AuthController {
   async me(@Body("accessToken") accessToken: string): Promise<void> {
     await this.authService.me(accessToken);
   }
+
 }

@@ -216,6 +216,18 @@ describe("Invoices Controller (e2e)", () => {
         .set({ Authorization: `Bearer ${accessToken}` });
     }
 
+    it.only("should return have two invoice in database", async () => {
+      const accessToken = await signUp();
+      const stub = invoiceStub();
+      await post("/invoices", accessToken, stub);
+      await post("/invoices", accessToken, stub);
+
+      const user = await usersCollection().findOne({
+        username: credentialsStub().username,
+      });
+      expect(Object.keys(user.invoices).length).toBe(2);
+    });
+
     it("should return status code 201 when create invoice success", async () => {
       const accessToken = await signUp();
       const stub = invoiceStub();

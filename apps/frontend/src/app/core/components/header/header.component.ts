@@ -39,7 +39,7 @@ import {
           <!-- end divider -->
 
           <!-- profile -->
-          <lbk-profile></lbk-profile>
+          <lbk-profile (click)="logout.emit()"></lbk-profile>
           <!-- end profile -->
         </div>
       </nav>
@@ -52,6 +52,7 @@ export class HeaderComponent {
 
   @Output() toDarkTheme = new EventEmitter<void>();
   @Output() toLightTheme = new EventEmitter<void>();
+  @Output() logout = new EventEmitter<void>();
 
   toggleTheme() {
     if (this.darkTheme) return this.toLightTheme.emit();

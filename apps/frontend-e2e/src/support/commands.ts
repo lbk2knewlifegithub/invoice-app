@@ -9,6 +9,7 @@ declare namespace Cypress {
 
 // -- This is a parent command --
 Cypress.Commands.add("login", (username, password) => {
+  cy.visit("/login");
   cy.get("#username").click();
   cy.get("#username").type(username);
 
