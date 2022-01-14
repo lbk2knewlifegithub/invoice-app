@@ -123,15 +123,14 @@ export class UserRepository {
   }
 
   async createInvoice(
-    { username }: UserEntity,
+    { username, invoicesCreated }: UserEntity,
     createInvoiceDto: InvoiceDto
   ): Promise<InvoiceEntity> {
     // create invoice id
-    const id = await this.createInvoiceId();
 
     const newInvoice: InvoiceEntity = new InvoiceEntity({
       ...createInvoiceDto,
-      id,
+      id: invoicesCreated,
       createdAt: new Date(createInvoiceDto.createdAt),
       paymentDue: this.createPaymentDue(createInvoiceDto),
     });
@@ -140,7 +139,10 @@ export class UserRepository {
       { username },
       {
         $set: {
-          [`invoices.${id}`]: newInvoice,
+          [`invoices.${invoicesCreated}`]: newInvoice,
+        },
+        $inc: {
+          invoicesCreated: 1,
         },
       }
     );

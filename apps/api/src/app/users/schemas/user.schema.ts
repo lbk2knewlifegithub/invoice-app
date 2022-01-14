@@ -1,11 +1,15 @@
-import { InvoiceDocument, InvoiceEntity, InvoiceSchema } from "@api/invoices/schemas";
+import {
+  InvoiceEntity,
+  InvoiceSchema
+} from "@api/invoices/schemas";
 import { User } from "@lbk/models";
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { hash } from "bcrypt";
+import { ExcludeProperty } from "nestjs-mongoose-exclude";
 import { Document } from "mongoose";
 
 @Schema({ collection: "users" })
-export class UserEntity implements User  {
+export class UserEntity implements User {
   _id: string;
 
   @Prop({ required: true, type: String, unique: true })
@@ -16,6 +20,10 @@ export class UserEntity implements User  {
 
   @Prop({ required: true, type: String })
   salt: string;
+
+  @Prop({ required: true, type: Number, default: 0 })
+  @ExcludeProperty()
+  invoicesCreated: number;
 
   @Prop({ required: true, of: InvoiceSchema, type: Map, default: {} })
   invoices: Map<number, InvoiceEntity>;

@@ -47,6 +47,7 @@
     "memo-decorator": "^2.0.1",
     "moment": "^2.29.1",
     "mongoose": "^6.1.6",
+    "nestjs-mongoose-exclude": "^1.0.5",
     "ng-pick-datetime": "^7.0.0",
     "passport": "^0.5.2",
     "passport-jwt": "^4.0.0",

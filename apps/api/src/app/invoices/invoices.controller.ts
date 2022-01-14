@@ -23,7 +23,7 @@ export class InvoicesController {
   @Get()
   async getAllInvoices(
     @GetUser() userEntity: UserEntity
-  ): Promise<InvoiceEntity[]> {
+  ): Promise<any> {
     return this._invoiceService.getAllInvoices(userEntity);
   }
 

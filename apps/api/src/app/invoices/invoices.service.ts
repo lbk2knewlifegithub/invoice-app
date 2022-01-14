@@ -8,20 +8,11 @@ import { InvoiceDocument, InvoiceEntity } from "./schemas";
 export class InvoicesService {
   constructor(private readonly _repo: UserRepository) {}
 
-  async getAllInvoices(userEntity: UserEntity): Promise<InvoiceEntity[]> {
-    const formatted = (userEntity as UserDocument).toObject();
-    const invoices = formatted.invoices.values();
-
-    let result = [];
-
-    while (true) {
-      const { value, done } = invoices.next();
-      if (done) break;
-      result.push(value.toObject());
-    }
-
-    console.log(result);
-    return result;
+  async getAllInvoices(
+    userEntity: UserEntity
+  ): Promise<Map<number, InvoiceEntity>> {
+    const formatted = (userEntity as UserDocument).toJSON();
+    return formatted.invoices as Map<number, InvoiceEntity>;
   }
 
   async createInvoice(

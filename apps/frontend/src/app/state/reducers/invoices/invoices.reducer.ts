@@ -2,7 +2,7 @@ import { Invoice, InvoiceStatus } from "@lbk/models";
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { createReducer, on } from "@ngrx/store";
 import {
-  AuthApiActions,
+  AuthActions,
   InvoiceActions,
   InvoicesAPIActions,
   ViewInvoicePageActions
@@ -16,7 +16,9 @@ export interface State extends EntityState<Invoice> {
 
 export const adapter: EntityAdapter<Invoice> = createEntityAdapter<Invoice>({
   selectId: (invoice: Invoice) => invoice.id,
-  sortComparer: false,
+  sortComparer: (invoice1, invoice2) =>
+    new Date(invoice1.createdAt).getTime() -
+    new Date(invoice2.createdAt).getTime(),
 });
 
 export const initialState: State = adapter.getInitialState({
@@ -26,7 +28,7 @@ export const initialState: State = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-  on(AuthApiActions.loginSuccess, (_) => initialState),
+  on(AuthActions.logout, (_) => initialState),
   on(
     // BooksApiActions.searchSuccess,
     InvoicesAPIActions.loadInvoicesSuccess,
