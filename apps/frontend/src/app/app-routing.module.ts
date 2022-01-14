@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
+import { AuthGuard } from "./auth/guard";
 import { ShellComponent } from "./core/containers/shell.component";
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
         pathMatch: "full",
       },
     ],
+    canActivate: [AuthGuard],
   },
 
   {
@@ -37,7 +39,7 @@ const routes: Routes = [
     data: { title: "Login", animation: "Login" },
   },
   {
-    path: "sign-up",
+    path: "signup",
     loadChildren: () => import("@frontend/auth").then((m) => m.SignUpModule),
     data: { title: "Sign Up", animation: "SignUp" },
   },

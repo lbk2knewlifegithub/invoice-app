@@ -1,10 +1,9 @@
 import { Module, ValidationPipe } from "@nestjs/common";
 import { ConfigModule } from "@nestjs/config";
-import { APP_INTERCEPTOR, APP_PIPE } from "@nestjs/core";
+import { APP_PIPE } from "@nestjs/core";
 import { AppController } from "./app.controller";
 import { AuthModule } from "./auth/auth.module";
 import { DatabaseModule } from "./database";
-import { DataInterceptor } from "./interceptor";
 import { InvoicesModule } from "./invoices";
 import { SharedModule } from "./shared.module";
 
@@ -12,6 +11,7 @@ import { SharedModule } from "./shared.module";
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
+
     }),
     SharedModule,
     DatabaseModule,

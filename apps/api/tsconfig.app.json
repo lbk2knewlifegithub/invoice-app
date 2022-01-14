@@ -8,5 +8,5 @@
     "target": "es2015"
   },
   "exclude": ["**/*.spec.ts", "**/*.test.ts"],
-  "include": ["**/*.ts", "src/app/invoices/dto/create-item.dto.ts"]
+  "include": ["**/*.ts", "src/app/invoices/dto/create-item.dto.ts", "../../libs/models/src/lib/jwt-payload.model.ts"]
 }

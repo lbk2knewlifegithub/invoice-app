@@ -1,4 +1,5 @@
 import { UserService } from "@api/users/services";
+import { JwtPayload } from "@lbk/models";
 import {
   Injectable,
   InternalServerErrorException,
@@ -7,7 +8,6 @@ import {
 } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { CredentialsDto } from "./credentials.dto";
-import { JwtPayload } from "./jwt-payload.model";
 
 @Injectable()
 export class AuthService {
@@ -43,6 +43,15 @@ export class AuthService {
     }
 
     return { accessToken: await this.createAccessToken({ username }) };
+  }
+
+  async me(accessToken: string) {
+    console.log(accessToken)
+    try {
+      await this._jwtService.verifyAsync(accessToken);
+    } catch {
+      throw new UnauthorizedException();
+    }
   }
 
   private async createAccessToken(payload: JwtPayload): Promise<string> {

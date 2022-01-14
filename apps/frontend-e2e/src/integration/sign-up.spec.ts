@@ -1,16 +1,18 @@
 import { credentialsStub } from "@lbk/stubs";
+import * as chance from "chance";
+
 describe("Sign up", () => {
-  beforeEach(() => cy.visit("/sign-up"));
+  beforeEach(() => cy.visit("/signup"));
 
   it.only("should sign up correct", () => {
     cy.get("#username").click();
-    cy.get("#username").type(credentialsStub().username);
+    cy.get("#username").type(chance().string({ length: 5, alpha: true }));
 
     cy.get("#password").click();
-    cy.get("#password").type(credentialsStub().password);
+    cy.get("#password").type(chance().string({ length: 8 }));
     cy.get("button[type='submit']").click();
 
-    // cy.get("h1").should("have.text", "Invoices");
+    cy.should("contain.text", "Invoices");
   });
 
   describe("username", () => {

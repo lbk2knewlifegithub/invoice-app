@@ -7,7 +7,7 @@ import {
   SignUpPageActions,
   UserActions
 } from "@frontend/state/actions";
-import { AuthService } from "@frontend/state/services";
+import { AuthService, TokenService } from "@frontend/state/services";
 import { Credentials } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
@@ -22,6 +22,7 @@ export class AuthEffects {
       map((action) => action.credentials),
       exhaustMap((credentials: Credentials) =>
         this._authService.login(credentials).pipe(
+          map((token) => this._tokenService.saveAndDecode(token)),
           map((user) => AuthApiActions.loginSuccess({ user })),
           catchError((error) => of(AuthApiActions.loginFailure({ error })))
         )
@@ -35,6 +36,7 @@ export class AuthEffects {
       map((action) => action.credentials),
       exhaustMap((credentials: Credentials) =>
         this._authService.signup(credentials).pipe(
+          map((token) => this._tokenService.saveAndDecode(token)),
           map((user) => AuthApiActions.signUpSuccess({ user })),
           catchError((error) => of(AuthApiActions.signUpFailure({ error })))
         )
@@ -106,6 +108,7 @@ export class AuthEffects {
     private readonly _actions$: Actions,
     private readonly _authService: AuthService,
     private readonly _router: Router,
-    private readonly _dialogService: DialogService
+    private readonly _dialogService: DialogService,
+    private readonly _tokenService: TokenService
   ) {}
 }

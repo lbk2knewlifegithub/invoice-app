@@ -10,7 +10,8 @@ import {
   LayoutActions,
   ViewInvoicePageActions
 } from "../actions";
-import { InvoicesService, InvoicesStorageService } from "../services";
+import { InvoicesService } from "../services";
+import { InvoicesImplService } from "../services/invoices/invoices-impl.service";
 
 @Injectable({ providedIn: "root" })
 export class InvoicesEffects {
@@ -96,7 +97,7 @@ export class InvoicesEffects {
 
   constructor(
     private readonly _actions$: Actions,
-    @Inject(InvoicesStorageService)
+    @Inject(InvoicesImplService)
     private readonly _invoicesService: InvoicesService,
     private readonly _store: Store,
     private readonly _router: Router,

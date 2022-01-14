@@ -191,4 +191,21 @@ describe("Auth Controller (e2e)", () => {
       expect(await jwtService.verifyAsync(accessToken)).toBeTruthy();
     });
   });
+
+  describe("me", () => {
+    async function me(accessToken: string): Promise<request.Test> {
+      return request(httpServer).post("/auth/me").send({ accessToken });
+    }
+    it("Should return 200 when accessToken valid", async () => {
+      const accessToken = await signup();
+      const response = await me(accessToken);
+      expect(response.status).toBe(200);
+    });
+    it("Should return 401 when accessToken invalid", async () => {
+      const invalid =
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
+      const response = await me(invalid);
+      expect(response.status).toBe(401);
+    });
+  });
 });
