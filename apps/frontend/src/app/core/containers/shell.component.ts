@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
-import { RouterOutlet } from "@angular/router";
 import { LayoutActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
 import { slideInAnimation } from "@lbk/ui";
@@ -17,9 +16,9 @@ import { Observable } from "rxjs";
       [openOverlay]="(openOverlay$ | async)!"
     ></lbk-header>
 
-    <div [@routeAnimations]="prepareRoute(outlet)">
-      <router-outlet #outlet="outlet"></router-outlet>
-    </div>
+    <!-- <div [@routeAnimations]="prepareRoute(outlet)"> -->
+    <router-outlet #outlet="outlet"></router-outlet>
+    <!-- </div> -->
     <!-- <lbk-footer></lbk-footer> -->
   `,
   animations: [slideInAnimation],
@@ -43,7 +42,7 @@ export class ShellComponent implements OnInit {
     this._store.dispatch(LayoutActions.toLightTheme());
   }
 
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet?.activatedRouteData?.["animation"];
-  }
+  // prepareRoute(outlet: RouterOutlet) {
+  //   return outlet?.activatedRouteData?.["animation"];
+  // }
 }

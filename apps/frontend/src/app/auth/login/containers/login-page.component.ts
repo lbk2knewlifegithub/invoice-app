@@ -5,7 +5,7 @@ import { Credentials } from "@lbk/models";
 import { Store } from "@ngrx/store";
 
 @Component({
-  selector: "bc-login-page",
+  selector: "lbk-login-page",
   template: `
     <main class="lg:h-screen grid place-content-center ">
       <div class="container ">

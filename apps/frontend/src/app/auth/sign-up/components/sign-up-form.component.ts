@@ -7,7 +7,9 @@ import {
   Output
 } from "@angular/core";
 import {
-  FormBuilder, FormGroup,
+  FormBuilder,
+  FormControl,
+  FormGroup,
   Validators
 } from "@angular/forms";
 import { Credentials } from "@lbk/models";
@@ -18,15 +20,8 @@ import { Credentials } from "@lbk/models";
   templateUrl: "./sign-up-form.component.html",
 })
 export class SignUpFormComponent implements OnInit {
-  @Input()
-  set pending(isPending: boolean) {
-    // if (isPending) {
-    //   this.form.disable();
-    // } else {
-    //   this.form.enable();
-    // }
-  }
   @Input() errorMessage!: string | null;
+  @Input() pending!: boolean;
 
   @Output() submitted = new EventEmitter<Credentials>();
 
@@ -36,8 +31,22 @@ export class SignUpFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      username: ["", [Validators.required]],
-      password: ["", [Validators.required]],
+      username: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(30),
+        ],
+      ],
+      password: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(30),
+        ],
+      ],
     });
   }
 
@@ -45,5 +54,11 @@ export class SignUpFormComponent implements OnInit {
     if (this.form.valid) {
       this.submitted.emit(this.form.value);
     }
+  }
+
+  error(formControlName: string, error: string) {
+    const formControl = this.form.get(formControlName) as FormControl;
+
+    return formControl.hasError(error) && formControl.touched;
   }
 }

@@ -7,25 +7,63 @@
     <!-- end title -->
   </div>
 
-  <form class="grid gap-6 mt-12" [formGroup]="form">
-    <!-- username -->
-    <div class="space-y-2">
-      <label for="username" class="text-muted-900">Username</label>
-      <input id="username" type="text" />
-    </div>
-    <!-- end username -->
+  <div class="mt-12">
+    <!-- display error message -->
+    <p class="text-lg text-danger-900" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </p>
+    <!-- end display error message -->
 
-    <!-- password -->
-    <div class="space-y-2">
-      <label for="password" class="text-muted-900">Password</label>
-      <input id="password" type="password" />
-    </div>
-    <!-- end password -->
+    <form class="grid gap-6 mt-4" (ngSubmit)="submit()" [formGroup]="form">
+      <!-- username -->
+      <div>
+        <div class="space-y-2">
+          <label for="username" class="text-muted-900">Username</label>
+          <input formControlName="username" id="username" type="text" />
+        </div>
 
-    <!-- login button-->
-    <button type="submit" class="mt-3 px-14 btn btn-primary">Sign Up</button>
-    <!-- end login button-->
-  </form>
+        <div class="text-danger-900">
+          <p *ngIf="error('username', 'required')">Username required</p>
+          <p *ngIf="error('username', 'minlength')">
+            Username must longer than 8 characters
+          </p>
+          <p *ngIf="error('username', 'maxlength')">
+            Username must shorter than 30 characters
+          </p>
+        </div>
+      </div>
+      <!-- end username -->
+
+      <!-- password -->
+      <div>
+        <div class="space-y-2">
+          <label for="password" class="text-muted-900">Password</label>
+          <input formControlName="password" id="password" type="password" />
+        </div>
+        <!-- end password -->
+
+        <div class="text-danger-900">
+          <p *ngIf="error('password', 'required')">Password required</p>
+          <p *ngIf="error('password', 'minlength')">
+            Password must longer than 8 characters
+          </p>
+          <p *ngIf="error('password', 'maxlength')">
+            Password must shorter than 30 characters
+          </p>
+        </div>
+      </div>
+      <!-- login button-->
+      <button
+        [disabled]="form.invalid"
+        type="submit"
+        class="grid mt-3 px-14 btn btn-primary place-content-center"
+      >
+        <span [hidden]="pending"> Sign Up </span>
+        <lbk-spinner [hidden]="!pending"></lbk-spinner>
+      </button>
+      <!-- end login button-->
+    </form>
+  </div>
 
   <!-- or sign up -->
   <div class="mt-6 space-y-6 text-center">

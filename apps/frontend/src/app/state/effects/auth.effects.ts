@@ -1,12 +1,13 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { AuthService } from "@frontend/auth/services";
 import {
   AuthActions,
   AuthApiActions,
   LoginPageActions,
+  SignUpPageActions,
   UserActions
 } from "@frontend/state/actions";
+import { AuthService } from "@frontend/state/services";
 import { Credentials } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
@@ -19,10 +20,23 @@ export class AuthEffects {
     this._actions$.pipe(
       ofType(LoginPageActions.login),
       map((action) => action.credentials),
-      exhaustMap((auth: Credentials) =>
-        this._authService.login(auth).pipe(
+      exhaustMap((credentials: Credentials) =>
+        this._authService.login(credentials).pipe(
           map((user) => AuthApiActions.loginSuccess({ user })),
           catchError((error) => of(AuthApiActions.loginFailure({ error })))
+        )
+      )
+    )
+  );
+
+  signUp$ = createEffect(() =>
+    this._actions$.pipe(
+      ofType(SignUpPageActions.signUp),
+      map((action) => action.credentials),
+      exhaustMap((credentials: Credentials) =>
+        this._authService.signup(credentials).pipe(
+          map((user) => AuthApiActions.signUpSuccess({ user })),
+          catchError((error) => of(AuthApiActions.signUpFailure({ error })))
         )
       )
     )
@@ -37,12 +51,32 @@ export class AuthEffects {
     { dispatch: false }
   );
 
+  signUpSuccess$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(AuthApiActions.signUpSuccess),
+        tap(() => this._router.navigate(["/"]))
+      ),
+    { dispatch: false }
+  );
+
   loginRedirect$ = createEffect(
     () =>
       this._actions$.pipe(
         ofType(AuthApiActions.loginRedirect, AuthActions.logout),
         tap((authed) => {
           this._router.navigate(["/login"]);
+        })
+      ),
+    { dispatch: false }
+  );
+
+  signUpRedirect$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(AuthApiActions.signUpRedirect),
+        tap((authed) => {
+          this._router.navigate(["/signup"]);
         })
       ),
     { dispatch: false }

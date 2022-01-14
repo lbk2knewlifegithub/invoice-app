@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import * as fromLoginPage from "../reducers/login-page.reducer";
+import * as fromLoginPage from "../../reducers/auth/login-page.reducer";
 /**
  * Login Page Selector
  */

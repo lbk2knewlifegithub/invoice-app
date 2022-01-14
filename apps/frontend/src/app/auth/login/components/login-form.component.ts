@@ -6,10 +6,7 @@ import {
   OnInit,
   Output
 } from "@angular/core";
-import {
-  FormBuilder, FormGroup,
-  Validators
-} from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Credentials } from "@lbk/models";
 
 @Component({
@@ -18,15 +15,8 @@ import { Credentials } from "@lbk/models";
   templateUrl: "./login-form.component.html",
 })
 export class LoginFormComponent implements OnInit {
-  @Input()
-  set pending(isPending: boolean) {
-    // if (isPending) {
-    //   this.form.disable();
-    // } else {
-    //   this.form.enable();
-    // }
-  }
   @Input() errorMessage!: string | null;
+  @Input() pending!: boolean;
 
   @Output() submitted = new EventEmitter<Credentials>();
 
@@ -36,14 +26,27 @@ export class LoginFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this._fb.group({
-      username: ["", [Validators.required]],
-      password: ["", [Validators.required]],
+      username: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(5),
+          Validators.maxLength(30),
+        ],
+      ],
+      password: [
+        "",
+        [
+          Validators.required,
+          Validators.minLength(8),
+          Validators.maxLength(30),
+        ],
+      ],
     });
   }
 
   submit() {
-    if (this.form.valid) {
-      this.submitted.emit(this.form.value);
-    }
+    if (this.form.invalid) return;
+    this.submitted.emit(this.form.value);
   }
 }

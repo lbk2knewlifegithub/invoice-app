@@ -1,3 +1,4 @@
+import { HttpClientModule } from "@angular/common/http";
 import {
   ModuleWithProviders,
   NgModule,
@@ -48,6 +49,8 @@ import { metaReducers, ROOT_REDUCERS } from "./reducers";
     MatSnackBarModule,
     MatDialogModule,
     StoreRouterConnectingModule.forRoot(),
+    HttpClientModule,
+
   ],
 })
 export class StateModule {

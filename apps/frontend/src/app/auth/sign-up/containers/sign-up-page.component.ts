@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
-import { LoginPageActions } from "@frontend/state/actions";
-import * as fromAuth from "@frontend/state/selectors";
+import { SignUpPageActions } from "@frontend/state/actions";
+import * as fromSignUpPage from "@frontend/state/selectors/auth/sign-up-page.selector";
 import { Credentials } from "@lbk/models";
 import { Store } from "@ngrx/store";
 
@@ -16,15 +16,14 @@ import { Store } from "@ngrx/store";
       </lbk-sign-up-form>
     </main>
   `,
-  styles: [],
 })
 export class SignUpPageComponent {
-  pending$ = this.store.select(fromAuth.selectLoginPagePending);
-  error$ = this.store.select(fromAuth.selectLoginPageError);
+  pending$ = this.store.select(fromSignUpPage.selectSignUpPagePending);
+  error$ = this.store.select(fromSignUpPage.selectSignUpPageError);
 
   constructor(private store: Store) {}
 
   onSubmit(credentials: Credentials) {
-    this.store.dispatch(LoginPageActions.login({ credentials }));
+    this.store.dispatch(SignUpPageActions.signUp({ credentials }));
   }
 }
