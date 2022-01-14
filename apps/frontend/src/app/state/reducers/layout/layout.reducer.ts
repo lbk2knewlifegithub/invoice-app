@@ -10,8 +10,8 @@ export interface State {
 }
 
 export const initialState: State = {
-  showEditOverlay: false,
-  showNewInvoiceOverlay: true,
+  showEditOverlay: true,
+  showNewInvoiceOverlay: false,
   darkTheme: false,
 };
 

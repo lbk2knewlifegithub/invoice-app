@@ -1,8 +1,8 @@
 import { Injectable } from "@angular/core";
-import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
-import { routerNavigatedAction } from "@ngrx/router-store";
 import { Title } from "@angular/platform-browser";
 import * as fromRoot from "@frontend/state/selectors";
+import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
+import { routerNavigatedAction } from "@ngrx/router-store";
 import { Store } from "@ngrx/store";
 import { map, tap } from "rxjs";
 import { LayoutActions } from "../actions";

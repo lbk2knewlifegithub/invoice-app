@@ -1,8 +1,8 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
-import { SharedModule } from "@frontend/shared";
-import { LoadingModule, UIModule } from "@lbk/ui";
+import { LogoModule } from "@frontend/shared";
+import { LoadingModule } from "@lbk/ui";
 import { SignUpFormComponent } from "./components";
 import { SignUpPageComponent } from "./containers";
 import { SignUpRoutingModule } from "./sign-up-routing.module";
@@ -15,9 +15,8 @@ const CONTAINERS = [SignUpPageComponent];
     CommonModule,
     ReactiveFormsModule,
     SignUpRoutingModule,
-    SharedModule,
-    UIModule,
     LoadingModule,
+    LogoModule,
   ],
   declarations: [CONTAINERS, COMPONENTS],
 })

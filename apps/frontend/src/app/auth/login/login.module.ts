@@ -3,8 +3,8 @@ import { NgModule } from "@angular/core";
 import { ReactiveFormsModule } from "@angular/forms";
 import { LoginFormComponent } from "@frontend/auth/login/components";
 import { LoginPageComponent } from "@frontend/auth/login/containers";
-import { SharedModule } from "@frontend/shared";
-import { UIModule } from "@lbk/ui";
+import { LogoModule } from "@frontend/shared";
+import { LoadingModule } from "@lbk/ui";
 import { LoginRoutingModule } from "./login-routing.module";
 
 const COMPONENTS = [LoginFormComponent];
@@ -15,8 +15,8 @@ const CONTAINERS = [LoginPageComponent];
     CommonModule,
     ReactiveFormsModule,
     LoginRoutingModule,
-    SharedModule,
-    UIModule,
+    LoadingModule,
+    LogoModule,
   ],
   declarations: [CONTAINERS, COMPONENTS],
 })

@@ -7,12 +7,13 @@ import {
 import { ActivatedRoute } from "@angular/router";
 import { InvoiceDto } from "@frontend/dto";
 import * as fromRoot from "@frontend/state/selectors";
+import * as fromEditInvoice from "@frontend/state/selectors/invoices/edit-invoice.secltor";
 import { Invoice } from "@lbk/models";
 import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { map, Observable } from "rxjs";
 import { LayoutActions, ViewInvoicePageActions } from "../../../state/actions";
-import { EditOverlayComponent } from "../components/edit-invoice-overlay";
+import { EditOverlayComponent } from "../components/edit-invoice-overlay/edit-overlay.component";
 
 @Component({
   selector: "lbk-view-invoice-page",
@@ -24,6 +25,7 @@ import { EditOverlayComponent } from "../components/edit-invoice-overlay";
       <lbk-edit-overlay
         [invoice]="invoice"
         [open]="(showEditOverlay$ | async)!"
+        [pending]="(pending$ | async)!"
         (cancel)="onEditCancel()"
         (edit)="edit($event)"
       ></lbk-edit-overlay>
@@ -32,6 +34,7 @@ import { EditOverlayComponent } from "../components/edit-invoice-overlay";
 })
 export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   showEditOverlay$!: Observable<boolean>;
+  pending$!: Observable<boolean>;
   invoice$!: Observable<Invoice | null | 0 | undefined>;
 
   @ViewChild(EditOverlayComponent)
@@ -54,6 +57,9 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
       .subscribe((action) => this._store.dispatch(action));
 
     this.showEditOverlay$ = this._store.select(fromRoot.selectShowEditOverlay);
+    this.pending$ = this._store.select(
+      fromEditInvoice.selectEditInvoicePending
+    );
     this.invoice$ = this._store.select(fromRoot.selectSelectedInvoice);
   }
 

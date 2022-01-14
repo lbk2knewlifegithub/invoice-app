@@ -5,7 +5,6 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <button
-      scrollTo
       data-cy="add-item"
       type="button"
       class="rounded-full flex w-full py-4 bg-fill justify-center gap-1 dark:bg-elements"

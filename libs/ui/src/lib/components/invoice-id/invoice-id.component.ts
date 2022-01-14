@@ -1,13 +1,13 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 
 @Component({
-  selector: 'lbk-invoice-id',
+  selector: "lbk-invoice-id",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <p class="md:text-lg">
       <span class="text-muted-800">#</span>
       <span class="font-bold">
-        {{ value | number }}
+        {{ value }}
       </span>
     </p>
   `,

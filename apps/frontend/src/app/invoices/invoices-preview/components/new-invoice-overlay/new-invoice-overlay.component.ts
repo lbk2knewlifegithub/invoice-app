@@ -18,20 +18,7 @@ import { take } from "rxjs";
 @Component({
   selector: "lbk-new-invoice-overlay",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <lbk-overlay (closed)="onDiscard()" [open]="open">
-      <lbk-invoice-form [invoice]="invoice" class="panel"></lbk-invoice-form>
-
-      <lbk-new-invoice-actions
-        class="actions"
-        [pendingSaveAsDraft]="pendingSaveAsDraft"
-        [pendingCreate]="pendingCreate"
-        (discard)="onDiscard()"
-        (create)="onCreate()"
-        (saveAsDraft)="onSaveAsDraft()"
-      ></lbk-new-invoice-actions>
-    </lbk-overlay>
-  `,
+  templateUrl: "./new-invoice-overlayou.component.html",
 })
 export class NewInvoiceOverlayComponent implements OnInit {
   @ViewChild(InvoiceFormComponent, { static: true })

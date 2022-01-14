@@ -5,10 +5,10 @@ import { MatRippleModule } from "@angular/material/core";
 import { RouterModule } from "@angular/router";
 import { UIModule } from "@lbk/ui";
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from "ng-pick-datetime";
-import { fromInvoiceForm, LogoComponent } from "./components";
+import { fromInvoiceForm } from "./components";
 import { TotalPriceInvoicePipe, TotalPriceItemPipe } from "./pipes";
 
-export const COMPONENTS = [fromInvoiceForm.COMPONENTS, LogoComponent];
+export const COMPONENTS = [fromInvoiceForm.COMPONENTS];
 export const PIPES = [TotalPriceInvoicePipe, TotalPriceItemPipe];
 
 @NgModule({

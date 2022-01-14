@@ -16,24 +16,14 @@ import { take } from "rxjs";
 @Component({
   selector: "lbk-edit-overlay",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <lbk-overlay (closed)="onCancel()" [open]="open">
-      <lbk-invoice-form class="panel" [invoice]="invoice"></lbk-invoice-form>
-
-      <div class="actions flex gap-2 items-center justify-end">
-        <button (click)="onCancel()" class="btn btn-basic">Cancel</button>
-        <button (click)="onSaveChanges()" class="btn btn-primary">
-          Save Changes
-        </button>
-      </div>
-    </lbk-overlay>
-  `,
+  templateUrl: "./edit-overlay.component.html",
 })
 export class EditOverlayComponent {
   @ViewChild(InvoiceFormComponent, { static: true })
   invoiceFormComponent!: InvoiceFormComponent;
 
   @Input() open!: boolean;
+  @Input() pending!: boolean;
   @Input() invoice!: Invoice;
 
   @Output() goBack = new EventEmitter<void>();
@@ -46,6 +36,8 @@ export class EditOverlayComponent {
   constructor(private readonly _dialogService: DialogService) {}
 
   onSaveChanges() {
+    this.invoiceForm.markAllAsTouched();
+
     if (this.invoiceForm.invalid) {
       this._dialogService.formInvalid().pipe(take(1)).subscribe();
       return;
@@ -61,6 +53,8 @@ export class EditOverlayComponent {
   }
 
   onCancel() {
+    if (this.pending) return;
+
     if (this.invoiceForm.dirty) {
       this._dialogService
         .confirmDeactivate()
