@@ -24,6 +24,8 @@ import { take } from "rxjs";
 
       <lbk-new-invoice-actions
         class="actions"
+        [pendingSaveAsDraft]="pendingSaveAsDraft"
+        [pendingCreate]="pendingCreate"
         (discard)="onDiscard()"
         (create)="onCreate()"
         (saveAsDraft)="onSaveAsDraft()"
@@ -36,6 +38,8 @@ export class NewInvoiceOverlayComponent implements OnInit {
   invoiceFormComponent!: InvoiceFormComponent;
 
   @Input() open!: boolean;
+  @Input() pendingSaveAsDraft!: boolean;
+  @Input() pendingCreate!: boolean;
 
   @Output() discard = new EventEmitter<void>();
   @Output() saveAsDraft = new EventEmitter<InvoiceDto>();
@@ -44,6 +48,7 @@ export class NewInvoiceOverlayComponent implements OnInit {
   invoice!: Invoice;
 
   constructor(private readonly _dialogService: DialogService) {}
+
   ngOnInit(): void {
     this.invoice = invoiceStub();
   }
@@ -53,6 +58,8 @@ export class NewInvoiceOverlayComponent implements OnInit {
   }
 
   onDiscard() {
+    if (this.pendingCreate || this.pendingSaveAsDraft) return;
+
     if (this.invoiceForm.dirty) {
       this._dialogService
         .confirmDeactivate()

@@ -5,7 +5,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { SnackBarService } from "@lbk/ui";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent, CoreModule } from "./core";
-import { JwtInterceptor } from "./jwt.interceptor";
+import { JwtInterceptor, LoadingInterceptor } from "./interceptors";
 import { StateModule } from "./state";
 
 @NgModule({
@@ -19,6 +19,11 @@ import { StateModule } from "./state";
   ],
   providers: [
     SnackBarService,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
     {
       provide: HTTP_INTERCEPTORS,
       useClass: JwtInterceptor,

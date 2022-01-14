@@ -10,6 +10,8 @@ import {
   LayoutActions
 } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
+import * as fromNewInvoice from "@frontend/state/selectors/invoices/new-invoice.selector";
+import * as fromLayout from "@frontend/state/selectors/layout.selector";
 import { Invoice } from "@lbk/models";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
@@ -26,6 +28,10 @@ export class InvoicePreviewPageComponent implements OnInit {
   totalInvoices$!: Observable<number>;
   searchStatus$!: Observable<string[]>;
 
+  // new invoice overlay
+  pendingSaveAsDraft$!: Observable<boolean>;
+  pendingCreate$!: Observable<boolean>;
+
   @ViewChild(NewInvoiceOverlayComponent)
   newInvoiceOverlayComponent!: NewInvoiceOverlayComponent;
 
@@ -36,7 +42,15 @@ export class InvoicePreviewPageComponent implements OnInit {
     this.totalInvoices$ = this._store.select(fromRoot.selectTotalInvoices);
     this.searchStatus$ = this._store.select(fromRoot.selectSearchInvoiceStatus);
     this.showNewInvoiceOverlay$ = this._store.select(
-      fromRoot.selectShowNewInvoiceOverlay
+      fromLayout.selectShowNewInvoiceOverlay
+    );
+
+    this.pendingSaveAsDraft$ = this._store.select(
+      fromNewInvoice.selectPendingSaveAsDraft
+    );
+
+    this.pendingCreate$ = this._store.select(
+      fromNewInvoice.selectPendingCreate
     );
 
     this._store.dispatch(InvoicesPreviewPageActions.enter());

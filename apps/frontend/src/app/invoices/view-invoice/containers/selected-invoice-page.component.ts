@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { LayoutActions, ViewInvoicePageActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
-import * as fromViewInvoicePage from "@frontend/state/selectors/view-invoice-page.selector";
+import * as fromViewInvoicePage from "@frontend/state/selectors/invoices/view-invoice-page.selector";
 import { Invoice, InvoiceStatus } from "@lbk/models";
 import { DialogService } from "@lbk/ui";
 import { Store } from "@ngrx/store";

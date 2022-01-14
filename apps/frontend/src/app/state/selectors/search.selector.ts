@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
 import * as fromSearch from "../reducers/search.reducer";
-import * as fromInvoices from "./invoices.selector";
+import * as fromInvoices from "./invoices/invoices.selector";
 /**
  * Search selector
  */

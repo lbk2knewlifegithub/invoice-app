@@ -52,14 +52,17 @@
           </p>
         </div>
       </div>
+
       <!-- login button-->
       <button
         [disabled]="form.invalid"
         type="submit"
         class="grid mt-3 px-14 btn btn-primary place-content-center"
       >
-        <span [hidden]="pending"> Sign Up </span>
-        <lbk-spinner [hidden]="!pending"></lbk-spinner>
+        <lbk-button-spinner
+          [pending]="pending"
+          text="Sign Up"
+        ></lbk-button-spinner>
       </button>
       <!-- end login button-->
     </form>

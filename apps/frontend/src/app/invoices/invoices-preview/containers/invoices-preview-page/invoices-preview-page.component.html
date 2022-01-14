@@ -27,5 +27,7 @@
   (saveAsDraft)="create($event)"
   (discard)="discard()"
   [open]="(showNewInvoiceOverlay$ | async)!"
+  [pendingSaveAsDraft]="(pendingSaveAsDraft$ | async)!"
+  [pendingCreate]="(pendingCreate$ | async)!"
 ></lbk-new-invoice-overlay>
 <!-- end new invoice overlay -->

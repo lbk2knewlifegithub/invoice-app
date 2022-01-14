@@ -27,8 +27,10 @@ import {
         (click)="maskAsPaid.emit()"
         class="btn btn-primary"
       >
-        <span [hidden]="pending"> Mask as Paid </span>
-        <lbk-spinner [hidden]="!pending"></lbk-spinner>
+        <lbk-button-spinner
+          [pending]="pending"
+          text="Mask as Paid"
+        ></lbk-button-spinner>
       </button>
       <!-- end mask as paid -->
     </div>

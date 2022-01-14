@@ -1,7 +1,7 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { MatRippleModule } from "@angular/material/core";
-import { UIModule } from "@lbk/ui";
+import { LoadingModule, UIModule } from "@lbk/ui";
 import { SharedModule } from "../../shared";
 import { COMPONENTS } from "./components";
 import { InvoicePreviewPageComponent } from "./containers";
@@ -16,6 +16,7 @@ const CONTAINERS = [InvoicePreviewPageComponent];
     UIModule,
     MatRippleModule,
     SharedModule,
+    LoadingModule,
   ],
   declarations: [COMPONENTS, CONTAINERS],
 })

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import * as fromViewInvoicePage from "../reducers/invoices/view-invoice-page.reducer";
+import * as fromViewInvoicePage from "../../reducers/invoices/view-invoice-page.reducer";
 /**
  * View Invoice Page Selector
  */

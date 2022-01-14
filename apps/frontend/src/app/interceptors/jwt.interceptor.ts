@@ -2,11 +2,11 @@ import {
   HttpEvent,
   HttpHandler,
   HttpInterceptor,
-  HttpRequest,
+  HttpRequest
 } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, switchMap } from "rxjs";
-import { TokenService } from "./state/services";
+import { TokenService } from "../state/services";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
