@@ -9,7 +9,7 @@
     <lbk-invoice-details-actions
       class="hidden md:block"
       [pending]="pending"
-      [disabledMaskAsPaid]="disabledMaskAsPaid"
+      [isPaid]="isPaid"
       [errorMessage]="errorMessage"
       (delete)="delete.emit()"
       (maskAsPaid)="onMaskAsPaid()"

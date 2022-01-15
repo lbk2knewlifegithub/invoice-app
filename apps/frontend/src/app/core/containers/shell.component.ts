@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { RouterOutlet } from "@angular/router";
 import { AuthActions, LayoutActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
 import { CAROUSEL_ROUTE_ANIMATION, DialogService } from "@lbk/ui";
@@ -17,9 +18,9 @@ import { Observable } from "rxjs";
       (logout)="logout()"
     ></lbk-header>
 
-    <!-- <div [@routeAnimations]="prepareRoute(outlet)"> -->
-    <router-outlet #outlet="outlet"></router-outlet>
-    <!-- </div> -->
+    <div [@routeAnimations]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
     <!-- <lbk-footer></lbk-footer> -->
   `,
   animations: [CAROUSEL_ROUTE_ANIMATION],
@@ -52,7 +53,7 @@ export class ShellComponent implements OnInit {
     this._store.dispatch(AuthActions.logoutConfirmation());
   }
 
-  // prepareRoute(outlet: RouterOutlet) {
-  //   return outlet?.activatedRouteData?.["animation"];
-  // }
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet?.activatedRouteData?.["animation"];
+  }
 }

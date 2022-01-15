@@ -30,3 +30,11 @@ export const signUpFailure = createAction(
 );
 
 export const signUpRedirect = createAction("[Auth/API] Sign Up Redirect");
+
+/**
+ * - Invoices
+ */
+
+export const invoicesPreviewRedirect = createAction(
+  "[Auth/API] Invoices Preview Redirect"
+);

@@ -5,4 +5,5 @@ export * from "./price-options.model";
 export * from "./user.model";
 export * from "./token.model";
 export * from "./jwt-payload.model";
+export * from "./custom-anim.model";
 

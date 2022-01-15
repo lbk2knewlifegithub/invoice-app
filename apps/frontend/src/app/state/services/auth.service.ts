@@ -37,6 +37,12 @@ export class AuthService {
     return of(true);
   }
 
+  /**
+   *
+   * @param accessToken
+   * @returns  true if verify success
+   * - Throw error when verify failure
+   */
   me(accessToken: string): Observable<boolean> {
     return this._http
       .post("/api/auth/me", { accessToken })

@@ -12,3 +12,4 @@ export const createInvoice = createAction(
   "[Invoices Preview Page] Create Invoice",
   props<{ invoiceDto: InvoiceDto }>()
 );
+

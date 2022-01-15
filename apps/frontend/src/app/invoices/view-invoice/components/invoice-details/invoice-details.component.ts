@@ -25,7 +25,8 @@ export class InvoiceDetailsComponent {
     if (this.invoice.status === "paid") return;
     this.maskAsPaid.emit();
   }
-  get disabledMaskAsPaid() {
-    return this.pending || this.invoice.status === InvoiceStatus.PAID;
+
+  get isPaid() {
+    return this.invoice.status == InvoiceStatus.PAID;
   }
 }

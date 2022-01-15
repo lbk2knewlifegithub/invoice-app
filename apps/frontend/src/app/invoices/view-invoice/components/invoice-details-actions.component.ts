@@ -23,7 +23,8 @@ import {
 
       <!-- mask as paid -->
       <button
-        [disabled]="disabledMaskAsPaid"
+        *ngIf="!isPaid"
+        [disabled]="pending"
         (click)="maskAsPaid.emit()"
         class="btn btn-primary"
       >
@@ -39,7 +40,7 @@ import {
 export class InvoiceDetailsActions {
   @Input() errorMessage!: string | null;
   @Input() pending!: boolean;
-  @Input() disabledMaskAsPaid!: boolean;
+  @Input() isPaid!: boolean;
 
   @Output() edit = new EventEmitter<void>();
   @Output() delete = new EventEmitter<void>();

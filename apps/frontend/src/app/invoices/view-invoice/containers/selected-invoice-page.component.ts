@@ -10,36 +10,7 @@ import { combineLatest, map, Observable, take } from "rxjs";
 @Component({
   selector: "lbk-selected-invoice-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <div
-      *ngIf="invoice$ | async as invoice"
-      class="pt-8 md:pt-14 lg:pt-16 lg:grid lg:place-content-center "
-    >
-      <div class="container max-w-[730px] w-full md:min-w-[730px] lg:h-full">
-        <lbk-go-back routerLink="/"></lbk-go-back>
-
-        <lbk-invoice-detail
-          class="block mt-8"
-          [invoice]="invoice"
-          [pending]="(pending$ | async)!"
-          [errorMessage]="error$ | async"
-          (edit)="edit()"
-          (delete)="delete(invoice.id)"
-          (maskAsPaid)="maskAsPaid(invoice.id)"
-        ></lbk-invoice-detail>
-      </div>
-
-      <lbk-invoice-details-actions
-        class="block mt-14 md:hidden"
-        [pending]="(pending$ | async)!"
-        [disabledMaskAsPaid]="(disabledMaskAsPaid$ | async)!"
-        [errorMessage]="error$ | async"
-        (edit)="edit()"
-        (delete)="delete(invoice.id)"
-        (maskAsPaid)="maskAsPaid(invoice.id)"
-      ></lbk-invoice-details-actions>
-    </div>
-  `,
+  templateUrl: "./selected-invoice-page.component.html",
 })
 export class SelectedInvoicePageComponent implements OnInit {
   invoice$!: Observable<Invoice | null | undefined | 0>;
@@ -91,5 +62,9 @@ export class SelectedInvoicePageComponent implements OnInit {
 
   maskAsPaid(id: number) {
     this._store.dispatch(ViewInvoicePageActions.maskAsPaid({ id }));
+  }
+
+  isPaid(invoice: Invoice){
+    return invoice.status === InvoiceStatus.PAID;
   }
 }

@@ -22,7 +22,6 @@ export class TotalInvoicesComponent {
   @Input() searchStatus!: string[];
 
   get noInvoices() {
-
     return this.total === 0;
   }
 

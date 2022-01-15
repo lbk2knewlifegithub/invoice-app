@@ -74,6 +74,17 @@ export class AuthEffects {
     { dispatch: false }
   );
 
+  invoicesPreviewRedirect$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(AuthApiActions.invoicesPreviewRedirect),
+        tap((authed) => {
+          this._router.navigate(["/invoices"]);
+        })
+      ),
+    { dispatch: false }
+  );
+
   signUpRedirect$ = createEffect(
     () =>
       this._actions$.pipe(

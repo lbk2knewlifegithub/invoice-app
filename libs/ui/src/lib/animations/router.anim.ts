@@ -45,7 +45,7 @@ export const ROUTE_CUBE_ANIMATION = trigger("routeAnimations", [
 ]);
 
 export const CAROUSEL_ROUTE_ANIMATION = trigger("routeAnimations", [
-  transition("* <=> *", [
+  transition("Invoices <=> Invoice", [
     style({ position: "relative" }),
     query(":enter, :leave", [
       style({

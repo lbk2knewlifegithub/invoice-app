@@ -1,37 +1,26 @@
-import {
-  animate,
-  query,
-  stagger,
-  style,
-  transition,
-  trigger
-} from "@angular/animations";
 import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { Invoice } from "@lbk/models";
+import { listIn } from "@lbk/ui";
+import {
+  slideInLeftOnEnterAnimation
+} from "angular-animations";
 
 @Component({
   selector: "lbk-invoice-preview-list",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <div @list class="grid gap-4">
+    <div @listIn class="grid gap-4">
       <ng-container *ngFor="let invoice of invoices; trackBy: identifyInvoice">
-        <lbk-invoice-preview [invoice]="invoice"></lbk-invoice-preview>
+        <lbk-invoice-preview
+          @slideInLeftOnEnter
+          [invoice]="invoice"
+        ></lbk-invoice-preview>
       </ng-container>
     </div>
   `,
   animations: [
-    trigger("list", [
-      transition(":enter", [
-        query(
-          "lbk-invoice-preview",
-          [
-            style({ opacity: 0, transform: "translateY(-20px) scale(.9)" }),
-            stagger(100, [animate("200ms")]),
-          ],
-          { optional: true }
-        ),
-      ]),
-    ]),
+    listIn({ staggerDuration: 80, duration: 200 }),
+    slideInLeftOnEnterAnimation({ delay: 300 }),
   ],
 })
 export class InvoicePreviewListComponent {

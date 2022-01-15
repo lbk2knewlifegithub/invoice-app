@@ -4,6 +4,7 @@ import {
   OnInit,
   ViewChild
 } from "@angular/core";
+import { Title } from "@angular/platform-browser";
 import { FilterDto, InvoiceDto } from "@frontend/dto";
 import {
   InvoicesPreviewPageActions,
@@ -13,6 +14,7 @@ import * as fromRoot from "@frontend/state/selectors";
 import * as fromNewInvoice from "@frontend/state/selectors/invoices/new-invoice.selector";
 import * as fromLayout from "@frontend/state/selectors/layout.selector";
 import { Invoice } from "@lbk/models";
+import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { NewInvoiceOverlayComponent } from "../../components/new-invoice-overlay";
@@ -22,7 +24,7 @@ import { NewInvoiceOverlayComponent } from "../../components/new-invoice-overlay
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: "./invoices-preview-page.component.html",
 })
-export class InvoicePreviewPageComponent implements OnInit {
+export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
   showNewInvoiceOverlay$!: Observable<boolean>;
   invoices$!: Observable<Invoice[]>;
   totalInvoices$!: Observable<number>;
@@ -35,7 +37,9 @@ export class InvoicePreviewPageComponent implements OnInit {
   @ViewChild(NewInvoiceOverlayComponent)
   newInvoiceOverlayComponent!: NewInvoiceOverlayComponent;
 
-  constructor(private readonly _store: Store) {}
+  constructor(private readonly _store: Store, private readonly _title: Title) {
+    super();
+  }
 
   ngOnInit(): void {
     this.invoices$ = this._store.select(fromRoot.selectSearchResult);
@@ -54,6 +58,11 @@ export class InvoicePreviewPageComponent implements OnInit {
     );
 
     this._store.dispatch(InvoicesPreviewPageActions.enter());
+
+    this.appendSub = this.totalInvoices$.subscribe((total) => {
+      if (total === 0) return this._title.setTitle("Invoices");
+      this._title.setTitle(`Invoices - ${total} invoices`);
+    });
   }
 
   filter(filterDto: FilterDto): void {
