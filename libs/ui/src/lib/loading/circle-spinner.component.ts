@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
 
 @Component({
-  selector: "lbk-spinner",
+  selector: "lbk-circle-spinner",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <svg
@@ -26,4 +26,4 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
     </svg>
   `,
 })
-export class SpinnerComponent {}
+export class CircleSpinnerComponent {}

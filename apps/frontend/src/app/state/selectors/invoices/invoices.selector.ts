@@ -11,6 +11,11 @@ export const selectSelectedInvoiceId = createSelector(
   fromInvoices.selectId
 );
 
+export const selectLoadingInvoices = createSelector(
+  selectInvoicesEntitiesState,
+  fromInvoices.selectLoadingInvoices
+);
+
 export const {
   selectIds: selectInvoiceIds,
   selectEntities: selectInvoiceEntities,

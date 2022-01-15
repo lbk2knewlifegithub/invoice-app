@@ -33,6 +33,7 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
   // new invoice overlay
   pendingSaveAsDraft$!: Observable<boolean>;
   pendingCreate$!: Observable<boolean>;
+  loadingInvoices$!: Observable<boolean>;
 
   @ViewChild(NewInvoiceOverlayComponent)
   newInvoiceOverlayComponent!: NewInvoiceOverlayComponent;
@@ -56,6 +57,8 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
     this.pendingCreate$ = this._store.select(
       fromNewInvoice.selectPendingCreate
     );
+
+    this.loadingInvoices$ = this._store.select(fromRoot.selectLoadingInvoices);
 
     this._store.dispatch(InvoicesPreviewPageActions.enter());
 

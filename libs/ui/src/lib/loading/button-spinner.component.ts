@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <span [hidden]="pending">{{ text }}</span>
-    <lbk-spinner [hidden]="!pending"></lbk-spinner>
+    <lbk-circle-spinner [hidden]="!pending"></lbk-circle-spinner>
   `,
 })
 export class ButtonSpinnerComponent {

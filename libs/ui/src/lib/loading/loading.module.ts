@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { ButtonSpinnerComponent } from "./button-spinner.component";
-import { SpinnerComponent } from "./spinner.component";
+import { CircleSpinnerComponent } from "./circle-spinner.component";
 
-const COMPONENTS = [SpinnerComponent, ButtonSpinnerComponent];
+const COMPONENTS = [CircleSpinnerComponent, ButtonSpinnerComponent];
 @NgModule({
   exports: COMPONENTS,
   declarations: COMPONENTS,

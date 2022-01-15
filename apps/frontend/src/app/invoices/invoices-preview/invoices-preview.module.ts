@@ -2,6 +2,9 @@ import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { MatRippleModule } from "@angular/material/core";
 import { LoadingModule, UIModule } from "@lbk/ui";
+import {
+  FingerprintSpinnerModule
+} from "angular-epic-spinners";
 import { SharedModule } from "../../shared";
 import { COMPONENTS } from "./components";
 import { InvoicePreviewPageComponent } from "./containers";
@@ -17,6 +20,7 @@ const CONTAINERS = [InvoicePreviewPageComponent];
     MatRippleModule,
     SharedModule,
     LoadingModule,
+    FingerprintSpinnerModule,
   ],
   declarations: [COMPONENTS, CONTAINERS],
 })

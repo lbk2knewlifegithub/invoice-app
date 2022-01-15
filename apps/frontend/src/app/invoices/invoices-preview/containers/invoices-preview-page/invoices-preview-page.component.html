@@ -31,3 +31,9 @@
   [pendingCreate]="(pendingCreate$ | async)!"
 ></lbk-new-invoice-overlay>
 <!-- end new invoice overlay -->
+
+<!-- loading -->
+<lbk-invoices-preview-page-loading
+  *ngIf="(loadingInvoices$ | async)!"
+></lbk-invoices-preview-page-loading>
+<!-- end loading -->

@@ -4800,6 +4800,13 @@ angular-animations@^0.11.0:
   dependencies:
     tslib "^2.0.0"
 
+angular-epic-spinners@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/angular-epic-spinners/-/angular-epic-spinners-2.0.0.tgz#2f7c340836e98b6dddadf754a7185c3172d7a03a"
+  integrity sha512-+OElE3Vb0A555DcRh44LpHuYxdoTKFsOkVCFubFBt4FexYLaPuyzY0qGL566C2Y/i0cFmcl+CNcKvX1SuVp0Ig==
+  dependencies:
+    tslib "^1.9.0"
+
 ansi-align@^3.0.0:
   version "3.0.1"
   resolved "https://registry.npmjs.org/ansi-align/-/ansi-align-3.0.1.tgz"
