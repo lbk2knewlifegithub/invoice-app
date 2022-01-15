@@ -1,8 +1,8 @@
 import { Component } from "@angular/core";
-import { SignUpPageActions } from "@frontend/state/actions";
-import * as fromSignUpPage from "@frontend/state/selectors/auth/sign-up-page.selector";
+import { SignUpPageActions } from "../actions";
 import { Credentials } from "@lbk/models";
 import { Store } from "@ngrx/store";
+import * as fromSignUpPage from "../sign-up-page.reducer";
 
 @Component({
   selector: "lbk-signup-page",

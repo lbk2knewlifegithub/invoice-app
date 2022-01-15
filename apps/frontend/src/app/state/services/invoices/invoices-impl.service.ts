@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { InvoiceDto } from "@frontend/dto";
 import { Invoice, InvoiceStatus } from "@lbk/models";
 import { map, Observable } from "rxjs";
-import { InvoicesService } from "..";
+import { InvoicesService } from "./invoices.service";
 
 @Injectable({ providedIn: "root" })
 export class InvoicesImplService implements InvoicesService {

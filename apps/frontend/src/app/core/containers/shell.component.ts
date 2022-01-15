@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { AuthActions, LayoutActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
-import { CAROUSEL_ROUTE_ANIMATION, DialogService } from "@lbk/ui";
+import { CAROUSEL_ROUTE_ANIMATION } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
@@ -29,10 +29,7 @@ export class ShellComponent implements OnInit {
   openOverlay$!: Observable<boolean>;
   darkTheme$!: Observable<boolean>;
 
-  constructor(
-    private readonly _store: Store,
-    private readonly _dialog: DialogService
-  ) {}
+  constructor(private readonly _store: Store) {}
 
   ngOnInit(): void {
     this.openOverlay$ = this._store.select(fromRoot.selectShowOverlay);

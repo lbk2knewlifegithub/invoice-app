@@ -1,6 +1,6 @@
 {
   "extends": "./tsconfig.json",
-  "include": ["**/*.ts", "../../libs/ui/src/lib/components/dialogs/logout-confirmation-dialog.component.ts", "../../libs/ui/src/lib/components/dialogs/logout-confirmation-dialog.component.spec.ts", "src/app/state/selectors/auth/sign-up-page.selector.ts"],
+  "include": ["**/*.ts", "src/app/shared/dialogs/logout-confirmation-dialog.component.ts", "src/app/shared/dialogs/logout-confirmation-dialog.component.spec.ts", "src/app/state/selectors/auth/sign-up-page.selector.ts"],
   "compilerOptions": {
     "types": ["jest", "node"]
   }

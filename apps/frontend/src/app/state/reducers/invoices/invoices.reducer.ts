@@ -14,6 +14,7 @@ export const invoicesFeatureKey = "invoices";
 export interface State extends EntityState<Invoice> {
   selectedInvoiceId: number | null;
   loadingInvoices: boolean;
+  loadedInvoices: boolean;
 }
 
 export const adapter: EntityAdapter<Invoice> = createEntityAdapter<Invoice>({
@@ -25,8 +26,8 @@ export const adapter: EntityAdapter<Invoice> = createEntityAdapter<Invoice>({
 
 export const initialState: State = adapter.getInitialState({
   selectedInvoiceId: null,
-  filter: [],
   loadingInvoices: false,
+  loadedInvoices: false,
 });
 
 export const reducer = createReducer(
@@ -35,6 +36,7 @@ export const reducer = createReducer(
   on(InvoicesPreviewPageActions.enter, (state) => ({
     ...state,
     loadingInvoices: true,
+    loadedInvoices: true,
   })),
   on(
     // BooksApiActions.searchSuccess,
@@ -65,3 +67,4 @@ export const reducer = createReducer(
 
 export const selectId = (state: State) => state.selectedInvoiceId;
 export const selectLoadingInvoices = (state: State) => state.loadingInvoices;
+export const selectLoadedInvoices = (state: State) => state.loadedInvoices;

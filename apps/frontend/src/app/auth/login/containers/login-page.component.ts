@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
-import { LoginPageActions } from "@frontend/state/actions";
-import * as fromLoginPage from "@frontend/state/selectors/auth/login-page.selector";
+import { LoginPageActions } from "../actions";
 import { Credentials } from "@lbk/models";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
+import * as fromLoginPage from "../login-page.reducer";
 
 @Component({
   selector: "lbk-login-page",

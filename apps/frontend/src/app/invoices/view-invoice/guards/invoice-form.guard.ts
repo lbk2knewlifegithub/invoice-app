@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { CanDeactivate } from "@angular/router";
 import { ViewInvoicePageComponent } from "@frontend/invoices/view-invoice/containers";
-import { DialogService } from "@lbk/ui";
+import { DialogService } from "@frontend/shared";
 import { Observable, of } from "rxjs";
 
 @Injectable({ providedIn: "root" })

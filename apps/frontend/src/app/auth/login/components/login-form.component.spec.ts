@@ -2,7 +2,7 @@ import { DebugElement } from "@angular/core";
 import { ComponentFixture, TestBed } from "@angular/core/testing";
 import { FormControl, ReactiveFormsModule } from "@angular/forms";
 import { By } from "@angular/platform-browser";
-import { LogoComponent } from "@frontend/shared/components";
+import { LogoComponent } from "@frontend/shared/invoice-form/components";
 import { credentialsStub } from "@lbk/stubs";
 import { LoginFormComponent } from "./login-form.component";
 

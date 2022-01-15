@@ -4,8 +4,7 @@ import {
   Optional,
   SkipSelf
 } from "@angular/core";
-import { MatDialogModule } from "@angular/material/dialog";
-import { MatSnackBarModule } from "@angular/material/snack-bar";
+import { DialogsModule, SnackBarModule } from "@frontend/shared";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreRouterConnectingModule } from "@ngrx/router-store";
 import { StoreModule } from "@ngrx/store";
@@ -45,9 +44,9 @@ import { metaReducers, ROOT_REDUCERS } from "./reducers";
       logOnly: environment.production,
       autoPause: true,
     }),
-    MatSnackBarModule,
-    MatDialogModule,
     StoreRouterConnectingModule.forRoot(),
+    SnackBarModule,
+    DialogsModule,
   ],
 })
 export class StateModule {

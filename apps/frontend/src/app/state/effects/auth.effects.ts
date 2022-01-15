@@ -1,15 +1,15 @@
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { LoginPageActions } from "@frontend/auth/login/actions";
+import { SignUpPageActions } from "@frontend/auth/sign-up/actions";
+import { DialogService } from "@frontend/shared/dialogs";
 import {
   AuthActions,
   AuthApiActions,
-  LoginPageActions,
-  SignUpPageActions,
   UserActions
 } from "@frontend/state/actions";
 import { AuthService, TokenService } from "@frontend/state/services";
 import { Credentials } from "@lbk/models";
-import { DialogService } from "@lbk/ui";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { of } from "rxjs";
 import { catchError, exhaustMap, map, tap } from "rxjs/operators";

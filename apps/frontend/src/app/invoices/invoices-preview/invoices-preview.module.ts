@@ -1,11 +1,11 @@
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import { MatRippleModule } from "@angular/material/core";
-import { LoadingModule, UIModule } from "@lbk/ui";
-import {
-  FingerprintSpinnerModule
-} from "angular-epic-spinners";
-import { SharedModule } from "../../shared";
+import { DialogsModule, SharedInvoiceModule } from "@frontend/shared";
+import { InvoiceFormModule } from "@frontend/shared/invoice-form";
+import { InvoicePipesModule } from "@frontend/shared/invoice-pipes";
+import { OverlayModule } from "@frontend/shared/overlay";
+import { CheckboxModule, DropdownModule, LoadingModule } from "@lbk/ui";
+import { FingerprintSpinnerModule } from "angular-epic-spinners";
 import { COMPONENTS } from "./components";
 import { InvoicePreviewPageComponent } from "./containers";
 import { InvoicesPreviewRoutingModule } from "./invoices-preview-routing.module";
@@ -16,11 +16,15 @@ const CONTAINERS = [InvoicePreviewPageComponent];
   imports: [
     CommonModule,
     InvoicesPreviewRoutingModule,
-    UIModule,
-    MatRippleModule,
-    SharedModule,
+    DropdownModule,
+    SharedInvoiceModule,
+    DialogsModule,
     LoadingModule,
     FingerprintSpinnerModule,
+    InvoicePipesModule,
+    InvoiceFormModule,
+    OverlayModule,
+    CheckboxModule,
   ],
   declarations: [COMPONENTS, CONTAINERS],
 })

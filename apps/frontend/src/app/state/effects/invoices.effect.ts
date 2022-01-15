@@ -1,6 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { SnackBarService } from "@lbk/ui";
+import { SnackBarService } from "@frontend/shared/snackbar";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
@@ -64,10 +64,13 @@ export class InvoicesEffects {
   editInvoice$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ViewInvoicePageActions.updateInvoice),
-      exhaustMap(({ id, invoiceDto  }) =>
+      exhaustMap(({ id, invoiceDto }) =>
         this._invoicesService.updateInvoice(id, invoiceDto).pipe(
           map(() =>
-            InvoicesAPIActions.updateInvoiceSuccess({ id, invoiceDto: invoiceDto })
+            InvoicesAPIActions.updateInvoiceSuccess({
+              id,
+              invoiceDto: invoiceDto,
+            })
           ),
           tap(() => this._store.dispatch(LayoutActions.closeAllOverlay())),
           catchError((error) =>
@@ -83,7 +86,9 @@ export class InvoicesEffects {
       ofType(InvoicesPreviewPageActions.createInvoice),
       exhaustMap(({ invoiceDto: createInvoiceDto }) =>
         this._invoicesService.createInvoice(createInvoiceDto).pipe(
-          map((invoice) => InvoicesAPIActions.createInvoiceSuccess({ invoice })),
+          map((invoice) =>
+            InvoicesAPIActions.createInvoiceSuccess({ invoice })
+          ),
           tap(() => this._store.dispatch(LayoutActions.closeAllOverlay())),
           catchError((error) =>
             of(InvoicesAPIActions.createInvoiceFailure({ error }))

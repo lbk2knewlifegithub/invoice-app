@@ -7,9 +7,7 @@ import {
   MetaReducer
 } from "@ngrx/store";
 import { environment } from "apps/frontend/src/environments/environment";
-import * as fromAuth from "./auth/auth.reducer";
-import * as fromLoginPage from "./auth/login-page.reducer";
-import * as fromSignUpPage from "./auth/sign-up-page.reducer";
+import * as fromAuth from "./auth.reducer";
 import * as fromEditInvoice from "./invoices/edit-invoice.reducer";
 import * as fromInvoices from "./invoices/invoices.reducer";
 import * as fromNewInvoice from "./invoices/new-invoice.reducer";
@@ -22,8 +20,6 @@ export interface State {
   [fromInvoices.invoicesFeatureKey]: fromInvoices.State;
   [fromSearch.searchFeatureKey]: fromSearch.State;
   [fromAuth.statusFeatureKey]: fromAuth.State;
-  [fromLoginPage.loginPageFeatureKey]: fromLoginPage.State;
-  [fromSignUpPage.signUpPageFeatureKey]: fromSignUpPage.State;
   [fromViewInvoicePage.viewInvoicePageFeatureKey]: fromViewInvoicePage.State;
   [fromNewInvoice.newInvoiceFeatureKey]: fromNewInvoice.State;
   [fromEditInvoice.editInvoiceFeatureKey]: fromEditInvoice.State;
@@ -38,8 +34,6 @@ export const ROOT_REDUCERS = new InjectionToken<
     [fromInvoices.invoicesFeatureKey]: fromInvoices.reducer,
     [fromSearch.searchFeatureKey]: fromSearch.reducer,
     [fromAuth.statusFeatureKey]: fromAuth.reducer,
-    [fromLoginPage.loginPageFeatureKey]: fromLoginPage.reducer,
-    [fromSignUpPage.signUpPageFeatureKey]: fromSignUpPage.reducer,
     [fromViewInvoicePage.viewInvoicePageFeatureKey]:
       fromViewInvoicePage.reducer,
     [fromNewInvoice.newInvoiceFeatureKey]: fromNewInvoice.reducer,

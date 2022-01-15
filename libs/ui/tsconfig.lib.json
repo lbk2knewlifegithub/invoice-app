@@ -14,5 +14,5 @@
     "**/*.stories.ts",
     "**/*.stories.js"
   ],
-  "include": ["**/*.ts"]
+  "include": ["**/*.ts", "../../apps/frontend/src/app/shared/snackbar/snackbar.service.ts"]
 }

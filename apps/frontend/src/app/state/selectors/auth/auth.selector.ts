@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import * as fromAuth from "../../reducers/auth/auth.reducer";
+import * as fromAuth from "../../reducers/auth.reducer";
 
 /**
  * Auth selector

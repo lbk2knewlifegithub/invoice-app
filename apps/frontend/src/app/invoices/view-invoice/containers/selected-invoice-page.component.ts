@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
+import { DialogService } from "@frontend/shared/dialogs";
 import { LayoutActions, ViewInvoicePageActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
 import * as fromViewInvoicePage from "@frontend/state/selectors/invoices/view-invoice-page.selector";
 import { Invoice, InvoiceStatus } from "@lbk/models";
-import { DialogService } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { combineLatest, map, Observable, take } from "rxjs";
 
@@ -64,7 +64,7 @@ export class SelectedInvoicePageComponent implements OnInit {
     this._store.dispatch(ViewInvoicePageActions.maskAsPaid({ id }));
   }
 
-  isPaid(invoice: Invoice){
+  isPaid(invoice: Invoice) {
     return invoice.status === InvoiceStatus.PAID;
   }
 }

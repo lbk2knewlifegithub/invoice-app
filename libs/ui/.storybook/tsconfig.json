@@ -5,5 +5,5 @@
   },
 
   "exclude": ["../**/*.spec.ts"],
-  "include": ["../src/**/*", "*.js", "../../../apps/frontend/src/polyfills.ts"]
+  "include": ["../src/**/*", "*.js", "../../../apps/frontend/src/polyfills.ts", "../../../apps/frontend/src/app/shared/dialogs", "../../../apps/frontend/src/app/shared/snackbar/snackbar", "../../../apps/frontend/src/app/shared/snackbar/snackbar.service.ts", "../../../apps/frontend/src/app/shared/invoice/invoice-id", "../../../apps/frontend/src/app/shared/overlay"]
 }

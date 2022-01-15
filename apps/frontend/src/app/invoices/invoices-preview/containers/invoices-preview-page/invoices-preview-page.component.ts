@@ -11,12 +11,13 @@ import {
   LayoutActions
 } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
+import * as fromInvoices from "@frontend/state/selectors/invoices/invoices.selector";
 import * as fromNewInvoice from "@frontend/state/selectors/invoices/new-invoice.selector";
 import * as fromLayout from "@frontend/state/selectors/layout.selector";
 import { Invoice } from "@lbk/models";
 import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";
-import { Observable } from "rxjs";
+import { Observable, take } from "rxjs";
 import { NewInvoiceOverlayComponent } from "../../components/new-invoice-overlay";
 
 @Component({
@@ -60,7 +61,13 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
 
     this.loadingInvoices$ = this._store.select(fromRoot.selectLoadingInvoices);
 
-    this._store.dispatch(InvoicesPreviewPageActions.enter());
+    this._store
+      .select(fromInvoices.selectLoadedInvoices)
+      .pipe(take(1))
+      .subscribe((loaded) => {
+        if (!loaded)
+          return this._store.dispatch(InvoicesPreviewPageActions.enter());
+      });
 
     this.appendSub = this.totalInvoices$.subscribe((total) => {
       if (total === 0) return this._title.setTitle("Invoices");
