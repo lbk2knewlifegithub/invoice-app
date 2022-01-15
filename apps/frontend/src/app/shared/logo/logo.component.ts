@@ -4,8 +4,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
   selector: "lbk-logo",
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <a
-      routerLink="/"
+    <div
       class="relative w-[72px] aspect-square bg-primary-900 rounded-r-[20px] grid place-content-center overflow-hidden md:w-[80px] lg:w-[103px]"
     >
       <!-- mask -->
@@ -15,7 +14,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
       <!-- end mask -->
 
       <img class="z-40 lg:w-10" src="assets/logo.svg" alt="Logo" />
-    </a>
+    </div>
   `,
 })
 export class LogoComponent {}

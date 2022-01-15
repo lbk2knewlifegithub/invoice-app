@@ -30,7 +30,7 @@
   <lbk-edit-overlay
     [invoice]="invoice"
     [open]="(showEditOverlay$ | async)!"
-    [pendingSaveAndChange]="(pendingSaveAndChange | async)!"
+    [pendingSaveAndChange]="(pendingSaveAndChange$ | async)!"
     (cancel)="onEditCancel()"
     (edit)="edit($event)"
   ></lbk-edit-overlay>

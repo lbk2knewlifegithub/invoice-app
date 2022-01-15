@@ -4,7 +4,7 @@ import {
   CanActivate,
   RouterStateSnapshot
 } from "@angular/router";
-import { AuthApiActions } from "@frontend/state/actions";
+import { loginSuccess } from "@frontend/state/actions/auth/auth-api.actions";
 import * as fromAuth from "@frontend/state/selectors/auth/auth.selector";
 import { AuthService, TokenService } from "@frontend/state/services";
 import { Store } from "@ngrx/store";
@@ -15,11 +15,12 @@ import {
   Observable,
   of,
   switchMap,
-  take
+  take,
+  tap
 } from "rxjs";
 
 @Injectable({ providedIn: "root" })
-export class AuthGuard implements CanActivate {
+export class InvoicesPreviewGuard implements CanActivate {
   constructor(
     private readonly _store: Store,
     private readonly _authService: AuthService,
@@ -36,23 +37,22 @@ export class AuthGuard implements CanActivate {
     );
   }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     return this._store.select(fromAuth.selectLoggedIn).pipe(
       take(1),
       exhaustMap((authed) => {
         if (!authed)
           return this.getAccessToken().pipe(
             switchMap((token) => this._authService.me(token)),
+            tap((user) => {
+              if (user) this._store.dispatch(loginSuccess({ user }));
+            }),
             map((user) => !!user)
           );
         return of(true);
       }),
       catchError(() => {
-        this._store.dispatch(AuthApiActions.loginRedirect());
-        return of(false);
+        return of(true);
       })
     );
   }

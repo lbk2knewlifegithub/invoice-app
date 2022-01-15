@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot
 } from "@angular/router";
 import { combineLatest, map, Observable } from "rxjs";
-import { InvoicePreviewPageComponent } from "./containers/invoices-preview-page/invoices-preview-page.component";
+import { InvoicePreviewPageComponent } from "../containers/invoices-preview-page/invoices-preview-page.component";
 
 @Injectable({ providedIn: "root" })
 export class PendingGuard
@@ -21,8 +21,7 @@ export class PendingGuard
       component.pendingCreate$,
     ]).pipe(
       map(
-        ([pendingSaveAsDraft, pendingCreate]) =>
-          !pendingSaveAsDraft && !pendingCreate
+        ([pendingSaveAsDraft, pendingCreate]) => !pendingSaveAsDraft && !pendingCreate
       )
     );
   }

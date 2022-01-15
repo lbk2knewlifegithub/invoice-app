@@ -25,7 +25,7 @@ import * as fromViewInvoicePage from "../reducers";
 })
 export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   showEditOverlay$!: Observable<boolean>;
-  pendingSaveAndChange!: Observable<boolean>;
+  pendingSaveAndChange$!: Observable<boolean>;
   pendingMaskAsPaid$!: Observable<boolean>;
   pendingDelete$!: Observable<boolean>;
 
@@ -48,7 +48,7 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
     this.invoice$ = this._store.select(fromInvoices.selectSelectedInvoice);
 
     this.showEditOverlay$ = this._store.select(fromRoot.selectShowEditOverlay);
-    this.pendingSaveAndChange = this._store.select(
+    this.pendingSaveAndChange$ = this._store.select(
       fromViewInvoicePage.selectPendingSaveAndChange
     );
     this.pendingMaskAsPaid$ = this._store.select(

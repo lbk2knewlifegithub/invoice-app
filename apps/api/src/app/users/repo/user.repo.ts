@@ -80,7 +80,10 @@ export class UserRepository {
 
     const user = await this._userModel.findOne({ username });
 
-    if (user && this.validatePassword(user.salt, user.password, password))
+    if (
+      user &&
+      (await this.validatePassword(user.salt, user.password, password))
+    )
       return username;
 
     return null;

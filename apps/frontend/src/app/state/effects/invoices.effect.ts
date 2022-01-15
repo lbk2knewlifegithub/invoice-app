@@ -6,6 +6,7 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
 import { catchError, exhaustMap, map, of, tap } from "rxjs";
 import {
+  AuthApiActions,
   InvoicesAPIActions,
   InvoicesPreviewPageActions,
   LayoutActions
@@ -13,12 +14,11 @@ import {
 import { InvoicesService } from "../services";
 import { InvoicesImplService } from "../services/invoices/invoices-impl.service";
 
-
 @Injectable({ providedIn: "root" })
 export class InvoicesEffects {
-  enter$ = createEffect(() =>
+  loadInvoices$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(InvoicesPreviewPageActions.enter),
+      ofType(AuthApiActions.loginSuccess),
       exhaustMap(() =>
         this._invoicesService.getInvoices().pipe(
           map((invoices) =>
@@ -74,7 +74,9 @@ export class InvoicesEffects {
             })
           ),
           tap(() => this._store.dispatch(LayoutActions.closeAllOverlay())),
-          catchError((error) => of(InvoicesAPIActions.editInvoiceFailure({ error })))
+          catchError((error) =>
+            of(InvoicesAPIActions.editInvoiceFailure({ error }))
+          )
         )
       )
     )

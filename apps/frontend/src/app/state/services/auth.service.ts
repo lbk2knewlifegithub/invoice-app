@@ -1,13 +1,17 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Credentials, Token } from "@lbk/models";
+import { Credentials, Token, User } from "@lbk/models";
 import { catchError, map, Observable, of, throwError } from "rxjs";
+import { TokenService } from ".";
 
 @Injectable({
   providedIn: "root",
 })
 export class AuthService {
-  constructor(private readonly _http: HttpClient) {}
+  constructor(
+    private readonly _http: HttpClient,
+    private readonly _tokenService: TokenService
+  ) {}
 
   login(credentials: Credentials): Observable<Token> {
     return this._http
@@ -43,9 +47,9 @@ export class AuthService {
    * @returns  true if verify success
    * - Throw error when verify failure
    */
-  me(accessToken: string): Observable<boolean> {
+  me(accessToken: string): Observable<User | null> {
     return this._http
       .post("/api/auth/me", { accessToken })
-      .pipe(map((_) => true));
+      .pipe(map((_) => this._tokenService.decode(accessToken)));
   }
 }

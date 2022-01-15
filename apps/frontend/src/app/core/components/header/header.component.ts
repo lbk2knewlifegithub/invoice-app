@@ -18,7 +18,7 @@ import {
         class="bg-dark-900 flex items-center justify-between lg:flex-col lg:h-full  lg:rounded-r-[20px] lg:overflow-hidden"
       >
         <!-- logo -->
-        <lbk-logo></lbk-logo>
+        <lbk-logo routerLink="/" class="cursor-pointer"></lbk-logo>
         <!-- end logo -->
 
         <div

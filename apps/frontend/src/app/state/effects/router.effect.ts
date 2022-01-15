@@ -14,8 +14,10 @@ export class RouterEffects {
       this._actions$.pipe(
         ofType(routerNavigatedAction),
         concatLatestFrom(() => this._store.select(fromRoot.selectRouteData)),
-        map(([, data]) => `Invoices - ${data["title"]}`),
-        tap((title) => this._titleService.setTitle(title))
+        map(([, data]) => data["title"]),
+        tap((title) => {
+          if (title) this._titleService.setTitle(`Invoices - ${title}`);
+        })
       ),
     {
       dispatch: false,

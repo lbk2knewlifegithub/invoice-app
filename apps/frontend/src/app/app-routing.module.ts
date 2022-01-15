@@ -11,9 +11,7 @@ const routes: Routes = [
       {
         path: "invoices",
         loadChildren: () =>
-          import("@frontend/invoices/invoices-preview").then(
-            (m) => m.InvoicesPreviewModule
-          ),
+          import("@frontend/invoices/invoices-preview").then( (m) => m.InvoicesPreviewModule),
         data: { animation: "Invoices", reuseRoute: true },
       },
       {
@@ -22,6 +20,7 @@ const routes: Routes = [
           import("@frontend/invoices/view-invoice").then(
             (m) => m.ViewInvoiceModule
           ),
+        canActivate: [AuthGuard],
         data: { animation: "Invoice" },
       },
       {
@@ -30,7 +29,6 @@ const routes: Routes = [
         pathMatch: "full",
       },
     ],
-    canActivate: [AuthGuard],
   },
 
   {

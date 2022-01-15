@@ -7,17 +7,18 @@ import {
 import { Title } from "@angular/platform-browser";
 import { FilterDto, InvoiceDto } from "@frontend/dto";
 import {
+  AuthApiActions,
   InvoicesPreviewPageActions,
   LayoutActions
 } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
-import * as fromInvoices from "@frontend/state/selectors/invoices/invoices.selector";
 import * as fromNewInvoice from "@frontend/state/selectors/invoices/new-invoice.selector";
 import * as fromLayout from "@frontend/state/selectors/layout.selector";
 import { Invoice } from "@lbk/models";
+import { invoicesStub } from "@lbk/stubs";
 import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";
-import { Observable, take } from "rxjs";
+import { combineLatest, map, Observable, take } from "rxjs";
 import { NewInvoiceOverlayComponent } from "../../components/new-invoice-overlay";
 
 @Component({
@@ -36,6 +37,8 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
   pendingCreate$!: Observable<boolean>;
   loadingInvoices$!: Observable<boolean>;
 
+  loggedIn$!: Observable<boolean>;
+
   @ViewChild(NewInvoiceOverlayComponent)
   newInvoiceOverlayComponent!: NewInvoiceOverlayComponent;
 
@@ -44,8 +47,10 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
   }
 
   ngOnInit(): void {
-    this.invoices$ = this._store.select(fromRoot.selectSearchResult);
+
+    this.loggedIn$ = this._store.select(fromRoot.selectLoggedIn);
     this.totalInvoices$ = this._store.select(fromRoot.selectTotalInvoices);
+
     this.searchStatus$ = this._store.select(fromRoot.selectSearchInvoiceStatus);
     this.showNewInvoiceOverlay$ = this._store.select(
       fromLayout.selectShowNewInvoiceOverlay
@@ -61,13 +66,15 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
 
     this.loadingInvoices$ = this._store.select(fromRoot.selectLoadingInvoices);
 
-    this._store
-      .select(fromInvoices.selectLoadedInvoices)
-      .pipe(take(1))
-      .subscribe((loaded) => {
-        if (!loaded)
-          return this._store.dispatch(InvoicesPreviewPageActions.enter());
-      });
+    this.invoices$ = combineLatest([
+      this._store.select(fromRoot.selectSearchResult),
+      this.loggedIn$,
+    ]).pipe(
+      map(([invoices, loggedIn]) => {
+        if (!loggedIn) return invoicesStub();
+        return invoices;
+      })
+    );
 
     this.appendSub = this.totalInvoices$.subscribe((total) => {
       if (total === 0) return this._title.setTitle("Invoices");
@@ -76,11 +83,20 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
   }
 
   filter(filterDto: FilterDto): void {
-    this._store.dispatch(InvoicesPreviewPageActions.filter({ filterDto }));
+    this.loggedIn$.pipe(take(1)).subscribe((loggedIn) => {
+      if (loggedIn)
+        this._store.dispatch(InvoicesPreviewPageActions.filter({ filterDto }));
+
+      this._store.dispatch(AuthApiActions.loginRedirect());
+    });
   }
 
   newInvoice() {
-    this._store.dispatch(LayoutActions.showNewInvoiceOverlay());
+    this.loggedIn$.pipe(take(1)).subscribe((loggedIn) => {
+      if (loggedIn)
+        return this._store.dispatch(LayoutActions.showNewInvoiceOverlay());
+      this._store.dispatch(AuthApiActions.loginRedirect());
+    });
   }
 
   discard() {

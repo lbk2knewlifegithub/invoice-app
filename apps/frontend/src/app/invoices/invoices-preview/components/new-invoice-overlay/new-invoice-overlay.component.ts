@@ -3,7 +3,6 @@ import {
   Component,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   ViewChild
 } from "@angular/core";
@@ -11,16 +10,15 @@ import { FormGroup } from "@angular/forms";
 import { InvoiceDto } from "@frontend/dto";
 import { DialogService } from "@frontend/shared";
 import { InvoiceFormComponent } from "@frontend/shared/invoice-form";
-import { Invoice, InvoiceStatus } from "@lbk/models";
-import { invoiceStub } from "@lbk/stubs";
+import { InvoiceStatus } from "@lbk/models";
 import { take } from "rxjs";
 
 @Component({
   selector: "lbk-new-invoice-overlay",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: "./new-invoice-overlayou.component.html",
+  templateUrl: "./new-invoice-overlay.component.html",
 })
-export class NewInvoiceOverlayComponent implements OnInit {
+export class NewInvoiceOverlayComponent {
   @ViewChild(InvoiceFormComponent, { static: true })
   invoiceFormComponent!: InvoiceFormComponent;
 
@@ -32,13 +30,7 @@ export class NewInvoiceOverlayComponent implements OnInit {
   @Output() saveAsDraft = new EventEmitter<InvoiceDto>();
   @Output() create = new EventEmitter<InvoiceDto>();
 
-  invoice!: Invoice;
-
   constructor(private readonly _dialogService: DialogService) {}
-
-  ngOnInit(): void {
-    this.invoice = invoiceStub();
-  }
 
   get invalid() {
     return this.invoiceForm.invalid;

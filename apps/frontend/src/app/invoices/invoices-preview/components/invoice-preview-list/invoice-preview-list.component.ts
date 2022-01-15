@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
 import { Invoice } from "@lbk/models";
 import { listIn } from "@lbk/ui";
 import {
+  fadeOutRightOnLeaveAnimation,
   slideInLeftOnEnterAnimation
 } from "angular-animations";
 
@@ -13,6 +14,7 @@ import {
       <ng-container *ngFor="let invoice of invoices; trackBy: identifyInvoice">
         <lbk-invoice-preview
           @slideInLeftOnEnter
+          @fadeOutRightOnLeave
           [invoice]="invoice"
         ></lbk-invoice-preview>
       </ng-container>
@@ -21,6 +23,7 @@ import {
   animations: [
     listIn({ staggerDuration: 80, duration: 200 }),
     slideInLeftOnEnterAnimation({ delay: 300 }),
+    fadeOutRightOnLeaveAnimation({ delay: 200 }),
   ],
 })
 export class InvoicePreviewListComponent {

@@ -11,7 +11,7 @@ import { ChangeDetectionStrategy, Component, Input } from "@angular/core";
         <p [hidden]="!noInvoices">No invoices</p>
         <p [hidden]="noInvoices">
           <span class="hidden md:inline">There are </span>{{ total }} invoices
-          {{ statusFormated }}
+          {{ statusFormatted }}
         </p>
       </div>
     </div>
@@ -25,7 +25,7 @@ export class TotalInvoicesComponent {
     return this.total === 0;
   }
 
-  get statusFormated() {
+  get statusFormatted() {
     if (this.searchStatus.length === 0) return "";
     return this.searchStatus.join(", ") + ".";
   }
