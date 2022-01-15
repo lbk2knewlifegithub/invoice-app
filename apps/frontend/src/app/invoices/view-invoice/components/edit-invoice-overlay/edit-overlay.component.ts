@@ -23,7 +23,7 @@ export class EditOverlayComponent {
   invoiceFormComponent!: InvoiceFormComponent;
 
   @Input() open!: boolean;
-  @Input() pending!: boolean;
+  @Input() pendingSaveAndChange!: boolean;
   @Input() invoice!: Invoice;
 
   @Output() goBack = new EventEmitter<void>();
@@ -48,12 +48,10 @@ export class EditOverlayComponent {
     );
 
     this.edit.emit({ id: this.invoice.id, invoiceDto });
-
-    this.invoiceFormComponent.initForm(true);
   }
 
   onCancel() {
-    if (this.pending) return;
+    if (this.pendingSaveAndChange) return;
 
     if (this.invoiceForm.dirty) {
       this._dialogService

@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { MatNativeDateModule } from "@angular/material/core";
 import { MatDatepickerModule } from "@angular/material/datepicker";
 import { RouterModule } from "@angular/router";
-import { ScrollToModule } from "@lbk/ui";
 import { COMPONENTS } from "./components";
 import { InvoiceFormComponent } from "./containers";
 
@@ -15,7 +14,6 @@ import { InvoiceFormComponent } from "./containers";
     ReactiveFormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    ScrollToModule,
   ],
   declarations: [COMPONENTS, InvoiceFormComponent],
   exports: [InvoiceFormComponent],

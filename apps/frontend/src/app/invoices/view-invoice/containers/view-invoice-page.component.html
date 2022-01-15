@@ -1,0 +1,37 @@
+<main *ngIf="invoice$ | async as invoice">
+  <div class="pt-8 md:pt-14 lg:pt-16 lg:grid lg:place-content-center">
+    <div class="container max-w-[730px] w-full md:min-w-[730px] lg:h-full">
+      <lbk-go-back routerLink="/"></lbk-go-back>
+
+      <lbk-invoice-detail
+        class="block mt-8"
+        [invoice]="invoice"
+        [pendingMaskAsPaid]="(pendingMaskAsPaid$ | async)!"
+        [pendingDelete]="(pendingDelete$ | async)!"
+        [errorMessage]="error$ | async"
+        (edit)="showEditOverlay()"
+        (delete)="delete(invoice.id)"
+        (maskAsPaid)="maskAsPaid(invoice.id)"
+      ></lbk-invoice-detail>
+    </div>
+
+    <lbk-invoice-details-actions
+      class="block mt-14 md:hidden"
+      [pendingMaskAsPaid]="(pendingMaskAsPaid$ | async)!"
+      [pendingDelete]="(pendingDelete$ | async)!"
+      [isPaid]="isPaid(invoice)"
+      [errorMessage]="error$ | async"
+      (edit)="showEditOverlay()"
+      (delete)="delete(invoice.id)"
+      (maskAsPaid)="maskAsPaid(invoice.id)"
+    ></lbk-invoice-details-actions>
+  </div>
+
+  <lbk-edit-overlay
+    [invoice]="invoice"
+    [open]="(showEditOverlay$ | async)!"
+    [pendingSaveAndChange]="(pendingSaveAndChange | async)!"
+    (cancel)="onEditCancel()"
+    (edit)="edit($event)"
+  ></lbk-edit-overlay>
+</main>

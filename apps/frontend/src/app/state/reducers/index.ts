@@ -8,10 +8,8 @@ import {
 } from "@ngrx/store";
 import { environment } from "apps/frontend/src/environments/environment";
 import * as fromAuth from "./auth.reducer";
-import * as fromEditInvoice from "./invoices/edit-invoice.reducer";
 import * as fromInvoices from "./invoices/invoices.reducer";
 import * as fromNewInvoice from "./invoices/new-invoice.reducer";
-import * as fromViewInvoicePage from "./invoices/view-invoice-page.reducer";
 import * as fromLayout from "./layout";
 import * as fromSearch from "./search.reducer";
 
@@ -20,9 +18,7 @@ export interface State {
   [fromInvoices.invoicesFeatureKey]: fromInvoices.State;
   [fromSearch.searchFeatureKey]: fromSearch.State;
   [fromAuth.statusFeatureKey]: fromAuth.State;
-  [fromViewInvoicePage.viewInvoicePageFeatureKey]: fromViewInvoicePage.State;
   [fromNewInvoice.newInvoiceFeatureKey]: fromNewInvoice.State;
-  [fromEditInvoice.editInvoiceFeatureKey]: fromEditInvoice.State;
   router: fromRouter.RouterReducerState<any>;
 }
 
@@ -34,10 +30,7 @@ export const ROOT_REDUCERS = new InjectionToken<
     [fromInvoices.invoicesFeatureKey]: fromInvoices.reducer,
     [fromSearch.searchFeatureKey]: fromSearch.reducer,
     [fromAuth.statusFeatureKey]: fromAuth.reducer,
-    [fromViewInvoicePage.viewInvoicePageFeatureKey]:
-      fromViewInvoicePage.reducer,
     [fromNewInvoice.newInvoiceFeatureKey]: fromNewInvoice.reducer,
-    [fromEditInvoice.editInvoiceFeatureKey]: fromEditInvoice.reducer,
     router: fromRouter.routerReducer,
   }),
 });

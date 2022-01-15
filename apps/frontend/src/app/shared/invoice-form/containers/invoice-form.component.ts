@@ -36,16 +36,21 @@ export class InvoiceFormComponent implements OnInit {
     const createdAtFormatted = this.formatDate(createdAt);
     const paymentDue = addDays(createdAtFormatted, paymentTerms);
 
-    delete billTo.createdAt;
     return {
       senderAddress: billFrom,
       status: newStatus,
       createdAt: createdAtFormatted,
       paymentDue,
-      ...billTo,
+      ...this.formatBillTo(billTo),
       paymentTerms: parseInt(billTo.paymentTerms),
       items: this.formatItems(items),
     };
+  }
+
+  private formatBillTo(billTo: any) {
+    const result = { ...billTo };
+    delete result.createdAt;
+    return result;
   }
 
   private formatItems(items: any) {
@@ -57,11 +62,10 @@ export class InvoiceFormComponent implements OnInit {
   }
 
   private formatDate(date: any) {
-    try {
-      return (date as Date).toISOString();
-    } catch (error) {
-      return date;
-    }
+    if (typeof date === "string") return date;
+    if (typeof date === "object") return (date as Date).toISOString();
+    console.log(date);
+    return date;
   }
 
   private _initAddress(address: Partial<Address | undefined>) {
@@ -156,7 +160,7 @@ export class InvoiceFormComponent implements OnInit {
         [
           Validators.required,
           Validators.min(1),
-          Validators.max(100_000_000),
+          Validators.max(100_000),
           Validators.pattern(decimalRegex),
         ],
       ],
@@ -165,6 +169,7 @@ export class InvoiceFormComponent implements OnInit {
         [
           Validators.required,
           Validators.min(1),
+          Validators.max(100_000_000),
           Validators.pattern(decimalRegex),
         ],
       ],

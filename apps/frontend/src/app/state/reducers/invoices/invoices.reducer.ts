@@ -1,3 +1,4 @@
+import { ViewInvoicePageActions } from "@frontend/invoices/view-invoice/actions";
 import { Invoice, InvoiceStatus } from "@lbk/models";
 import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { createReducer, on } from "@ngrx/store";
@@ -5,8 +6,7 @@ import {
   AuthActions,
   InvoiceActions,
   InvoicesAPIActions,
-  InvoicesPreviewPageActions,
-  ViewInvoicePageActions
+  InvoicesPreviewPageActions
 } from "../../actions";
 
 export const invoicesFeatureKey = "invoices";
@@ -55,8 +55,9 @@ export const reducer = createReducer(
   on(InvoicesAPIActions.maskAsPaidSuccess, (state, { id }) =>
     adapter.updateOne({ id, changes: { status: InvoiceStatus.PAID } }, state)
   ),
+
   // Update Invoice Success
-  on(InvoicesAPIActions.updateInvoiceSuccess, (state, { id, invoiceDto }) =>
+  on(InvoicesAPIActions.editInvoiceSuccess, (state, { id, invoiceDto }) =>
     adapter.updateOne({ id, changes: { ...invoiceDto } }, state)
   ),
   on(ViewInvoicePageActions.selectInvoice, (state, { id }) => ({

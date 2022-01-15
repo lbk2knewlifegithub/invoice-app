@@ -5,6 +5,7 @@ import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 import { routerNavigatedAction } from "@ngrx/router-store";
 import { Store } from "@ngrx/store";
 import { map, tap } from "rxjs";
+import { LayoutActions } from "../actions";
 
 @Injectable()
 export class RouterEffects {
@@ -21,16 +22,16 @@ export class RouterEffects {
     }
   );
 
-  // autoCloseOverlay$ = createEffect(
-  //   () =>
-  //     this._actions$.pipe(
-  //       ofType(routerNavigatedAction),
-  //       tap(() => this._store.dispatch(LayoutActions.closeAllOverlay()))
-  //     ),
-  //   {
-  //     dispatch: false,
-  //   }
-  // );
+  autoCloseOverlay$ = createEffect(
+    () =>
+      this._actions$.pipe(
+        ofType(routerNavigatedAction),
+        tap(() => this._store.dispatch(LayoutActions.closeAllOverlay()))
+      ),
+    {
+      dispatch: false,
+    }
+  );
 
   constructor(
     private readonly _actions$: Actions,

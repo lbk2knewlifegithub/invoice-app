@@ -10,7 +10,7 @@ import { FormGroupComponent } from "../form-helper/form-group.component";
         <label (click)="picker.open()" class="text-muted-600"
           >Invoice Date</label
         >
-        <div scrollTo class="relative  min-h-[48px]">
+        <div  class="relative  min-h-[48px]">
           <input
             class="mt-[10px] block h-full"
             type="text"
@@ -21,6 +21,7 @@ import { FormGroupComponent } from "../form-helper/form-group.component";
             (click)="picker.open()"
           />
           <mat-datepicker-toggle
+
             class="absolute top-1/2 -translate-y-1/2 right-1"
             [for]="picker"
           ></mat-datepicker-toggle>

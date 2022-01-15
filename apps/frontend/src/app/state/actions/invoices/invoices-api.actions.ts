@@ -44,7 +44,7 @@ export const maskAsPaidFailure = createAction(
 /**
  * - Edit Invoice
  */
-export const updateInvoiceSuccess = createAction(
+export const editInvoiceSuccess = createAction(
   "[Invoices/API] Edit Invoice Success",
   props<{ id: number; invoiceDto: InvoiceDto }>()
 );

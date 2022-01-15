@@ -15,7 +15,9 @@ import { Invoice, InvoiceStatus } from "@lbk/models";
 export class InvoiceDetailsComponent {
   @Input() invoice!: Invoice;
   @Input() errorMessage!: string | null;
-  @Input() pending!: boolean;
+
+  @Input() pendingMaskAsPaid!: boolean;
+  @Input() pendingDelete!: boolean;
 
   @Output() edit = new EventEmitter<void>();
   @Output() delete = new EventEmitter<void>();

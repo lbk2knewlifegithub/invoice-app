@@ -14,6 +14,6 @@ export class PendingGuard implements CanDeactivate<ViewInvoicePageComponent> {
     currentRoute: ActivatedRouteSnapshot,
     currentState: RouterStateSnapshot
   ): Observable<boolean> {
-    return component.pending$.pipe(map((pending) => !pending));
+    return component.pendingSaveAndChange.pipe(map((pending) => !pending));
   }
 }

@@ -4,37 +4,33 @@ import {
   OnInit,
   ViewChild
 } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import { Title } from "@angular/platform-browser";
 import { InvoiceDto } from "@frontend/dto";
+import { ViewInvoicePageActions } from "@frontend/invoices/view-invoice/actions";
+import { DialogService } from "@frontend/shared";
 import * as fromRoot from "@frontend/state/selectors";
-import * as fromEditInvoice from "@frontend/state/selectors/invoices/edit-invoice.secltor";
-import { Invoice } from "@lbk/models";
+import * as fromInvoices from "@frontend/state/selectors/invoices/invoices.selector";
+import { Invoice, InvoiceStatus } from "@lbk/models";
 import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";
-import { map, Observable } from "rxjs";
-import { LayoutActions, ViewInvoicePageActions } from "../../../state/actions";
+import { Observable, take } from "rxjs";
+import { LayoutActions } from "../../../state/actions";
 import { EditOverlayComponent } from "../components/edit-invoice-overlay/edit-overlay.component";
+import * as fromViewInvoicePage from "../reducers";
 
 @Component({
   selector: "lbk-view-invoice-page",
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `
-    <main *ngIf="invoice$ | async as invoice">
-      <lbk-selected-invoice-page></lbk-selected-invoice-page>
-
-      <lbk-edit-overlay
-        [invoice]="invoice"
-        [open]="(showEditOverlay$ | async)!"
-        [pending]="(pending$ | async)!"
-        (cancel)="onEditCancel()"
-        (edit)="edit($event)"
-      ></lbk-edit-overlay>
-    </main>
-  `,
+  templateUrl: "./view-invoice-page.component.html",
 })
 export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   showEditOverlay$!: Observable<boolean>;
-  pending$!: Observable<boolean>;
+  pendingSaveAndChange!: Observable<boolean>;
+  pendingMaskAsPaid$!: Observable<boolean>;
+  pendingDelete$!: Observable<boolean>;
+
+  error$!: Observable<string | null>;
+
   invoice$!: Observable<Invoice | null | 0 | undefined>;
 
   @ViewChild(EditOverlayComponent)
@@ -42,34 +38,66 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
 
   constructor(
     private readonly _store: Store,
-    private readonly _route: ActivatedRoute
+    private readonly _dialogService: DialogService,
+    private readonly _title: Title
   ) {
     super();
   }
 
   ngOnInit(): void {
-    this.appendSub = this._route.params
-      .pipe(
-        map((params) =>
-          ViewInvoicePageActions.selectInvoice({ id: params["id"] })
-        )
-      )
-      .subscribe((action) => this._store.dispatch(action));
+    this.invoice$ = this._store.select(fromInvoices.selectSelectedInvoice);
 
     this.showEditOverlay$ = this._store.select(fromRoot.selectShowEditOverlay);
-    this.pending$ = this._store.select(
-      fromEditInvoice.selectEditInvoicePending
+    this.pendingSaveAndChange = this._store.select(
+      fromViewInvoicePage.selectPendingSaveAndChange
     );
-    this.invoice$ = this._store.select(fromRoot.selectSelectedInvoice);
+    this.pendingMaskAsPaid$ = this._store.select(
+      fromViewInvoicePage.selectPendingMaskAsPaid
+    );
+
+    this.pendingDelete$ = this._store.select(
+      fromViewInvoicePage.selectPendingDelete
+    );
+
+    // Set title
+    this.appendSub = this.invoice$.subscribe((invoice) =>
+      this._title.setTitle(
+        `Invoices - ${invoice ? (invoice as Invoice).id : 0}`
+      )
+    );
   }
 
   onEditCancel() {
     this._store.dispatch(LayoutActions.closeAllOverlay());
   }
 
+  showEditOverlay() {
+    this._store.dispatch(LayoutActions.showEditOverlay());
+  }
+
   edit({ id, invoiceDto }: { id: number; invoiceDto: InvoiceDto }) {
     this._store.dispatch(
       ViewInvoicePageActions.updateInvoice({ id, invoiceDto: invoiceDto })
     );
+  }
+
+  delete(id: number) {
+    this._dialogService
+      .deleteDialog(id)
+      .pipe(take(1))
+      .subscribe((confirmed) => {
+        if (confirmed)
+          return this._store.dispatch(
+            ViewInvoicePageActions.deleteInvoice({ id })
+          );
+      });
+  }
+
+  isPaid(invoice: Invoice) {
+    return invoice.status === InvoiceStatus.PAID;
+  }
+
+  maskAsPaid(id: number) {
+    this._store.dispatch(ViewInvoicePageActions.maskAsPaid({ id }));
   }
 }

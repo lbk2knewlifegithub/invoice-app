@@ -11,7 +11,7 @@ export interface InvoicesService {
 
   maskAsPaid(id: number): Observable<void>;
 
-  updateInvoice(id: number, invoiceDto: InvoiceDto): Observable<void>;
+  editInvoice(id: number, invoiceDto: InvoiceDto): Observable<void>;
 
   createInvoice(createInvoiceDto: InvoiceDto): Observable<Invoice>;
 }

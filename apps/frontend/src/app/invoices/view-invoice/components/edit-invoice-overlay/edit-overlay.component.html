@@ -4,20 +4,24 @@
   <!-- actions -->
   <div class="flex items-center justify-end gap-2 actions">
     <!-- cancel button -->
-    <button [disabled]="pending" (click)="onCancel()" class="btn btn-basic">
+    <button
+      [disabled]="pendingSaveAndChange"
+      (click)="onCancel()"
+      class="btn btn-basic"
+    >
       Cancel
     </button>
     <!-- end cancel button -->
 
     <!-- save and changes button -->
     <button
-      [disabled]="pending"
+      [disabled]="pendingSaveAndChange"
       (click)="onSaveChanges()"
       class="btn btn-primary"
     >
       <lbk-button-spinner
         text="Save Changes"
-        [pending]="pending"
+        [pending]="pendingSaveAndChange"
       ></lbk-button-spinner>
     </button>
     <!-- end save and changes button -->

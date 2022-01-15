@@ -1,5 +1,6 @@
 import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { ViewInvoicePageActions } from "@frontend/invoices/view-invoice/actions";
 import { SnackBarService } from "@frontend/shared/snackbar";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
@@ -7,11 +8,11 @@ import { catchError, exhaustMap, map, of, tap } from "rxjs";
 import {
   InvoicesAPIActions,
   InvoicesPreviewPageActions,
-  LayoutActions,
-  ViewInvoicePageActions
+  LayoutActions
 } from "../actions";
 import { InvoicesService } from "../services";
 import { InvoicesImplService } from "../services/invoices/invoices-impl.service";
+
 
 @Injectable({ providedIn: "root" })
 export class InvoicesEffects {
@@ -65,17 +66,15 @@ export class InvoicesEffects {
     this._actions$.pipe(
       ofType(ViewInvoicePageActions.updateInvoice),
       exhaustMap(({ id, invoiceDto }) =>
-        this._invoicesService.updateInvoice(id, invoiceDto).pipe(
+        this._invoicesService.editInvoice(id, invoiceDto).pipe(
           map(() =>
-            InvoicesAPIActions.updateInvoiceSuccess({
+            InvoicesAPIActions.editInvoiceSuccess({
               id,
               invoiceDto: invoiceDto,
             })
           ),
           tap(() => this._store.dispatch(LayoutActions.closeAllOverlay())),
-          catchError((error) =>
-            of(InvoicesAPIActions.editInvoiceFailure({ error }))
-          )
+          catchError((error) => of(InvoicesAPIActions.editInvoiceFailure({ error })))
         )
       )
     )

@@ -29,8 +29,7 @@ export class InvoicesImplService implements InvoicesService {
     });
   }
 
-  updateInvoice(id: number, invoiceDto: InvoiceDto): Observable<void> {
-    console.log(id);
+  editInvoice(id: number, invoiceDto: InvoiceDto): Observable<void> {
     console.log(invoiceDto);
     return this._http.put<void>(`/api/invoices/${id}`, invoiceDto);
   }
