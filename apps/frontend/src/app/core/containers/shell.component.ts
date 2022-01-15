@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { AuthActions, LayoutActions } from "@frontend/state/actions";
 import * as fromRoot from "@frontend/state/selectors";
-import { DialogService, slideInAnimation } from "@lbk/ui";
+import { CAROUSEL_ROUTE_ANIMATION, DialogService } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 
@@ -22,7 +22,7 @@ import { Observable } from "rxjs";
     <!-- </div> -->
     <!-- <lbk-footer></lbk-footer> -->
   `,
-  animations: [slideInAnimation],
+  animations: [CAROUSEL_ROUTE_ANIMATION],
 })
 export class ShellComponent implements OnInit {
   openOverlay$!: Observable<boolean>;

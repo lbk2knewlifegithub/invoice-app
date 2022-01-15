@@ -7,7 +7,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
     <button>
       <img
         class="aspect-square max-w-[32px] rounded-full lg:max-w-[40px]"
-        src="assets/image-avatar.jpg"
+        src="assets/avatar.jpeg"
         alt="Avatar"
       />
     </button>

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from "@angular/core";
-import { ROUTE_ANIMATION } from "@lbk/ui";
+import { CAROUSEL_ROUTE_ANIMATION } from "@lbk/ui";
 
 @Component({
   selector: "lbk-root",
@@ -9,7 +9,7 @@ import { ROUTE_ANIMATION } from "@lbk/ui";
     <router-outlet #outlet="outlet"></router-outlet>
     <!-- </div> -->
   `,
-  animations: [ROUTE_ANIMATION],
+  animations: [CAROUSEL_ROUTE_ANIMATION],
 })
 export class AppComponent {
   // prepareRoute(outlet: RouterOutlet) {
