@@ -1,4 +1,5 @@
 import { AuthApiActions } from "@frontend/state/actions";
+import { routerNavigatedAction } from "@ngrx/router-store";
 import {
   createFeatureSelector,
   createReducer,
@@ -22,16 +23,19 @@ export const initialState: State = {
 export const reducer = createReducer(
   initialState,
   on(LoginPageActions.login, (state) => ({
-    ...state,
     error: null,
     pending: true,
   })),
 
-  on(AuthApiActions.loginSuccess, AuthApiActions.signUpSuccess, (state) => ({
-    ...state,
-    error: null,
-    pending: false,
-  })),
+  on(
+    AuthApiActions.loginSuccess,
+    routerNavigatedAction,
+    AuthApiActions.signUpSuccess,
+    (_) => ({
+      error: null,
+      pending: false,
+    })
+  ),
   on(AuthApiActions.loginFailure, (state, { error }) => ({
     ...state,
     error,
