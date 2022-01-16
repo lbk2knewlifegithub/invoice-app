@@ -7,6 +7,7 @@ import { AppModule } from "./app/app.module";
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
   // app.useGlobalInterceptors(new DataInterceptor());
+  // app.setGlobalPrefix()
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(
     new SanitizeMongooseModelInterceptor({
