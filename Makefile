@@ -1,4 +1,4 @@
-export VERSION=6
+export VERSION=7
 
 api:
 	nx build api --generatePackageJson=true
