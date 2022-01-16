@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api
+          image: lbk2kdocker/api:1
+          env:
+            - name: MONGO_URL
+              value: mongodb://username:password@mongo-service:27017/
+            - name: JWT_SECRET
+              value: banana
+            - name: PORT
+              value: "3000"
+              # valueFrom:
+              #   secretKeyRef:
+              #     name:  name
+              #     key:  key
+          resources:
+            requests:
+              cpu: 100m
+              memory: 100Mi
+            limits:
+              cpu: 100m
+              memory: 100Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-service
+spec:
+  type: ClusterIP
+  selector:
+    app: api
+  ports:
+    - port: 3000
+      targetPort: 3000

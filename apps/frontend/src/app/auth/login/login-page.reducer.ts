@@ -27,7 +27,7 @@ export const reducer = createReducer(
     pending: true,
   })),
 
-  on(AuthApiActions.loginSuccess, (state) => ({
+  on(AuthApiActions.loginSuccess, AuthApiActions.signUpSuccess, (state) => ({
     ...state,
     error: null,
     pending: false,

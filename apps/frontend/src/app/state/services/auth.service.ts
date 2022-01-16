@@ -2,7 +2,7 @@ import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Credentials, Token, User } from "@lbk/models";
 import { catchError, map, Observable, of, throwError } from "rxjs";
-import { TokenService } from ".";
+import { TokenService } from "./token.service";
 
 @Injectable({
   providedIn: "root",

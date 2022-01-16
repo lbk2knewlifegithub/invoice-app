@@ -9,10 +9,7 @@ import { DatabaseService } from "./database.service";
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
         return {
-          uri:
-            config.get<string>("NODE_ENV") === "test"
-              ? config.get<string>("MONGO_TEST_CONNECTION_URL")
-              : config.get<string>("MONGO_CONNECTION_URI"),
+          uri: config.get("MONGO_URL"),
         };
       },
     }),

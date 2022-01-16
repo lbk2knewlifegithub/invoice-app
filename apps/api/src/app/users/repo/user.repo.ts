@@ -1,18 +1,14 @@
 import { CredentialsDto } from "@api/auth/credentials.dto";
-import { CACHE_NUMBERS_OF_INVOICES } from "@api/constants";
 import { InvoiceDto, UpdateStatusDto } from "@api/invoices/dto";
 import { InvoiceEntity } from "@api/invoices/schemas";
 import { addDays } from "@lbk/utils";
 import {
-  CACHE_MANAGER,
   ConflictException,
-  Inject,
   Injectable,
   InternalServerErrorException
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { genSalt, hash } from "bcrypt";
-import { Cache } from "cache-manager";
 import { Model, UpdateWriteOpResult } from "mongoose";
 import { UserDocument, UserEntity } from "../schemas";
 
@@ -23,10 +19,9 @@ import { UserDocument, UserEntity } from "../schemas";
 export class UserRepository {
   constructor(
     @InjectModel(UserEntity.name)
-    private readonly _userModel: Model<UserDocument>,
-    @Inject(CACHE_MANAGER)
-    private readonly _cacheManager: Cache
-  ) {}
+    private readonly _userModel: Model<UserDocument> // @Inject(CACHE_MANAGER)
+  ) // private readonly _cacheManager: Cache
+  {}
 
   /**
    * - Sign Up
@@ -157,20 +152,20 @@ export class UserRepository {
     return new Date(addDays(createdAt, paymentTerms));
   }
 
-  private async createInvoiceId(): Promise<number> {
-    const length = await this._cacheManager.get(CACHE_NUMBERS_OF_INVOICES);
+  // private async createInvoiceId(): Promise<number> {
+  //   const length = await this._cacheManager.get(CACHE_NUMBERS_OF_INVOICES);
 
-    if (!length) {
-      const numberOfInvoices = await this.numberOfInvoices();
-      await this._cacheManager.set(CACHE_NUMBERS_OF_INVOICES, numberOfInvoices);
-      return numberOfInvoices;
-    }
+  //   if (!length) {
+  //     const numberOfInvoices = await this.numberOfInvoices();
+  //     await this._cacheManager.set(CACHE_NUMBERS_OF_INVOICES, numberOfInvoices);
+  //     return numberOfInvoices;
+  //   }
 
-    // increment id
-    const result = parseInt(length as string) + 1;
-    await this._cacheManager.set(CACHE_NUMBERS_OF_INVOICES, result);
-    return result;
-  }
+  //   // increment id
+  //   const result = parseInt(length as string) + 1;
+  //   await this._cacheManager.set(CACHE_NUMBERS_OF_INVOICES, result);
+  //   return result;
+  // }
 
   // async patchInvoice(
   //   id: number,

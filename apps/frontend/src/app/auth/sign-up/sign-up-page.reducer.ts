@@ -1,11 +1,11 @@
 import { AuthApiActions } from "@frontend/state/actions";
-import { SignUpPageActions } from "./actions";
 import {
   createFeatureSelector,
   createReducer,
   createSelector,
   on
 } from "@ngrx/store";
+import { SignUpPageActions } from "./actions";
 
 export const signUpPageFeatureKey = "signUpPage";
 
@@ -27,7 +27,7 @@ export const reducer = createReducer(
     pending: true,
   })),
 
-  on(AuthApiActions.signUpSuccess, (state) => ({
+  on(AuthApiActions.signUpSuccess, AuthApiActions.loginSuccess, (state) => ({
     ...state,
     error: null,
     pending: false,

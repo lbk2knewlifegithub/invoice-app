@@ -6,8 +6,6 @@ import { AppModule } from "./app/app.module";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
-  const globalPrefix = "api";
-  app.setGlobalPrefix("api");
   // app.useGlobalInterceptors(new DataInterceptor());
   app.useGlobalPipes(new ValidationPipe());
   app.useGlobalInterceptors(
@@ -18,12 +16,10 @@ async function bootstrap() {
   );
 
   const configService = app.get(ConfigService);
-  const port = configService.get("PORT");
+  const port = configService.get("PORT") ?? 3000;
 
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
-  );
+  Logger.log(`🚀 Application is running on: PORT=${port}`);
 }
 
 bootstrap();

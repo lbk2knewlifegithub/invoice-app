@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 
+secret.yaml
+
 # dependencies
 /node_modules
 
