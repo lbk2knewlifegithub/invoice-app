@@ -1,4 +1,5 @@
-export VERSION=1
+export VERSION=5
+
 api:
 	nx build api --generatePackageJson=true
 	docker build -t lbk2kdocker/api:${VERSION} -f api.Dockerfile ./
@@ -6,8 +7,8 @@ frontend:
 	nx build frontend
 	docker build -t lbk2kdocker/frontend:${VERSION} -f frontend.Dockerfile ./
 push:
-	docker push lbk2kdocker/frontend:${VERSION}
 	docker push lbk2kdocker/api:${VERSION}
+	docker push lbk2kdocker/frontend:${VERSION}
 k8s:
 	# envsubst < k8s/frontend.yaml | kubectl apply -f k8s/frontend.yaml
 	kubectl apply -f k8s

@@ -3,14 +3,27 @@ import { ConfigService } from "@nestjs/config";
 import { MongooseModule } from "@nestjs/mongoose";
 import { DatabaseService } from "./database.service";
 
+function createMongoUrl(
+  username: string,
+  password: string,
+  host: string = "mongo"
+) {
+  if (!username || !password)
+    return `mongodb://${host}:27017/?authSource=admin`;
+  return `mongodb://${username}:${password}@${host}:27017/?authSource=admin`;
+}
+
 @Module({
   imports: [
     MongooseModule.forRootAsync({
       inject: [ConfigService],
       useFactory: (config: ConfigService) => {
-        return {
-          uri: config.get("MONGO_URL"),
-        };
+        const uri = createMongoUrl(
+          config.get("MONGO_USERNAME"),
+          config.get("MONGO_PASSWORD"),
+          config.get("MONGO_HOST")
+        );
+        return { uri };
       },
     }),
   ],

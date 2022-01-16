@@ -6,6 +6,8 @@
 /out-tsc
 
 secret.yaml
+my-secret.yaml
+/k8s/my-secret.yaml
 
 # dependencies
 /node_modules
