@@ -6,7 +6,7 @@
 
 # Frontend
 
-Angular, Ngrx, Tailwindss
+Angular, Angular Material, Ngrx, Tailwindss
 
 # Backend
 
