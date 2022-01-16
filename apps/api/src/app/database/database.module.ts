@@ -8,9 +8,10 @@ function createMongoUrl(
   password: string,
   host: string = "mongo"
 ) {
-  if (!username || !password)
-    return `mongodb://${host}:27017/?authSource=admin`;
-  return `mongodb://${username}:${password}@${host}:27017/?authSource=admin`;
+  // if (!username || !password)
+  //   return `mongodb://${host}:27017/?authSource=admin`;
+  // return `mongodb://${username}:${password}@${host}:27017/?authSource=admin`;
+  return "mongodb://mongo-service:27017";
 }
 
 @Module({

@@ -1,10 +1,10 @@
-export VERSION=5
+export VERSION=6
 
 api:
 	nx build api --generatePackageJson=true
 	docker build -t lbk2kdocker/api:${VERSION} -f api.Dockerfile ./
 frontend:
-	nx build frontend
+	nx build frontend --base-href="https://lbk2knewlifegithub.github.io/frontend-mentor/"
 	docker build -t lbk2kdocker/frontend:${VERSION} -f frontend.Dockerfile ./
 push:
 	docker push lbk2kdocker/api:${VERSION}

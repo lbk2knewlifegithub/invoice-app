@@ -14,31 +14,34 @@ spec:
     spec:
       containers:
         - name: api
-          image: lbk2kdocker/api:5
-          imagePullPolicy: Always
+          image: lbk2kdocker/api:6
           env:
-            - name: MONGO_USERNAME
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: mongo-username
-            - name: MONGO_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: mongo-password
-            - name: MONGO_HOST
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: mongo-host
-            - name: JWT_SECRET
-              valueFrom:
-                secretKeyRef:
-                  name: my-secret
-                  key: jwt-secret
             - name: PORT
               value: "3000"
+            # - name: MONGO_USERNAME
+            #   value: username
+            # valueFrom:
+            #   secretKeyRef:
+            #     name: my-secret
+            #     key: mongo-username
+            # - name: MONGO_PASSWORD
+            #   value: password
+            # valueFrom:
+            #   secretKeyRef:
+            #     name: my-secret
+            #     key: mongo-password
+            # - name: MONGO_HOST
+            #   value: mongo-service
+            # valueFrom:
+            #   secretKeyRef:
+            #     name: my-secret
+            #     key: mongo-host
+            - name: JWT_SECRET
+              value: test
+            # valueFrom:
+            #   secretKeyRef:
+            #     name: my-secret
+            #     key: jwt-secret
           resources:
             requests:
               cpu: 100m

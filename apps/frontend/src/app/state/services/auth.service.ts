@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Credentials, Token, User } from "@lbk/models";
+import { environment as env } from "apps/frontend/src/environments/environment";
 import { catchError, map, Observable, of, throwError } from "rxjs";
 import { TokenService } from "./token.service";
 
@@ -15,7 +16,7 @@ export class AuthService {
 
   login(credentials: Credentials): Observable<Token> {
     return this._http
-      .post<Token>("/api/auth/login", credentials, { observe: "body" })
+      .post<Token>(`${env.api}auth/login`, credentials, { observe: "body" })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return error.status === 401
@@ -27,7 +28,7 @@ export class AuthService {
 
   signup(credentials: Credentials): Observable<Token> {
     return this._http
-      .post<Token>("/api/auth/signup", credentials, { observe: "body" })
+      .post<Token>(`${env.api}auth/signup`, credentials, { observe: "body" })
       .pipe(
         catchError((error: HttpErrorResponse) => {
           return error.status === 409
@@ -49,7 +50,7 @@ export class AuthService {
    */
   me(accessToken: string): Observable<User | null> {
     return this._http
-      .post("/api/auth/me", { accessToken })
+      .post(`${env.api}auth/me`, { accessToken })
       .pipe(map((_) => this._tokenService.decode(accessToken)));
   }
 }

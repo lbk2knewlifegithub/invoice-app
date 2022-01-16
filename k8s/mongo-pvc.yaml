@@ -1,0 +1,27 @@
+# apiVersion: v1
+# kind: PersistentVolume
+# metadata:
+#   name: mongo-pv
+# spec:
+#   capacity:
+#     storage: 3Gi
+#   volumeMode: Filesystem
+#   accessModes:
+#     - "ReadWriteOnce"
+#     # - "ReadOnlyMany"
+#     # - "ReadWriteMany"
+#   hostPath:
+#     path: /data/mongo
+#     type: DirectoryOrCreate
+# ---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongo-pvc
+spec:
+  storageClassName: csi-okteto-standard
+  accessModes:
+    - "ReadWriteOnce"
+  resources:
+    requests:
+      storage: 3Gi
