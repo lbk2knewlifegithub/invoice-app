@@ -8,7 +8,7 @@ import * as fromLoginPage from "../login-page.reducer";
 @Component({
   selector: "lbk-login-page",
   template: `
-    <main class="mt-32 lg:h-screen grid place-content-center ">
+    <main class="mt-32 lg:mt-0 lg:h-screen grid place-content-center ">
       <div class="container ">
         <lbk-login-form
           (submitted)="onSubmit($event)"

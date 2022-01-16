@@ -1,13 +1,13 @@
 import { Component } from "@angular/core";
-import { SignUpPageActions } from "../actions";
 import { Credentials } from "@lbk/models";
 import { Store } from "@ngrx/store";
+import { SignUpPageActions } from "../actions";
 import * as fromSignUpPage from "../sign-up-page.reducer";
 
 @Component({
   selector: "lbk-signup-page",
   template: `
-    <main class="mt-32 lg:h-screen grid place-content-center ">
+    <main class="mt-32 lg:mt-0 lg:h-screen grid place-content-center ">
       <lbk-sign-up-form
         (submitted)="onSubmit($event)"
         [pending]="(pending$ | async)!"
