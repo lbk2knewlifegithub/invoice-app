@@ -1,6 +1,6 @@
 # Frontend Mentor
 
-[Demo](https://lbk2knewlifegithub.github.io/frontend-mentor/).
+[Demo](https://lbk2knewlifegithub.github.io/invoice-app/).
 
 # lbk2k
 
