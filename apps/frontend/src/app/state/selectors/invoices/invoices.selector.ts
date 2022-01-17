@@ -17,11 +17,6 @@ export const selectLoadingInvoices = createSelector(
   fromInvoices.selectLoadingInvoices
 );
 
-export const selectLoadedInvoices = createSelector(
-  selectInvoicesEntitiesState,
-  fromInvoices.selectLoadedInvoices
-);
-
 export const {
   selectIds: selectInvoiceIds,
   selectEntities: selectInvoiceEntities,

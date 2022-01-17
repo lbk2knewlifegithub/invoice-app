@@ -4,9 +4,9 @@ import { createEntityAdapter, EntityAdapter, EntityState } from "@ngrx/entity";
 import { createReducer, on } from "@ngrx/store";
 import {
   AuthActions,
+  AuthApiActions,
   InvoiceActions,
-  InvoicesAPIActions,
-  InvoicesPreviewPageActions
+  InvoicesAPIActions
 } from "../../actions";
 
 export const invoicesFeatureKey = "invoices";
@@ -14,7 +14,6 @@ export const invoicesFeatureKey = "invoices";
 export interface State extends EntityState<Invoice> {
   selectedInvoiceId: number | null;
   loadingInvoices: boolean;
-  loadedInvoices: boolean;
 }
 
 export const adapter: EntityAdapter<Invoice> = createEntityAdapter<Invoice>({
@@ -27,22 +26,20 @@ export const adapter: EntityAdapter<Invoice> = createEntityAdapter<Invoice>({
 export const initialState: State = adapter.getInitialState({
   selectedInvoiceId: null,
   loadingInvoices: false,
-  loadedInvoices: false,
 });
 
 export const reducer = createReducer(
   initialState,
   on(AuthActions.logout, (_) => initialState),
-  on(InvoicesPreviewPageActions.enter, (state) => ({
+  on(AuthApiActions.loginSuccess, (state) => ({
     ...state,
     loadingInvoices: true,
-    loadedInvoices: true,
   })),
-  on(
-    // BooksApiActions.searchSuccess,
-    InvoicesAPIActions.loadInvoicesSuccess,
-    (state, { invoices }) =>
-      adapter.addMany(invoices, { ...state, loadingInvoices: false })
+  on(InvoicesAPIActions.loadInvoicesSuccess, (state, { invoices }) =>
+    adapter.addMany(invoices, {
+      ...state,
+      loadingInvoices: false,
+    })
   ),
   on(
     InvoiceActions.loadInvoice,
@@ -68,4 +65,3 @@ export const reducer = createReducer(
 
 export const selectId = (state: State) => state.selectedInvoiceId;
 export const selectLoadingInvoices = (state: State) => state.loadingInvoices;
-export const selectLoadedInvoices = (state: State) => state.loadedInvoices;

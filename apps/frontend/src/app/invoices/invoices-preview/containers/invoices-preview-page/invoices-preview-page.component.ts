@@ -47,7 +47,6 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
   }
 
   ngOnInit(): void {
-
     this.loggedIn$ = this._store.select(fromRoot.selectLoggedIn);
     this.totalInvoices$ = this._store.select(fromRoot.selectTotalInvoices);
 
@@ -65,6 +64,8 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
     );
 
     this.loadingInvoices$ = this._store.select(fromRoot.selectLoadingInvoices);
+
+    this.loadingInvoices$.subscribe(console.log)
 
     this.invoices$ = combineLatest([
       this._store.select(fromRoot.selectSearchResult),

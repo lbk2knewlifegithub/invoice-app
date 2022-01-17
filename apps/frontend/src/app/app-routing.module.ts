@@ -11,7 +11,9 @@ const routes: Routes = [
       {
         path: "invoices",
         loadChildren: () =>
-          import("@frontend/invoices/invoices-preview").then( (m) => m.InvoicesPreviewModule),
+          import("@frontend/invoices/invoices-preview").then(
+            (m) => m.InvoicesPreviewModule
+          ),
         data: { animation: "Invoices", reuseRoute: true },
       },
       {

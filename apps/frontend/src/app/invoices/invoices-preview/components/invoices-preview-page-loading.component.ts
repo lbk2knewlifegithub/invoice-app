@@ -5,7 +5,7 @@ import { ChangeDetectionStrategy, Component } from "@angular/core";
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <div
-      class="fixed inset-0 grid w-full h-full bg-white/90 place-content-center duration-300"
+      class="fixed inset-0 grid w-full h-full bg-white/90 place-content-center duration-300 z-50"
     >
       <app-fingerprint-spinner
         [animationDuration]="1500"
