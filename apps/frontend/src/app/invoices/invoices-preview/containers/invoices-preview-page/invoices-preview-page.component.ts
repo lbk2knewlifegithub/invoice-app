@@ -75,6 +75,8 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
       fromInvoicesPreviewPage.selectLoadingInvoices
     );
 
+    this.loadingInvoices$.subscribe(console.log)
+
     this.loaded$.pipe(take(1)).subscribe((loaded) => {
       if (loaded) return;
       this._store.dispatch(InvoicesPreviewPageActions.enter());

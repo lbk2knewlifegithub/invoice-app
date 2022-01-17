@@ -38,7 +38,6 @@ export const reducer = createReducer(
     error: null,
     pendingCreate: invoiceDto.status === InvoiceStatus.PENDING,
     pendingSaveAsDraft: invoiceDto.status === InvoiceStatus.DRAFT,
-    loadingInvoices: false,
   })),
   on(InvoicesAPIActions.createInvoiceSuccess, (_) => initialState),
   on(InvoicesAPIActions.createInvoiceFailure, (state, { error }) => ({
@@ -51,18 +50,19 @@ export const reducer = createReducer(
   on(AuthApiActions.loginSuccess, (state) => ({
     ...state,
     loadingInvoices: true,
+    loaded: false,
   })),
   on(InvoicesAPIActions.loadInvoicesSuccess, (state) => ({
     ...state,
     loadingInvoices: false,
-    // loaded: true,
+    loaded: true,
   }))
 );
 
 export const getError = (state: State) => state.error;
 export const getPendingSaveDraft = (state: State) => state.pendingSaveAsDraft;
 export const getPendingCreate = (state: State) => state.pendingCreate;
-export const getLoadingInvoices = (state: State) => state.pendingCreate;
+export const getLoadingInvoices = (state: State) => state.loadingInvoices;
 export const getLoaded = (state: State) => state.loaded;
 
 /**
