@@ -28,7 +28,12 @@ export const initialState: State = adapter.getInitialState({
 
 export const reducer = createReducer(
   initialState,
-  on(AuthActions.logout, AuthApiActions.loginSuccess, (_) => initialState),
+  on(
+    AuthActions.logout,
+    AuthApiActions.loginSuccess,
+    AuthApiActions.signUpSuccess,
+    (_) => initialState
+  ),
   on(InvoicesAPIActions.loadInvoicesSuccess, (state, { invoices }) =>
     adapter.addMany(invoices, state)
   ),
