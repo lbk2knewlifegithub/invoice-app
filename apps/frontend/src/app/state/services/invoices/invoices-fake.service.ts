@@ -8,6 +8,7 @@ import { InvoicesService } from "./invoices.service";
 @Injectable({ providedIn: "root" })
 export class InvoicesFakeService implements InvoicesService {
   private _invoices = [...invoicesStub()];
+  private id = this._invoices.length + 1;
 
   getInvoices(): Observable<Invoice[]> {
     console.log("fake loaded invoices");
@@ -48,10 +49,13 @@ export class InvoicesFakeService implements InvoicesService {
 
   createInvoice(createInvoiceDto: InvoiceDto): Observable<Invoice> {
     const newInvoice = {
-      id: this._invoices.length + 1,
+      id: this.id,
       ...createInvoiceDto,
     };
+
     this._invoices = [newInvoice, ...this._invoices];
+
+    this.id++;
     return of(newInvoice);
   }
 }
