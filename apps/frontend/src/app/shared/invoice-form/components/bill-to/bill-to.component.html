@@ -31,15 +31,17 @@
       data-cy="bill-to-address"
     ></lbk-address-form>
 
-    <lbk-invoice-date-input
-      [parent]="parent"
-      [groupName]="groupName"
-    ></lbk-invoice-date-input>
+    <div class="grid gap-6 md:grid-cols-2">
+      <lbk-invoice-date-input
+        [parent]="parent"
+        [groupName]="groupName"
+      ></lbk-invoice-date-input>
 
-    <lbk-payment-terms
-      [parent]="parent"
-      [groupName]="groupName"
-    ></lbk-payment-terms>
+      <lbk-payment-terms
+        [parent]="parent"
+        [groupName]="groupName"
+      ></lbk-payment-terms>
+    </div>
 
     <!-- description -->
     <lbk-input
