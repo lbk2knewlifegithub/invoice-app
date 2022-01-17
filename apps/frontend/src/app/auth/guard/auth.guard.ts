@@ -4,8 +4,7 @@ import {
   CanActivate,
   RouterStateSnapshot
 } from "@angular/router";
-import { AuthApiActions } from "@frontend/state/actions";
-import * as fromAuth from "@frontend/state/selectors/auth/auth.selector";
+import * as fromAuth from "@frontend/state/selectors/auth.selector";
 import { AuthService, TokenService } from "@frontend/state/services";
 import { Store } from "@ngrx/store";
 import {
@@ -50,10 +49,7 @@ export class AuthGuard implements CanActivate {
           );
         return of(true);
       }),
-      catchError(() => {
-        this._store.dispatch(AuthApiActions.loginRedirect());
-        return of(false);
-      })
+      catchError(() => of(true))
     );
   }
 }

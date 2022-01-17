@@ -11,6 +11,8 @@ export class InvoicesImplService implements InvoicesService {
   constructor(private readonly _http: HttpClient) {}
 
   getInvoices(): Observable<Invoice[]> {
+    console.log("impl load invoices");
+
     return this._http
       .get<{ [key: string]: Invoice }>(`${env.api}invoices`)
       .pipe(map((res) => Object.values(res)));
@@ -21,6 +23,7 @@ export class InvoicesImplService implements InvoicesService {
   }
 
   deleteInvoice(id: number): Observable<void> {
+    console.log("delete invoice impl " + id);
     return this._http.delete<void>(`${env.api}invoices/${id}`);
   }
 

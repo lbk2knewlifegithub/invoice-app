@@ -9,7 +9,7 @@ import { InvoiceDto } from "@frontend/dto";
 import { ViewInvoicePageActions } from "@frontend/invoices/view-invoice/actions";
 import { DialogService } from "@frontend/shared";
 import * as fromRoot from "@frontend/state/selectors";
-import * as fromInvoices from "@frontend/state/selectors/invoices/invoices.selector";
+import * as fromInvoices from "@frontend/state/selectors/invoices.selector";
 import { Invoice, InvoiceStatus } from "@lbk/models";
 import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";
@@ -76,7 +76,9 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   }
 
   edit({ id, invoiceDto }: { id: number; invoiceDto: InvoiceDto }) {
-    this._store.dispatch(ViewInvoicePageActions.updateInvoice({ id, invoiceDto: invoiceDto }));
+    this._store.dispatch(
+      ViewInvoicePageActions.updateInvoice({ id, invoiceDto: invoiceDto })
+    );
   }
 
   delete(id: number) {

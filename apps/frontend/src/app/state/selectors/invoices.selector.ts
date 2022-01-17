@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from "@ngrx/store";
-import * as fromInvoices from "../../reducers/invoices/invoices.reducer";
+import * as fromInvoices from "../reducers/invoices.reducer";
 
 /**
  * Invoices selector
@@ -12,10 +12,6 @@ export const selectSelectedInvoiceId = createSelector(
   fromInvoices.selectId
 );
 
-export const selectLoadingInvoices = createSelector(
-  selectInvoicesEntitiesState,
-  fromInvoices.selectLoadingInvoices
-);
 
 export const {
   selectIds: selectInvoiceIds,

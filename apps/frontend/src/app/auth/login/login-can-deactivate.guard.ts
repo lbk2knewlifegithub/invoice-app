@@ -5,7 +5,7 @@ import {
   CanDeactivate,
   RouterStateSnapshot
 } from "@angular/router";
-import * as fromAuth from "@frontend/state/selectors/auth";
+import * as fromAuth from "@frontend/state/selectors/auth.selector";
 import { Store } from "@ngrx/store";
 import { map, Observable, tap } from "rxjs";
 import { LoginPageComponent } from "./containers/login-page.component";

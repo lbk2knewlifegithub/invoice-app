@@ -1,10 +1,11 @@
 import { Inject, Injectable } from "@angular/core";
 import { Router } from "@angular/router";
+import { INVOICES_SERVICE } from "@frontend/constants";
 import { ViewInvoicePageActions } from "@frontend/invoices/view-invoice/actions";
 import { SnackBarService } from "@frontend/shared/snackbar";
-import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { Actions, concatLatestFrom, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, exhaustMap, map, of, tap } from "rxjs";
+import { catchError, exhaustMap, map, Observable, of, tap } from "rxjs";
 import {
   AuthApiActions,
   InvoicesAPIActions,
@@ -12,31 +13,32 @@ import {
   LayoutActions
 } from "../actions";
 import { InvoicesService } from "../services";
-import { InvoicesImplService } from "../services/invoices/invoices-impl.service";
 
 @Injectable({ providedIn: "root" })
 export class InvoicesEffects {
-  loadInvoices$ = createEffect(() =>
+  loginSuccess$ = createEffect(() =>
     this._actions$.pipe(
-      ofType(AuthApiActions.loginSuccess),
-      exhaustMap(() =>
-        this._invoicesService.getInvoices().pipe(
+      ofType(AuthApiActions.loginSuccess, InvoicesPreviewPageActions.enter),
+      concatLatestFrom(() => this._invoicesService),
+      exhaustMap(([_, service]) => {
+        return service.getInvoices().pipe(
           map((invoices) =>
             InvoicesAPIActions.loadInvoicesSuccess({ invoices })
           ),
           catchError((error) =>
             of(InvoicesAPIActions.loadInvoicesFailure({ error }))
           )
-        )
-      )
+        );
+      })
     )
   );
 
   deleteInvoice$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ViewInvoicePageActions.deleteInvoice),
-      exhaustMap(({ id }) =>
-        this._invoicesService.deleteInvoice(id).pipe(
+      concatLatestFrom(() => this._invoicesService),
+      exhaustMap(([{ id }, service]) =>
+        service.deleteInvoice(id).pipe(
           map(() => InvoicesAPIActions.deleteInvoiceSuccess({ id })),
           tap(() => this._router.navigate(["/invoices"])),
           catchError((error) =>
@@ -50,8 +52,9 @@ export class InvoicesEffects {
   maskAsPaid$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ViewInvoicePageActions.maskAsPaid),
-      exhaustMap(({ id }) =>
-        this._invoicesService.maskAsPaid(id).pipe(
+      concatLatestFrom(() => this._invoicesService),
+      exhaustMap(([{ id }, service]) =>
+        service.maskAsPaid(id).pipe(
           map(() => InvoicesAPIActions.maskAsPaidSuccess({ id })),
           tap(() => this._snackBarService.maskAsPaid(id)),
           catchError((error) =>
@@ -65,8 +68,9 @@ export class InvoicesEffects {
   editInvoice$ = createEffect(() =>
     this._actions$.pipe(
       ofType(ViewInvoicePageActions.updateInvoice),
-      exhaustMap(({ id, invoiceDto }) =>
-        this._invoicesService.editInvoice(id, invoiceDto).pipe(
+      concatLatestFrom(() => this._invoicesService),
+      exhaustMap(([{ id, invoiceDto }, service]) =>
+        service.editInvoice(id, invoiceDto).pipe(
           map(() =>
             InvoicesAPIActions.editInvoiceSuccess({
               id,
@@ -85,8 +89,9 @@ export class InvoicesEffects {
   createInvoice$ = createEffect(() =>
     this._actions$.pipe(
       ofType(InvoicesPreviewPageActions.createInvoice),
-      exhaustMap(({ invoiceDto: createInvoiceDto }) =>
-        this._invoicesService.createInvoice(createInvoiceDto).pipe(
+      concatLatestFrom(() => this._invoicesService),
+      exhaustMap(([{ invoiceDto: createInvoiceDto }, service]) =>
+        service.createInvoice(createInvoiceDto).pipe(
           map((invoice) =>
             InvoicesAPIActions.createInvoiceSuccess({ invoice })
           ),
@@ -101,10 +106,10 @@ export class InvoicesEffects {
 
   constructor(
     private readonly _actions$: Actions,
-    @Inject(InvoicesImplService)
-    private readonly _invoicesService: InvoicesService,
     private readonly _store: Store,
     private readonly _router: Router,
-    private readonly _snackBarService: SnackBarService
+    private readonly _snackBarService: SnackBarService,
+    @Inject(INVOICES_SERVICE)
+    private readonly _invoicesService: Observable<InvoicesService>
   ) {}
 }

@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot
 } from "@angular/router";
 import { AuthApiActions } from "@frontend/state/actions";
-import * as fromAuth from "@frontend/state/selectors/auth";
+import * as fromAuth from "@frontend/state/selectors/auth.selector";
 import { AuthService, TokenService } from "@frontend/state/services";
 import { Store } from "@ngrx/store";
 import {

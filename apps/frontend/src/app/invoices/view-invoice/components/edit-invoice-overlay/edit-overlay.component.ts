@@ -36,9 +36,8 @@ export class EditOverlayComponent {
   constructor(private readonly _dialogService: DialogService) {}
 
   onSaveChanges() {
-    this.invoiceForm.markAllAsTouched();
-
-    if (this.invoiceForm.invalid) {
+    if (this.invoiceForm.invalid && this.invoiceForm.touched) {
+      this.invoiceForm.markAllAsTouched();
       this._dialogService.formInvalid().pipe(take(1)).subscribe();
       return;
     }
@@ -48,6 +47,7 @@ export class EditOverlayComponent {
     );
 
     this.edit.emit({ id: this.invoice.id, invoiceDto });
+    this.invoiceForm.markAsUntouched();
   }
 
   onCancel() {
@@ -66,7 +66,9 @@ export class EditOverlayComponent {
 
       return;
     }
+
     this.cancel.emit();
+    this.invoiceFormComponent.initForm(true);
   }
 
   get invoiceForm(): FormGroup {

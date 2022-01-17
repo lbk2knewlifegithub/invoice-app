@@ -7,19 +7,18 @@ import {
 import { Title } from "@angular/platform-browser";
 import { FilterDto, InvoiceDto } from "@frontend/dto";
 import {
-  AuthApiActions,
   InvoicesPreviewPageActions,
   LayoutActions
 } from "@frontend/state/actions";
-import * as fromRoot from "@frontend/state/selectors";
-import * as fromNewInvoice from "@frontend/state/selectors/invoices/new-invoice.selector";
+import * as fromAuth from "@frontend/state/selectors/auth.selector";
 import * as fromLayout from "@frontend/state/selectors/layout.selector";
+import * as fromSearch from "@frontend/state/selectors/search.selector";
 import { Invoice } from "@lbk/models";
-import { invoicesStub } from "@lbk/stubs";
 import { Unsubscribe } from "@lbk/ui";
 import { Store } from "@ngrx/store";
-import { combineLatest, map, Observable, take } from "rxjs";
+import { Observable, take } from "rxjs";
 import { NewInvoiceOverlayComponent } from "../../components/new-invoice-overlay";
+import * as fromInvoicesPreviewPage from "../../reducers";
 
 @Component({
   selector: "lbk-invoice-preview-page",
@@ -36,6 +35,7 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
   pendingSaveAsDraft$!: Observable<boolean>;
   pendingCreate$!: Observable<boolean>;
   loadingInvoices$!: Observable<boolean>;
+  loaded$!: Observable<boolean>;
 
   loggedIn$!: Observable<boolean>;
 
@@ -47,35 +47,38 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
   }
 
   ngOnInit(): void {
-    this.loggedIn$ = this._store.select(fromRoot.selectLoggedIn);
-    this.totalInvoices$ = this._store.select(fromRoot.selectTotalInvoices);
+    this.invoices$ = this._store.select(fromSearch.selectSearchResult);
 
-    this.searchStatus$ = this._store.select(fromRoot.selectSearchInvoiceStatus);
+    this.loggedIn$ = this._store.select(fromAuth.selectLoggedIn);
+
+    this.totalInvoices$ = this._store.select(fromSearch.selectTotalInvoices);
+
+    this.searchStatus$ = this._store.select(
+      fromSearch.selectSearchInvoiceStatus
+    );
+
+    this.loaded$ = this._store.select(fromInvoicesPreviewPage.selectLoaded);
+
     this.showNewInvoiceOverlay$ = this._store.select(
       fromLayout.selectShowNewInvoiceOverlay
     );
 
     this.pendingSaveAsDraft$ = this._store.select(
-      fromNewInvoice.selectPendingSaveAsDraft
+      fromInvoicesPreviewPage.selectPendingSaveAsDraft
     );
 
     this.pendingCreate$ = this._store.select(
-      fromNewInvoice.selectPendingCreate
+      fromInvoicesPreviewPage.selectPendingCreate
     );
 
-    this.loadingInvoices$ = this._store.select(fromRoot.selectLoadingInvoices);
-
-    this.loadingInvoices$.subscribe(console.log)
-
-    this.invoices$ = combineLatest([
-      this._store.select(fromRoot.selectSearchResult),
-      this.loggedIn$,
-    ]).pipe(
-      map(([invoices, loggedIn]) => {
-        if (!loggedIn) return invoicesStub();
-        return invoices;
-      })
+    this.loadingInvoices$ = this._store.select(
+      fromInvoicesPreviewPage.selectLoadingInvoices
     );
+
+    this.loaded$.pipe(take(1)).subscribe((loaded) => {
+      if (loaded) return;
+      this._store.dispatch(InvoicesPreviewPageActions.enter());
+    });
 
     this.appendSub = this.totalInvoices$.subscribe((total) => {
       if (total === 0) return this._title.setTitle("Invoices");
@@ -84,20 +87,11 @@ export class InvoicePreviewPageComponent extends Unsubscribe implements OnInit {
   }
 
   filter(filterDto: FilterDto): void {
-    this.loggedIn$.pipe(take(1)).subscribe((loggedIn) => {
-      if (loggedIn)
-        this._store.dispatch(InvoicesPreviewPageActions.filter({ filterDto }));
-
-      this._store.dispatch(AuthApiActions.loginRedirect());
-    });
+    this._store.dispatch(InvoicesPreviewPageActions.filter({ filterDto }));
   }
 
   newInvoice() {
-    this.loggedIn$.pipe(take(1)).subscribe((loggedIn) => {
-      if (loggedIn)
-        return this._store.dispatch(LayoutActions.showNewInvoiceOverlay());
-      this._store.dispatch(AuthApiActions.loginRedirect());
-    });
+    this._store.dispatch(LayoutActions.showNewInvoiceOverlay());
   }
 
   discard() {

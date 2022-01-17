@@ -25,6 +25,7 @@ export class NewInvoiceOverlayComponent {
   @Input() open!: boolean;
   @Input() pendingSaveAsDraft!: boolean;
   @Input() pendingCreate!: boolean;
+  @Input() loggedIn!: boolean;
 
   @Output() discard = new EventEmitter<void>();
   @Output() saveAsDraft = new EventEmitter<InvoiceDto>();

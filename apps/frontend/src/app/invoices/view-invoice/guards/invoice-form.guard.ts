@@ -13,7 +13,9 @@ export class InvoiceFormGuard
   canDeactivate(
     viewInvoicePageComponent: ViewInvoicePageComponent
   ): Observable<boolean> {
-    if (viewInvoicePageComponent.editOverLayComponent.invoiceForm.dirty) {
+    const invoiceForm =
+      viewInvoicePageComponent.editOverLayComponent?.invoiceForm;
+    if (invoiceForm.touched) {
       return this._dialogService.confirmDeactivate();
     }
     return of(true);

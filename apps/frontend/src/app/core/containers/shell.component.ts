@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from "@angular/core";
 import { RouterOutlet } from "@angular/router";
 import { AuthActions, LayoutActions } from "@frontend/state/actions";
-import * as fromRoot from "@frontend/state/selectors";
+import * as fromAuth from "@frontend/state/selectors/auth.selector";
+import * as fromLayout from "@frontend/state/selectors/layout.selector";
 import { CAROUSEL_ROUTE_ANIMATION } from "@lbk/ui";
 import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
@@ -13,6 +14,7 @@ import { Observable } from "rxjs";
     <lbk-header
       [darkTheme]="(darkTheme$ | async)!"
       [openOverlay]="(openOverlay$ | async)!"
+      [loggedIn]="(loggedIn$ | async)!"
       (toDarkTheme)="toDarkTheme()"
       (toLightTheme)="toLightTheme()"
       (logout)="logout()"
@@ -28,12 +30,15 @@ import { Observable } from "rxjs";
 export class ShellComponent implements OnInit {
   openOverlay$!: Observable<boolean>;
   darkTheme$!: Observable<boolean>;
+  loggedIn$!: Observable<boolean>;
 
   constructor(private readonly _store: Store) {}
 
   ngOnInit(): void {
-    this.openOverlay$ = this._store.select(fromRoot.selectShowOverlay);
-    this.darkTheme$ = this._store.select(fromRoot.selectDarkThem);
+    this.openOverlay$ = this._store.select(fromLayout.selectShowOverlay);
+    this.darkTheme$ = this._store.select(fromLayout.selectDarkThem);
+
+    this.loggedIn$ = this._store.select(fromAuth.selectLoggedIn);
 
     this._store.dispatch(LayoutActions.loadTheme());
   }
