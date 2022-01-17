@@ -4,7 +4,7 @@
 
 # lbk2k
 
-# Okteko Cloud
+# Nx
 
 # Frontend
 
@@ -16,7 +16,7 @@ Nestjs
 
 # Deployment
 
-Kubernetes, Docker
+Kubernetes, Docker, Okteto Cloud
 
 # Database
 
