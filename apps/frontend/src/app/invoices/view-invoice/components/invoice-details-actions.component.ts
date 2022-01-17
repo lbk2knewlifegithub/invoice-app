@@ -30,7 +30,7 @@ import {
         class="btn btn-danger"
       >
         <lbk-button-spinner
-          [pending]="pendingMaskAsPaid"
+          [pending]="pendingDelete"
           text="Delete"
         ></lbk-button-spinner>
       </button>

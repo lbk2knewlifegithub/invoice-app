@@ -9,6 +9,7 @@
     "build": "nx build",
     "build:api": "nx build api",
     "test": "nx test --verbose=false",
+    "dev:frontend": "NODE_ENV=test nx serve frontend",
     "dev:api": "NODE_ENV=test nx serve api",
     "test:e2e:invoices": "nx test api --watch --verbose=false --test-path-pattern invoices.controller-e2e",
     "test:e2e:auth": "nx test api --watch --verbose=false --test-path-pattern auth.controller-e2e"

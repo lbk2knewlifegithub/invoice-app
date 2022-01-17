@@ -16,7 +16,17 @@ import { addDays, decimalRegex } from "@lbk/utils";
   templateUrl: "./invoice-form.component.html",
 })
 export class InvoiceFormComponent implements OnInit {
-  @Input() invoice?: Invoice;
+  _invoice?: Invoice;
+  @Input() set invoice(newInvoice: Invoice | undefined) {
+    this._invoice = newInvoice;
+
+    if (!newInvoice) return;
+    this.initForm();
+  }
+
+  get invoice() {
+    return this._invoice;
+  }
 
   invoiceForm!: FormGroup;
 

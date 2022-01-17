@@ -76,9 +76,7 @@ export class ViewInvoicePageComponent extends Unsubscribe implements OnInit {
   }
 
   edit({ id, invoiceDto }: { id: number; invoiceDto: InvoiceDto }) {
-    this._store.dispatch(
-      ViewInvoicePageActions.updateInvoice({ id, invoiceDto: invoiceDto })
-    );
+    this._store.dispatch(ViewInvoicePageActions.updateInvoice({ id, invoiceDto: invoiceDto }));
   }
 
   delete(id: number) {
